@@ -1,29 +1,52 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const isLib = mode === 'lib';
 
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      ...(isLib ? [
+        dts({
+          tsconfigPath: './tsconfig.lib.json',
+          insertTypesEntry: true,
+        })
+      ] : []),
+    ],
     build: isLib ? {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
-        name: 'unburn-ui',
-        fileName: 'unburn-ui',
+        name: 'UnburnUI',
+        formats: ['es', 'cjs'],
+        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
       },
+      cssFileName: 'styles',
       rollupOptions: {
-        external: ['react', 'react-dom', 'react-router-dom', 'lucide-react'],
+        external: [
+          'react',
+          'react-dom',
+          'react/jsx-runtime',
+          'react-router-dom',
+          'lucide-react',
+          'clsx',
+        ],
         output: {
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
-            'lucide-react': 'Lucide',
+            'react/jsx-runtime': 'ReactJSXRuntime',
+            'lucide-react': 'LucideReact',
+            'clsx': 'clsx',
           },
+          preserveModules: false,
         },
       },
+      sourcemap: true,
+      minify: true,
     } : {
       // Standard App build for the documentation site
       outDir: 'dist-docs',

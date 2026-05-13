@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src/index.ts",
+    "src/css.d.ts",
+    "src/components/ui/**/*.ts",
+    "src/components/ui/**/*.tsx",
+    "src/components/layout/Dock.tsx",
+    "src/lib/**/*.ts"
+  ],
+  "exclude": [
+    "src/pages",
+    "src/App.tsx",
+    "src/main.tsx",
+    "src/components/layout/Header.tsx",
+    "src/components/layout/Sidebar.tsx",
+    "src/components/layout/Showcase.tsx",
+    "node_modules",
+    "dist"
+  ]
+}

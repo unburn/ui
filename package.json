@@ -1,56 +1,93 @@
 {
   "name": "@unburn/ui",
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0-beta.4",
   "private": false,
   "description": "A premium, softly-rounded React component library.",
   "author": "Unburn",
   "license": "MIT",
-  "main": "./dist/unburn-ui.umd.cjs",
-  "module": "./dist/unburn-ui.js",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
-      "import": "./dist/unburn-ui.js",
-      "require": "./dist/unburn-ui.umd.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./styles.css": "./dist/ui.css"
   },
-  "type": "module",
+  "files": [
+    "dist/index.mjs",
+    "dist/index.cjs",
+    "dist/index.d.ts",
+    "dist/index.mjs.map",
+    "dist/index.cjs.map",
+    "dist/ui.css",
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "design-system",
+    "glassmorphism",
+    "soft-ui",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unburn/ui"
+  },
+  "homepage": "https://ui.unburn.tech",
+  "bugs": {
+    "url": "https://github.com/unburn/ui/issues"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build --mode lib",
+    "build": "vite build --mode lib",
     "build:docs": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview --outDir dist-docs"
-  },
-  "dependencies": {
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.14.0",
-    "react-live": "^4.1.8",
-    "react-router-dom": "^7.15.0",
-    "react-syntax-highlighter": "^16.1.1"
+    "preview": "vite preview --outDir dist-docs",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-live": "^4.1.8",
+    "react-router-dom": "^7.15.0",
+    "react-syntax-highlighter": "^16.1.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "vite-plugin-dts": "^5.0.0"
   }
 }

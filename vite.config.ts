@@ -51,8 +51,8 @@ export default defineConfig(({ mode }) => {
     } : {
       // Standard App build for the documentation site
       outDir: 'dist-docs',
-      target: 'esnext',
-      cssMinify: true,
+      target: ['chrome90', 'firefox90', 'safari15', 'edge90'],
+      cssMinify: false, // Disabling minification temporarily to preserve prefixes or use a better minifier
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {

@@ -1,0 +1,95 @@
+.unburn-alert {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  font-family: var(--font-mono);
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+
+.unburn-alert-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.unburn-alert-icon {
+  margin-top: 0.125rem;
+}
+
+.unburn-alert-text {
+  flex: 1;
+}
+
+.unburn-alert-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.unburn-alert-description {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.unburn-alert-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Status variants */
+.unburn-alert-success {
+  border-color: var(--color-green);
+}
+.unburn-alert-success .unburn-alert-icon,
+.unburn-alert-success .unburn-alert-title {
+  color: var(--color-green);
+}
+
+.unburn-alert-info {
+  border-color: var(--color-blue);
+}
+.unburn-alert-info .unburn-alert-icon,
+.unburn-alert-info .unburn-alert-title {
+  color: var(--color-blue);
+}
+
+.unburn-alert-warning {
+  border-color: var(--color-orange);
+}
+.unburn-alert-warning .unburn-alert-icon,
+.unburn-alert-warning .unburn-alert-title {
+  color: var(--color-orange);
+}
+
+.unburn-alert-error {
+  border-color: var(--color-red);
+}
+.unburn-alert-error .unburn-alert-icon,
+.unburn-alert-error .unburn-alert-title {
+  color: var(--color-red);
+}
+
+.unburn-alert-default {
+  border-color: var(--border-color);
+}
+.unburn-alert-default .unburn-alert-icon,
+.unburn-alert-default .unburn-alert-title {
+  color: var(--text-main);
+}
+
+/* Duo Variant */
+.unburn-alert-duo.unburn-alert-success { background-color: rgba(16, 185, 129, 0.1); }
+.unburn-alert-duo.unburn-alert-info { background-color: rgba(59, 130, 246, 0.1); }
+.unburn-alert-duo.unburn-alert-warning { background-color: rgba(249, 115, 22, 0.1); }
+.unburn-alert-duo.unburn-alert-error { background-color: rgba(239, 68, 68, 0.1); }
+.unburn-alert-duo.unburn-alert-default { background-color: var(--bg-secondary); }
+

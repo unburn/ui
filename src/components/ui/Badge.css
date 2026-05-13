@@ -1,0 +1,63 @@
+.unburn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Sizes */
+.badge-sm {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.6rem;
+}
+
+.badge-default {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.7rem;
+}
+
+.badge-lg {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+}
+
+/* Variants */
+.badge-filled {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  border: 1px solid var(--accent-color);
+}
+
+.badge-outlined {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.badge-duo {
+  background-color: color-mix(in srgb, var(--accent-color) 12%, transparent);
+  color: var(--accent-color);
+  border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent);
+}
+
+.badge-glass {
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.badge-icon-left,
+.badge-icon-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

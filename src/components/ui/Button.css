@@ -1,0 +1,108 @@
+.unburn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+  padding: 0.5rem 1rem;
+  outline: none;
+  line-height: 1;
+  border-radius: var(--radius);
+}
+
+.unburn-btn span, 
+.unburn-btn svg {
+  display: block;
+}
+
+.unburn-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.unburn-btn-filled {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow);
+}
+.unburn-btn-filled:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.unburn-btn-outlined {
+  background-color: transparent;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+.unburn-btn-outlined:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+}
+
+.unburn-btn-duo {
+  background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+  color: var(--accent-color);
+  border-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+}
+.unburn-btn-duo:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);
+  border-color: var(--accent-color);
+}
+
+/* Sizes */
+.unburn-btn-sm {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+}
+.unburn-btn-default {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}
+.unburn-btn-lg {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Icon Only */
+.unburn-btn-icon-only {
+  aspect-ratio: 1 / 1;
+}
+.unburn-btn-sm.unburn-btn-icon-only {
+  padding: 0.25rem;
+}
+.unburn-btn-default.unburn-btn-icon-only {
+  padding: 0.5rem;
+}
+.unburn-btn-lg.unburn-btn-icon-only {
+  padding: 0.75rem;
+}
+
+/* Opacities */
+.unburn-btn-opacity-25 { opacity: 0.25; }
+.unburn-btn-opacity-50 { opacity: 0.5; }
+.unburn-btn-opacity-100 { opacity: 1; }
+
+.unburn-btn-icon-left {
+  margin-right: 0.5rem;
+}
+
+.unburn-btn-icon-right {
+  margin-left: 0.5rem;
+}
+
+.unburn-btn-loading-icon {
+  animation: unburn-spin 1s linear infinite;
+}
+@keyframes unburn-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+

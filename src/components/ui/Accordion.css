@@ -1,0 +1,107 @@
+.unburn-accordion {
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+}
+
+.unburn-accordion-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Bordered Variant */
+.unburn-accordion-bordered {
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.unburn-accordion-bordered .unburn-accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0 1.25rem;
+  background-color: var(--bg-main);
+}
+
+.unburn-accordion-bordered .unburn-accordion-item:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.unburn-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem 0;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.unburn-accordion-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.unburn-accordion-header:hover {
+  color: var(--accent-color);
+}
+
+.unburn-accordion-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 0.125rem;
+  display: block;
+}
+
+.unburn-accordion-icon {
+  color: var(--text-muted);
+}
+
+.unburn-accordion-item[data-state="open"] .unburn-accordion-icon {
+  transform: rotate(180deg);
+}
+
+.unburn-accordion-content {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.unburn-accordion-content-inner {
+  padding-bottom: 1.5rem;
+}
+
+/* Duo Variant */
+.unburn-accordion-duo {
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.unburn-accordion-duo .unburn-accordion-item {
+  background-color: color-mix(in srgb, var(--accent-color) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-color) 15%, transparent);
+  border-radius: var(--radius);
+  padding: 0 1.25rem;
+}
+
+.unburn-accordion-duo .unburn-accordion-item[data-state="open"] {
+  border-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color) 12%, transparent);
+}
+
+.unburn-accordion-duo .unburn-accordion-item[data-state="open"] .unburn-accordion-header {
+  color: var(--accent-color);
+}
+
+
+/* Animations using details/summary approach or just React state */

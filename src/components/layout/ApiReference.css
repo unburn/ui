@@ -1,0 +1,90 @@
+.api-reference {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.api-reference-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.api-reference-title::before {
+  content: '';
+  width: 12px;
+  height: 1px;
+  background-color: var(--accent-color);
+}
+
+.api-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: var(--bg-secondary);
+}
+
+.api-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.api-table th {
+  padding: 1rem 1.5rem;
+  background-color: color-mix(in srgb, var(--accent-color) 4%, transparent);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+}
+
+.api-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.api-table tr:last-child td {
+  border-bottom: none;
+}
+
+.prop-name {
+  font-family: var(--font-mono);
+  color: var(--accent-color) !important;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.prop-required {
+  color: var(--color-red);
+  margin-left: 0.25rem;
+}
+
+.prop-type {
+  font-family: var(--font-mono);
+  color: var(--color-blue);
+  font-size: 0.75rem;
+}
+
+.prop-default {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .api-table th, .api-table td {
+    padding: 0.75rem 1rem;
+  }
+}

@@ -41,7 +41,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <h3 className="sidebar-group-title">Getting Started</h3>
           <NavLink to="/" className="sidebar-nav-item">Introduction</NavLink>
           <NavLink to="/installation" className="sidebar-nav-item">Installation</NavLink>
-          <NavLink to="/components" className="sidebar-nav-item">Components</NavLink>
+          <NavLink to="/components" className="sidebar-nav-item">Gallery</NavLink>
+        </div>
+
+        <div className="sidebar-group">
+          <h3 className="sidebar-group-title">Components</h3>
+          <NavLink to="/components/code-block" className="sidebar-nav-item">Code Block</NavLink>
+          <NavLink to="/components/buttons" className="sidebar-nav-item">Buttons</NavLink>
+          <NavLink to="/components/avatars" className="sidebar-nav-item">Avatars</NavLink>
+          <NavLink to="/components/badges" className="sidebar-nav-item">Badges</NavLink>
+          <NavLink to="/components/alerts" className="sidebar-nav-item">Alerts</NavLink>
+          <NavLink to="/components/accordions" className="sidebar-nav-item">Accordions</NavLink>
+          <NavLink to="/components/dock" className="sidebar-nav-item">Dock</NavLink>
         </div>
       </aside>
 

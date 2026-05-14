@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Dock } from '../components/layout/Dock';
 import { Showcase } from '../components/layout/Showcase';
+import { ApiReference } from '../components/layout/ApiReference';
+import { ComponentAnatomy } from '../components/layout/ComponentAnatomy';
 import { Plus, Search, Home } from 'lucide-react';
 
 export const DockPage: React.FC = () => {
@@ -138,6 +140,47 @@ export default function Example() {
           </div>
         </div>
       </Showcase>
+
+      <ComponentAnatomy 
+        parts={[
+          { key: 'root', label: 'Main Wrapper', description: 'The absolute/fixed positioned outer container.' },
+          { key: 'container', label: 'Dock Body', description: 'The glassmorphic container holding the buttons.' },
+          { key: 'trigger', label: 'Main Trigger', description: 'The prominent MENU/CLOSE button.' },
+          { key: 'actionBtn', label: 'Action Button', description: 'Standard buttons for theme, accent, and custom actions.' },
+          { key: 'collapseBtn', label: 'Hide Trigger', description: 'The arrow button used to collapse the dock.' },
+          { key: 'expandBtn', label: 'Show Trigger', description: 'The floating button shown when the dock is hidden.' },
+        ]}
+      >
+        <div style={{ height: '80px', position: 'relative' }}>
+          <Dock 
+            isMenuOpen={false} 
+            onMenuToggle={() => {}} 
+            theme="dark" 
+            onThemeToggle={() => {}} 
+            accent="blue" 
+            onAccentCycle={() => {}} 
+            style={{ position: 'relative', bottom: 0, left: 0, transform: 'none' }}
+          />
+        </div>
+      </ComponentAnatomy>
+
+      <ApiReference 
+        props={[
+          { name: 'isMenuOpen', type: 'boolean', required: true, description: 'Controls whether the main menu is active.' },
+          { name: 'onMenuToggle', type: 'function', required: true, description: 'Callback when the menu button is clicked.' },
+          { name: 'theme', type: "'light' | 'dark'", required: true, description: 'The current UI theme.' },
+          { name: 'onThemeToggle', type: 'function', required: true, description: 'Callback when the theme toggle is clicked.' },
+          { name: 'accent', type: 'string', required: true, description: 'The current accent color.' },
+          { name: 'onAccentCycle', type: 'function', required: true, description: 'Callback to cycle through accent colors.' },
+          { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", defaultValue: "'bottom'", description: 'The screen edge where the dock is anchored.' },
+          { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The overall size of the dock.' },
+          { name: 'showThemeToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the theme toggle button.' },
+          { name: 'showAccentToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the accent cycle button.' },
+          { name: 'showHideToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the collapse/expand button.' },
+          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements (root, container, trigger, actionBtn, collapseBtn, expandBtn).' },
+          { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },
+        ]}
+      />
 
       <style>{`
         .showcase-dock {

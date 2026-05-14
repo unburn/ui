@@ -11,6 +11,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   color?: string;
+  classNames?: {
+    root?: string;
+    icon?: string;
+    loader?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    icon?: React.CSSProperties;
+    loader?: React.CSSProperties;
+  };
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -27,6 +37,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       disabled,
       style,
+      classNames,
+      styles,
       ...props
     },
     ref
@@ -54,24 +66,41 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={disabled || loading}
-        style={{ ...style, ...accentTextStyle }}
+        style={{ ...style, ...accentTextStyle, ...styles?.root }}
         className={cn(
           'unburn-btn',
           `unburn-btn-${variant}`,
           `unburn-btn-${size}`,
           `unburn-btn-opacity-${opacityLevel}`,
           isIconOnly && 'unburn-btn-icon-only',
-          className
+          className,
+          classNames?.root
         )}
         {...props}
       >
-        {loading && <Loader2 className={cn("unburn-btn-loading-icon", !isIconOnly && "unburn-btn-icon-left")} size={16} />}
+        {loading && (
+          <Loader2 
+            className={cn("unburn-btn-loading-icon", !isIconOnly && "unburn-btn-icon-left", classNames?.loader)} 
+            size={16} 
+            style={styles?.loader}
+          />
+        )}
         {!loading && icon && iconPosition === 'left' && (
-          <span className={cn(!isIconOnly && "unburn-btn-icon-left")}>{icon}</span>
+          <span 
+            className={cn(!isIconOnly && "unburn-btn-icon-left", classNames?.icon)}
+            style={styles?.icon}
+          >
+            {icon}
+          </span>
         )}
         {children}
         {!loading && icon && iconPosition === 'right' && (
-          <span className={cn(!isIconOnly && "unburn-btn-icon-right")}>{icon}</span>
+          <span 
+            className={cn(!isIconOnly && "unburn-btn-icon-right", classNames?.icon)}
+            style={styles?.icon}
+          >
+            {icon}
+          </span>
         )}
       </button>
     );

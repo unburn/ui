@@ -10,6 +10,20 @@ export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   description?: React.ReactNode;
   actions?: React.ReactNode;
   color?: string;
+  classNames?: {
+    root?: string;
+    icon?: string;
+    title?: string;
+    description?: string;
+    actions?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    icon?: React.CSSProperties;
+    title?: React.CSSProperties;
+    description?: React.CSSProperties;
+    actions?: React.CSSProperties;
+  };
 }
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
@@ -24,6 +38,8 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
       actions,
       color,
       style,
+      classNames,
+      styles,
       ...props
     },
     ref
@@ -47,23 +63,50 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     return (
       <div
         ref={ref}
-        style={{ ...style, ...colorStyle }}
+        style={{ ...style, ...colorStyle, ...styles?.root }}
         className={cn(
           'unburn-alert',
           `unburn-alert-${status}`,
           variant === 'duo' && 'unburn-alert-duo',
-          className
+          className,
+          classNames?.root
         )}
         {...props}
       >
         <div className="unburn-alert-content">
-          {icon && <div className="unburn-alert-icon">{icon}</div>}
+          {icon && (
+            <div 
+              className={cn("unburn-alert-icon", classNames?.icon)}
+              style={styles?.icon}
+            >
+              {icon}
+            </div>
+          )}
           <div className="unburn-alert-text">
-            <div className="unburn-alert-title">{title}</div>
-            {description && <div className="unburn-alert-description">{description}</div>}
+            <div 
+              className={cn("unburn-alert-title", classNames?.title)}
+              style={styles?.title}
+            >
+              {title}
+            </div>
+            {description && (
+              <div 
+                className={cn("unburn-alert-description", classNames?.description)}
+                style={styles?.description}
+              >
+                {description}
+              </div>
+            )}
           </div>
         </div>
-        {actions && <div className="unburn-alert-actions">{actions}</div>}
+        {actions && (
+          <div 
+            className={cn("unburn-alert-actions", classNames?.actions)}
+            style={styles?.actions}
+          >
+            {actions}
+          </div>
+        )}
       </div>
     );
   }

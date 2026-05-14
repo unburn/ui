@@ -23,3 +23,5 @@ dist-docs
 *.njsproj
 *.sln
 *.sw?
+
+.agents

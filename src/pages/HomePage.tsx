@@ -53,30 +53,30 @@ export const HomePage: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
           <div className="feature-card">
             <Layers size={24} style={{ marginBottom: '1rem', color: 'var(--accent-color)' }} />
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Soft Geometry</h3>
+            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Sub-Component Styling</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-              Standardized 20px radius across all components for a modern, organic, and premium feel.
+              Every element within a component is exposed. Use <code>styles</code> and <code>classNames</code> for total design control.
             </p>
           </div>
           <div className="feature-card">
             <Palette size={24} style={{ marginBottom: '1rem', color: 'var(--accent-color)' }} />
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Accent Centric</h3>
+            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Dynamic Theming</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-              One single accent color controls your entire design system. Switch themes seamlessly.
+              Built with CSS variables at its core. Switch entire brand identities and themes in real-time with zero friction.
             </p>
           </div>
           <div className="feature-card">
             <Zap size={24} style={{ marginBottom: '1rem', color: 'var(--accent-color)' }} />
-            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Developer First</h3>
+            <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Technical Anatomy</h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-              Pure CSS-in-JS logic with zero external dependencies. Just copy, paste, and ship.
+              Blueprint-grade documentation showing the skeletal structure of components for precise implementation.
             </p>
           </div>
         </div>
 
         <h2 className="section-title" style={{ marginTop: '6rem' }}>Supported Components</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
-          {['Buttons', 'Avatars', 'Alerts', 'Accordions', 'Badges', 'Dock', 'Inputs', 'Modals'].map(comp => (
+          {['Buttons', 'Avatars', 'Alerts', 'Accordions', 'Badges', 'Dock', 'Code Block', 'Inputs', 'Modals'].map(comp => (
             <div key={comp} className="component-grid-item">
               {comp}
               {['Inputs', 'Modals'].includes(comp) ?

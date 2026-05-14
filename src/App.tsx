@@ -13,6 +13,7 @@ const AlertsPage = lazy(() => import('./pages/AlertsPage').then(m => ({ default:
 const AccordionsPage = lazy(() => import('./pages/AccordionsPage').then(m => ({ default: m.AccordionsPage })));
 const BadgesPage = lazy(() => import('./pages/BadgesPage').then(m => ({ default: m.BadgesPage })));
 const DockPage = lazy(() => import('./pages/DockPage').then(m => ({ default: m.DockPage })));
+const CodeBlockPage = lazy(() => import('./pages/CodeBlockPage').then(m => ({ default: m.CodeBlockPage })));
 const ComponentsPage = lazy(() => import('./pages/ComponentsPage').then(m => ({ default: m.ComponentsPage })));
 const InstallationPage = lazy(() => import('./pages/InstallationPage').then(m => ({ default: m.InstallationPage })));
 
@@ -83,6 +84,7 @@ function App() {
                 <Route path="/components/accordions" element={<AccordionsPage />} />
                 <Route path="/components/badges" element={<BadgesPage />} />
                 <Route path="/components/dock" element={<DockPage />} />
+                <Route path="/components/code-block" element={<CodeBlockPage />} />
               </Routes>
             </Suspense>
           </main>

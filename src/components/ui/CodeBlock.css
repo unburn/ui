@@ -1,0 +1,98 @@
+.unburn-code-block {
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: 100%;
+  transition: all 0.3s var(--transition-curve);
+}
+
+/* Variants */
+.unburn-code-block-filled {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.unburn-code-block-outlined {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+}
+
+.unburn-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: color-mix(in srgb, var(--accent-color) 3%, transparent);
+}
+
+.unburn-code-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.unburn-code-title {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.unburn-code-lang {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.unburn-code-copy-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s var(--transition-curve);
+}
+
+.unburn-code-copy-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background-color: var(--bg-main);
+  transform: translateY(-1px);
+}
+
+.unburn-code-content {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.unburn-code-content pre {
+  margin: 0 !important;
+}
+
+.text-green {
+  color: var(--color-green) !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .unburn-code-content pre {
+    font-size: 0.75rem !important;
+  }
+  
+  .unburn-code-header {
+    padding: 0.6rem 1rem;
+  }
+}

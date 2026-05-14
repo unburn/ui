@@ -17,6 +17,25 @@ export interface AccordionProps {
   className?: string;
   variant?: 'default' | 'bordered' | 'duo';
   color?: string;
+  classNames?: {
+    root?: string;
+    item?: string;
+    header?: string;
+    content?: string;
+    icon?: string;
+    title?: string;
+    subtitle?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    item?: React.CSSProperties;
+    header?: React.CSSProperties;
+    content?: React.CSSProperties;
+    icon?: React.CSSProperties;
+    title?: React.CSSProperties;
+    subtitle?: React.CSSProperties;
+  };
+  style?: React.CSSProperties;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({ 
@@ -24,7 +43,10 @@ export const Accordion: React.FC<AccordionProps> = ({
   allowMultiple = false, 
   className,
   variant = 'default',
-  color
+  color,
+  classNames,
+  styles,
+  style
 }) => {
   const [openItems, setOpenItems] = useState<string[]>([]);
 
@@ -57,36 +79,53 @@ export const Accordion: React.FC<AccordionProps> = ({
         'unburn-accordion', 
         variant === 'bordered' && 'unburn-accordion-bordered',
         variant === 'duo' && 'unburn-accordion-duo',
-        className
+        className,
+        classNames?.root
       )}
-      style={colorStyle}
+      style={{ ...colorStyle, ...style, ...styles?.root }}
     >
       {items.map((item) => {
         const isOpen = openItems.includes(item.id);
         return (
           <div
             key={item.id}
-            className="unburn-accordion-item"
+            className={cn("unburn-accordion-item", classNames?.item)}
+            style={styles?.item}
             data-state={isOpen ? 'open' : 'closed'}
           >
             <button
-              className="unburn-accordion-header"
+              className={cn("unburn-accordion-header", classNames?.header)}
+              style={styles?.header}
               onClick={() => toggleItem(item.id)}
               aria-expanded={isOpen}
             >
               <div className="unburn-accordion-header-content">
                 {item.icon && <span>{item.icon}</span>}
-                <div>
-                  <span>{item.title}</span>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <span className={cn(classNames?.title)} style={styles?.title}>
+                    {item.title}
+                  </span>
                   {item.subtitle && (
-                    <span className="unburn-accordion-subtitle">{item.subtitle}</span>
+                    <span 
+                      className={cn("unburn-accordion-subtitle", classNames?.subtitle)}
+                      style={styles?.subtitle}
+                    >
+                      {item.subtitle}
+                    </span>
                   )}
                 </div>
               </div>
-              <ChevronDown className="unburn-accordion-icon" size={16} />
+              <ChevronDown 
+                className={cn("unburn-accordion-icon", classNames?.icon)} 
+                size={16} 
+                style={styles?.icon}
+              />
             </button>
             {isOpen && (
-              <div className="unburn-accordion-content">
+              <div 
+                className={cn("unburn-accordion-content", classNames?.content)}
+                style={styles?.content}
+              >
                 <div className="unburn-accordion-content-inner">
                   {item.content}
                 </div>

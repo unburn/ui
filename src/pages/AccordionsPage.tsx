@@ -1,6 +1,8 @@
 import React from 'react';
 import { Accordion } from '../components/ui/Accordion';
 import { Showcase } from '../components/layout/Showcase';
+import { ApiReference } from '../components/layout/ApiReference';
+import { ComponentAnatomy } from '../components/layout/ComponentAnatomy';
 
 export const AccordionsPage: React.FC = () => {
   return (
@@ -190,6 +192,42 @@ export default function Example() {
           />
         </div>
       </Showcase>
+
+      <ComponentAnatomy 
+        parts={[
+          { key: 'root', label: 'Main Wrapper', description: 'The outer container holding all items.' },
+          { key: 'item', label: 'Accordion Item', description: 'The individual collapsible section container.' },
+          { key: 'header', label: 'Item Header', description: 'The clickable area that toggles the item.' },
+          { key: 'title', label: 'Item Title', description: 'The main heading text for the section.' },
+          { key: 'subtitle', label: 'Item Subtitle', description: 'The descriptive text below the title.' },
+          { key: 'icon', label: 'Chevron Icon', description: 'The arrow icon that rotates when expanded.' },
+          { key: 'content', label: 'Content Area', description: 'The collapsible body container.' },
+        ]}
+      >
+        <div style={{ width: '320px' }}>
+          <Accordion 
+            items={[
+              { 
+                id: '1', 
+                title: 'Design System', 
+                subtitle: 'Learn about our core values', 
+                content: 'Unburn UI is built on the principles of soft geometry and premium aesthetics.' 
+              }
+            ]}
+          />
+        </div>
+      </ComponentAnatomy>
+
+      <ApiReference 
+        props={[
+          { name: 'items', type: 'AccordionItem[]', required: true, description: 'Array of items to display in the accordion.' },
+          { name: 'allowMultiple', type: 'boolean', defaultValue: 'false', description: 'Whether multiple items can be open at once.' },
+          { name: 'variant', type: "'default' | 'bordered' | 'duo'", defaultValue: "'default'", description: 'The visual style variant.' },
+          { name: 'color', type: 'string', description: 'Custom accent color for the accordion.' },
+          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements (root, item, header, content, icon, title, subtitle).' },
+          { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },
+        ]}
+      />
     </>
   );
 };

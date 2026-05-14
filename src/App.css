@@ -589,34 +589,52 @@
 }
 
 .install-code-block-wrapper {
-  position: relative;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.install-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: color-mix(in srgb, var(--accent-color) 3%, transparent);
+}
+
+.install-code-lang {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 700;
 }
 
 .install-copy-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: var(--bg-main);
+  background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-muted);
-  padding: 6px 12px;
+  padding: 4px 10px;
   cursor: pointer;
-  z-index: 10;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  border-radius: var(--radius);
+  font-size: 0.6rem;
+  border-radius: 8px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  transition: all 0.3s var(--transition-curve);
+  transition: all 0.2s var(--transition-curve);
 }
 
 .install-copy-btn:hover {
   border-color: var(--accent-color);
   color: var(--accent-color);
-  transform: translateY(-2px);
+  background-color: var(--bg-main);
+  transform: translateY(-1px);
 }
 
 .install-step-note {
@@ -638,4 +656,58 @@
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   color: var(--text-muted);
+}
+
+.unburn-code-highlighter {
+  padding: 1.5rem 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+}
+
+@media (max-width: 600px) {
+  .installation-page .section-title {
+    font-size: 2.5rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .install-back-btn {
+    padding: 0.4rem 1rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  .install-steps {
+    gap: 2.5rem !important;
+  }
+
+  .install-step-title {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .install-code-block-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .install-code-block-wrapper code,
+  .install-code-block-wrapper pre {
+    font-size: 0.75rem !important;
+    padding: 1.25rem 0 !important;
+  }
+
+  .install-step-note {
+    font-size: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .component-catalog-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+.showcase-code-inner .unburn-code-header {
+  border-top: 1px solid var(--border-color);
 }

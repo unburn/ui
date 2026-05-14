@@ -10,10 +10,22 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   showStatus?: boolean;
   status?: 'online' | 'offline' | 'dnd' | 'idle';
   color?: string;
+  classNames?: {
+    root?: string;
+    image?: string;
+    status?: string;
+    fallback?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    image?: React.CSSProperties;
+    status?: React.CSSProperties;
+    fallback?: React.CSSProperties;
+  };
 }
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  ({ className, src, alt, fallback, showStatus = false, status = 'online', color, style, ...props }, ref) => {
+  ({ className, src, alt, fallback, showStatus = false, status = 'online', color, style, classNames, styles, ...props }, ref) => {
     const colorMap: Record<string, string> = {
       red: 'var(--color-red)',
       orange: 'var(--color-orange)',
@@ -33,21 +45,37 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
     return (
       <div 
         ref={ref} 
-        style={{ ...style, ...colorStyle }}
+        style={{ ...style, ...colorStyle, ...styles?.root }}
         className={cn(
           'unburn-avatar', 
-          className
+          className,
+          classNames?.root
         )} 
         {...props}
       >
         <div className="unburn-avatar-inner">
           {src ? (
-            <img src={src} alt={alt || 'Avatar'} className="unburn-avatar-img" />
+            <img 
+              src={src} 
+              alt={alt || 'Avatar'} 
+              className={cn("unburn-avatar-img", classNames?.image)} 
+              style={styles?.image}
+            />
           ) : (
-            fallback || <User size={20} />
+            <div 
+              className={cn("unburn-avatar-fallback", classNames?.fallback)}
+              style={styles?.fallback}
+            >
+              {fallback || <User size={20} />}
+            </div>
           )}
         </div>
-        {showStatus && <span className={cn('unburn-avatar-status', status)} />}
+        {showStatus && (
+          <span 
+            className={cn('unburn-avatar-status', status, classNames?.status)} 
+            style={styles?.status}
+          />
+        )}
       </div>
     );
   }

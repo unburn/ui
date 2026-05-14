@@ -7,6 +7,16 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'default' | 'lg';
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  classNames?: {
+    root?: string;
+    icon?: string;
+    text?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    icon?: React.CSSProperties;
+    text?: React.CSSProperties;
+  };
 }
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -16,6 +26,9 @@ export const Badge: React.FC<BadgeProps> = ({
   icon,
   iconPosition = 'left',
   className,
+  classNames,
+  styles,
+  style,
   ...props
 }) => {
   return (
@@ -24,13 +37,34 @@ export const Badge: React.FC<BadgeProps> = ({
         'unburn-badge',
         `badge-${variant}`,
         `badge-${size}`,
-        className
+        className,
+        classNames?.root
       )}
+      style={{ ...style, ...styles?.root }}
       {...props}
     >
-      {icon && iconPosition === 'left' && <span className="badge-icon-left">{icon}</span>}
-      <span className="badge-text">{children}</span>
-      {icon && iconPosition === 'right' && <span className="badge-icon-right">{icon}</span>}
+      {icon && iconPosition === 'left' && (
+        <span 
+          className={cn("badge-icon-left", classNames?.icon)}
+          style={styles?.icon}
+        >
+          {icon}
+        </span>
+      )}
+      <span 
+        className={cn("badge-text", classNames?.text)}
+        style={styles?.text}
+      >
+        {children}
+      </span>
+      {icon && iconPosition === 'right' && (
+        <span 
+          className={cn("badge-icon-right", classNames?.icon)}
+          style={styles?.icon}
+        >
+          {icon}
+        </span>
+      )}
     </div>
   );
 };

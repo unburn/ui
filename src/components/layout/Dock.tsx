@@ -16,7 +16,24 @@ export interface DockProps {
   position?: 'top' | 'bottom' | 'left' | 'right';
   size?: 'sm' | 'default' | 'lg';
   className?: string;
-  children?: React.ReactNode; // For extra custom buttons
+  classNames?: {
+    root?: string;
+    container?: string;
+    trigger?: string;
+    actionBtn?: string;
+    collapseBtn?: string;
+    expandBtn?: string;
+  };
+  styles?: {
+    root?: React.CSSProperties;
+    container?: React.CSSProperties;
+    trigger?: React.CSSProperties;
+    actionBtn?: React.CSSProperties;
+    collapseBtn?: React.CSSProperties;
+    expandBtn?: React.CSSProperties;
+  };
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
 export const Dock: React.FC<DockProps> = ({
@@ -31,15 +48,25 @@ export const Dock: React.FC<DockProps> = ({
   position = 'bottom',
   size = 'default',
   className,
+  classNames,
+  styles,
+  style,
   children
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className={cn('unburn-dock-wrapper', `size-${size}`, `pos-${position}`, isCollapsed && 'collapsed', className)}>
-      <div className="unburn-dock">
+    <div 
+      className={cn('unburn-dock-wrapper', `size-${size}`, `pos-${position}`, isCollapsed && 'collapsed', className, classNames?.root)}
+      style={{ ...style, ...styles?.root }}
+    >
+      <div 
+        className={cn("unburn-dock", classNames?.container)}
+        style={styles?.container}
+      >
         <button 
-          className={cn('dock-trigger', isMenuOpen && 'open')}
+          className={cn('dock-trigger', isMenuOpen && 'open', classNames?.trigger)}
+          style={styles?.trigger}
           onClick={onMenuToggle}
           aria-label="Toggle Navigation"
         >
@@ -53,7 +80,8 @@ export const Dock: React.FC<DockProps> = ({
 
         {showThemeToggle && (
           <button 
-            className="dock-action-btn" 
+            className={cn("dock-action-btn", classNames?.actionBtn)} 
+            style={styles?.actionBtn}
             onClick={onThemeToggle}
             aria-label="Toggle Theme"
           >
@@ -63,7 +91,8 @@ export const Dock: React.FC<DockProps> = ({
 
         {showAccentToggle && (
           <button 
-            className="dock-action-btn" 
+            className={cn("dock-action-btn", classNames?.actionBtn)} 
+            style={styles?.actionBtn}
             onClick={onAccentCycle}
             aria-label="Cycle Accent Color"
           >
@@ -78,7 +107,8 @@ export const Dock: React.FC<DockProps> = ({
 
         {showHideToggle && (
           <button 
-            className="dock-collapse-btn" 
+            className={cn("dock-collapse-btn", classNames?.collapseBtn)} 
+            style={styles?.collapseBtn}
             onClick={() => setIsCollapsed(true)}
             aria-label="Hide Dock"
           >
@@ -92,7 +122,8 @@ export const Dock: React.FC<DockProps> = ({
 
       {showHideToggle && (
         <button 
-          className="dock-expand-btn" 
+          className={cn("dock-expand-btn", classNames?.expandBtn)} 
+          style={styles?.expandBtn}
           onClick={() => setIsCollapsed(false)}
           aria-label="Show Dock"
         >

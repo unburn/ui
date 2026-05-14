@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from '../components/ui/Button';
 import { Showcase } from '../components/layout/Showcase';
+import { ApiReference } from '../components/layout/ApiReference';
+import { ComponentAnatomy } from '../components/layout/ComponentAnatomy';
 import { ArrowLeft, ArrowRight, Mail } from 'lucide-react';
 
 export const ButtonsPage: React.FC = () => {
@@ -110,6 +112,30 @@ export default function Example() {
         <Button icon={<ArrowRight size={16} />} iconPosition="right">Right</Button>
         <Button icon={<ArrowRight size={16} />} />
       </Showcase>
+
+      <ComponentAnatomy 
+        parts={[
+          { key: 'root', label: 'Main Container', description: 'The button element itself.' },
+          { key: 'icon', label: 'Icon Wrapper', description: 'The container holding the left or right icon.' },
+          { key: 'loader', label: 'Loading Spinner', description: 'The animated icon shown during loading states.' },
+        ]}
+      >
+        <Button icon={<Mail size={16} />}>Contact Us</Button>
+      </ComponentAnatomy>
+
+      <ApiReference 
+        props={[
+          { name: 'variant', type: "'filled' | 'outlined' | 'duo'", defaultValue: "'filled'", description: 'The visual style of the button.' },
+          { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The size of the button.' },
+          { name: 'loading', type: 'boolean', defaultValue: 'false', description: 'Shows a loading spinner and disables the button.' },
+          { name: 'icon', type: 'ReactNode', description: 'Optional icon to display inside the button.' },
+          { name: 'iconPosition', type: "'left' | 'right'", defaultValue: "'left'", description: 'Position of the icon relative to children.' },
+          { name: 'opacityLevel', type: "'25' | '50' | '75' | '100'", defaultValue: "'100'", description: 'Control the background opacity.' },
+          { name: 'color', type: 'string', description: 'Custom accent color (e.g., "red", "blue", or hex).' },
+          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements (root, icon, loader).' },
+          { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },
+        ]}
+      />
     </>
   );
 };

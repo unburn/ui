@@ -1,44 +1,8 @@
 import React, { useState } from 'react';
-import { Copy, Check, ArrowLeft } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { ArrowLeft } from 'lucide-react';
+import { CodeBlock } from '../components/ui/CodeBlock';
 
 type Framework = 'nextjs' | 'vite' | 'astro' | 'remix' | 'gatsby' | 'manual' | null;
-
-const unburnTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': { color: 'var(--text-main)', background: 'none', fontFamily: 'var(--font-mono)' },
-  'pre[class*="language-"]': { color: 'var(--text-main)', background: 'none', fontFamily: 'var(--font-mono)' },
-  'comment': { color: 'var(--text-muted)' },
-  'prolog': { color: 'var(--text-muted)' },
-  'doctype': { color: 'var(--text-muted)' },
-  'cdata': { color: 'var(--text-muted)' },
-  'punctuation': { color: 'var(--text-main)', opacity: 0.7 },
-  'namespace': { opacity: 0.7 },
-  'property': { color: 'var(--accent-color)' },
-  'tag': { color: 'var(--accent-color)' },
-  'boolean': { color: 'var(--accent-color)' },
-  'number': { color: 'var(--accent-color)' },
-  'constant': { color: 'var(--accent-color)' },
-  'symbol': { color: 'var(--accent-color)' },
-  'deleted': { color: 'var(--color-red)' },
-  'selector': { color: 'var(--color-green)' },
-  'attr-name': { color: 'var(--accent-color)' },
-  'string': { color: 'var(--color-green)' },
-  'char': { color: 'var(--color-green)' },
-  'builtin': { color: 'var(--color-green)' },
-  'inserted': { color: 'var(--color-green)' },
-  'operator': { color: 'var(--text-main)' },
-  'entity': { color: 'var(--text-main)', cursor: 'help' },
-  'url': { color: 'var(--text-main)' },
-  'variable': { color: 'var(--text-main)' },
-  'atrule': { color: 'var(--accent-color)' },
-  'attr-value': { color: 'var(--color-green)' },
-  'function': { color: 'var(--color-blue)' },
-  'keyword': { color: 'var(--accent-color)' },
-  'regex': { color: 'var(--color-orange)' },
-  'important': { fontWeight: 'bold' },
-  'bold': { fontWeight: 'bold' },
-  'italic': { fontStyle: 'italic' },
-};
 
 const frameworks: { id: Framework; name: string; icon: string }[] = [
   { id: 'nextjs', name: 'Next.js', icon: 'N' },
@@ -282,28 +246,11 @@ export default function Home() {
       },
       {
         title: '4. Import and use components',
-        code: `import { Button, Alert, Badge, Avatar, Accordion, Dock } from '@unburn/ui';`,
+        code: `import { Button, Alert, Badge, Avatar, Accordion, Dock, CodeBlock } from '@unburn/ui';`,
         language: 'javascript',
       },
     ],
   },
-};
-
-const CopyButton: React.FC<{ text: string }> = ({ text }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <button className="install-copy-btn" onClick={handleCopy}>
-      {copied ? <Check size={14} style={{ color: 'var(--color-green)' }} /> : <Copy size={14} />}
-      {copied ? 'COPIED' : 'COPY'}
-    </button>
-  );
 };
 
 export const InstallationPage: React.FC = () => {
@@ -333,35 +280,11 @@ export const InstallationPage: React.FC = () => {
               <div className="install-step-header">
                 <h3 className="install-step-title">{step.title}</h3>
               </div>
-              <div className="install-code-block-wrapper">
-                <CopyButton text={step.code} />
-                <SyntaxHighlighter
-                  language={step.language}
-                  style={unburnTheme}
-                  showLineNumbers={true}
-                  lineNumberStyle={{ 
-                    minWidth: '2.5rem', 
-                    paddingRight: '1rem', 
-                    color: 'var(--text-muted)', 
-                    textAlign: 'right',
-                    opacity: 0.5,
-                    borderRight: '1px solid var(--border-color)',
-                    marginRight: '1rem',
-                    userSelect: 'none'
-                  }}
-                  customStyle={{
-                    margin: 0,
-                    padding: '1.5rem 0',
-                    backgroundColor: 'var(--bg-secondary)',
-                    fontSize: '0.875rem',
-                    lineHeight: '1.6',
-                    borderRadius: 'var(--radius)',
-                    border: '1px solid var(--border-color)'
-                  }}
-                >
-                  {step.code}
-                </SyntaxHighlighter>
-              </div>
+              <CodeBlock 
+                code={step.code} 
+                language={step.language} 
+                variant="filled"
+              />
               {step.note && (
                 <p className="install-step-note">{step.note}</p>
               )}

@@ -112,7 +112,7 @@ export const ComponentsPage: React.FC = () => {
                 backdropFilter: 'blur(8px)'
               }}>
                 <div style={{ width: '30%', height: '2px', background: 'var(--text-main)' }}></div>
-                <ChevronDown size={14} />
+                <ChevronDown color="white" size={14} />
               </div>
             </div>
           }
@@ -133,6 +133,33 @@ export const ComponentsPage: React.FC = () => {
               <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'var(--accent-color)' }}></div>
               <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'var(--text-muted)', opacity: 0.3 }}></div>
               <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'var(--text-muted)', opacity: 0.3 }}></div>
+            </div>
+          }
+        />
+        <ComponentCard
+          title="Code Block"
+          description="Premium code preview with integrated copy and header."
+          path="/components/code-block"
+          preview={
+            <div style={{
+              width: '75%',
+              background: '#0a0a0a',
+              border: '1px solid var(--border-color)',
+              borderLeft: '4px solid var(--accent-color)',
+              borderRadius: '12px',
+              padding: '1.2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.8rem',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              overflow: 'hidden'
+            }}>
+              <div style={{ width: '40%', height: '3px', background: 'var(--accent-color)', opacity: 0.9 }}></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ width: '90%', height: '2px', background: 'var(--text-muted)', opacity: 0.2 }}></div>
+                <div style={{ width: '60%', height: '2px', background: 'var(--text-muted)', opacity: 0.2 }}></div>
+                <div style={{ width: '75%', height: '2px', background: 'var(--text-muted)', opacity: 0.2 }}></div>
+              </div>
             </div>
           }
         />

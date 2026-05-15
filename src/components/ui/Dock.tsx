@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Sun, Moon, Menu, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
-import { cn } from '../../lib/utils';
 import './Dock.css';
+import { cn } from '../../lib/utils';
 
 export interface DockProps {
   isMenuOpen: boolean;
@@ -56,15 +58,15 @@ export const Dock: React.FC<DockProps> = ({
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div 
+    <div
       className={cn('unburn-dock-wrapper', `size-${size}`, `pos-${position}`, isCollapsed && 'collapsed', className, classNames?.root)}
       style={{ ...style, ...styles?.root }}
     >
-      <div 
+      <div
         className={cn("unburn-dock", classNames?.container)}
         style={styles?.container}
       >
-        <button 
+        <button
           className={cn('dock-trigger', isMenuOpen && 'open', classNames?.trigger)}
           style={styles?.trigger}
           onClick={onMenuToggle}
@@ -79,8 +81,8 @@ export const Dock: React.FC<DockProps> = ({
         </button>
 
         {showThemeToggle && (
-          <button 
-            className={cn("dock-action-btn", classNames?.actionBtn)} 
+          <button
+            className={cn("dock-action-btn", classNames?.actionBtn)}
             style={styles?.actionBtn}
             onClick={onThemeToggle}
             aria-label="Toggle Theme"
@@ -90,15 +92,15 @@ export const Dock: React.FC<DockProps> = ({
         )}
 
         {showAccentToggle && (
-          <button 
-            className={cn("dock-action-btn", classNames?.actionBtn)} 
+          <button
+            className={cn("dock-action-btn", classNames?.actionBtn)}
             style={styles?.actionBtn}
             onClick={onAccentCycle}
             aria-label="Cycle Accent Color"
           >
-            <div 
-              className="accent-preview" 
-              style={{ backgroundColor: 'var(--accent-color)' }} 
+            <div
+              className="accent-preview"
+              style={{ backgroundColor: 'var(--accent-color)' }}
             />
           </button>
         )}
@@ -106,8 +108,8 @@ export const Dock: React.FC<DockProps> = ({
         {children}
 
         {showHideToggle && (
-          <button 
-            className={cn("dock-collapse-btn", classNames?.collapseBtn)} 
+          <button
+            className={cn("dock-collapse-btn", classNames?.collapseBtn)}
             style={styles?.collapseBtn}
             onClick={() => setIsCollapsed(true)}
             aria-label="Hide Dock"
@@ -121,8 +123,8 @@ export const Dock: React.FC<DockProps> = ({
       </div>
 
       {showHideToggle && (
-        <button 
-          className={cn("dock-expand-btn", classNames?.expandBtn)} 
+        <button
+          className={cn("dock-expand-btn", classNames?.expandBtn)}
           style={styles?.expandBtn}
           onClick={() => setIsCollapsed(false)}
           aria-label="Show Dock"

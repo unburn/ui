@@ -2,13 +2,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
   background-color: var(--bg-secondary);
   color: var(--text-main);
   border: 1px solid var(--border-color);
   font-family: var(--font-mono);
-  font-size: 1rem;
   font-weight: 500;
   position: relative;
   border-radius: var(--radius);
@@ -16,6 +13,12 @@
   transition: all var(--transition);
   flex-shrink: 0;
 }
+
+.unburn-avatar.size-xs { width: 24px; height: 24px; font-size: 0.65rem; }
+.unburn-avatar.size-sm { width: 32px; height: 32px; font-size: 0.75rem; }
+.unburn-avatar.size-md { width: 42px; height: 42px; font-size: 0.875rem; }
+.unburn-avatar.size-lg { width: 56px; height: 56px; font-size: 1.125rem; }
+.unburn-avatar.size-xl { width: 80px; height: 80px; font-size: 1.5rem; }
 
 .unburn-avatar-inner {
   width: 100%;

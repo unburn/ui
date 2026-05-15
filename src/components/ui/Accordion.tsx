@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -21,6 +23,7 @@ export interface AccordionProps {
     root?: string;
     item?: string;
     header?: string;
+    leadingIcon?: string;
     content?: string;
     icon?: string;
     title?: string;
@@ -30,6 +33,7 @@ export interface AccordionProps {
     root?: React.CSSProperties;
     item?: React.CSSProperties;
     header?: React.CSSProperties;
+    leadingIcon?: React.CSSProperties;
     content?: React.CSSProperties;
     icon?: React.CSSProperties;
     title?: React.CSSProperties;
@@ -38,9 +42,9 @@ export interface AccordionProps {
   style?: React.CSSProperties;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({ 
-  items, 
-  allowMultiple = false, 
+export const Accordion: React.FC<AccordionProps> = ({
+  items,
+  allowMultiple = false,
   className,
   variant = 'default',
   color,
@@ -74,9 +78,9 @@ export const Accordion: React.FC<AccordionProps> = ({
   const colorStyle = resolvedColor ? { '--accent-color': resolvedColor } as React.CSSProperties : {};
 
   return (
-    <div 
+    <div
       className={cn(
-        'unburn-accordion', 
+        'unburn-accordion',
         variant === 'bordered' && 'unburn-accordion-bordered',
         variant === 'duo' && 'unburn-accordion-duo',
         className,
@@ -100,13 +104,20 @@ export const Accordion: React.FC<AccordionProps> = ({
               aria-expanded={isOpen}
             >
               <div className="unburn-accordion-header-content">
-                {item.icon && <span>{item.icon}</span>}
+                {item.icon && (
+                  <span 
+                    className={cn("unburn-accordion-leading-icon", classNames?.leadingIcon)} 
+                    style={styles?.leadingIcon}
+                  >
+                    {item.icon}
+                  </span>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                   <span className={cn(classNames?.title)} style={styles?.title}>
                     {item.title}
                   </span>
                   {item.subtitle && (
-                    <span 
+                    <span
                       className={cn("unburn-accordion-subtitle", classNames?.subtitle)}
                       style={styles?.subtitle}
                     >
@@ -115,22 +126,24 @@ export const Accordion: React.FC<AccordionProps> = ({
                   )}
                 </div>
               </div>
-              <ChevronDown 
-                className={cn("unburn-accordion-icon", classNames?.icon)} 
-                size={16} 
+              <ChevronDown
+                className={cn("unburn-accordion-icon", classNames?.icon)}
+                size={16}
                 style={styles?.icon}
               />
             </button>
-            {isOpen && (
-              <div 
-                className={cn("unburn-accordion-content", classNames?.content)}
-                style={styles?.content}
+            <div
+              className={cn("unburn-accordion-content-wrapper", classNames?.content)}
+              style={styles?.content}
+            >
+              <div
+                className="unburn-accordion-content"
               >
                 <div className="unburn-accordion-content-inner">
                   {item.content}
                 </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}

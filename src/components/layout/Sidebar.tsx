@@ -29,6 +29,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navLinks = [
     { to: '/', label: 'Introduction' },
+    { to: '/examples', label: 'Examples' },
     { to: '/installation', label: 'Installation' },
     { to: '/components', label: 'Components' },
   ];
@@ -40,6 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="sidebar-group">
           <h3 className="sidebar-group-title">Getting Started</h3>
           <NavLink to="/" className="sidebar-nav-item">Introduction</NavLink>
+          <NavLink to="/examples" className="sidebar-nav-item" style={{ color: 'var(--accent-color)', fontWeight: 600 }}>Examples</NavLink>
           <NavLink to="/installation" className="sidebar-nav-item">Installation</NavLink>
           <NavLink to="/components" className="sidebar-nav-item">Gallery</NavLink>
         </div>
@@ -52,6 +54,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <NavLink to="/components/badges" className="sidebar-nav-item">Badges</NavLink>
           <NavLink to="/components/alerts" className="sidebar-nav-item">Alerts</NavLink>
           <NavLink to="/components/accordions" className="sidebar-nav-item">Accordions</NavLink>
+          <NavLink to="/components/checkbox" className="sidebar-nav-item">Checkbox</NavLink>
+          <NavLink to="/components/switch" className="sidebar-nav-item">Switch</NavLink>
+          <NavLink to="/components/select" className="sidebar-nav-item">Select</NavLink>
+          <NavLink to="/components/inputs" className="sidebar-nav-item">Inputs</NavLink>
+          <NavLink to="/components/textarea" className="sidebar-nav-item">Textarea</NavLink>
           <NavLink to="/components/dock" className="sidebar-nav-item">Dock</NavLink>
         </div>
       </aside>

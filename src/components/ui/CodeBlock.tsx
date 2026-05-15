@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { Terminal, Copy, Check } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import './CodeBlock.css';
 
@@ -41,7 +42,9 @@ const unburnTheme: { [key: string]: React.CSSProperties } = {
 };
 
 export interface CodeBlockProps {
-  code: string;
+  code?: string;
+  tabs?: Record<string, string>;
+  defaultTab?: string;
   language?: string;
   classNames?: {
     root?: string;
@@ -50,6 +53,8 @@ export interface CodeBlockProps {
     copyButton?: string;
     title?: string;
     lang?: string;
+    tabs?: string;
+    tab?: string;
   };
   styles?: {
     root?: React.CSSProperties;
@@ -58,6 +63,8 @@ export interface CodeBlockProps {
     copyButton?: React.CSSProperties;
     title?: React.CSSProperties;
     lang?: React.CSSProperties;
+    tabs?: React.CSSProperties;
+    tab?: React.CSSProperties;
   };
   showLineNumbers?: boolean;
   className?: string;
@@ -67,7 +74,9 @@ export interface CodeBlockProps {
 }
 
 export const CodeBlock: React.FC<CodeBlockProps> = ({
-  code,
+  code: singleCode,
+  tabs,
+  defaultTab,
   language = 'tsx',
   showLineNumbers = true,
   className,
@@ -77,12 +86,39 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   variant = 'filled',
   title
 }) => {
+  const [mounted, setMounted] = useState(false);
+  const [Highlighter, setHighlighter] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState(
+    defaultTab && tabs?.[defaultTab] 
+      ? defaultTab 
+      : (tabs ? Object.keys(tabs)[0] : null)
+  );
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+    // Dynamically import to ensure no SSR issues with Prism/document
+    import('react-syntax-highlighter').then((mod) => {
+      setHighlighter(() => mod.Prism);
+    });
+  }, []);
+
+  const displayCode = (tabs && activeTab ? tabs[activeTab] : (singleCode || ''))
+    .replace(/\\n/g, '\n');
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
+    await navigator.clipboard.writeText(displayCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getLanguage = () => {
+    if (!tabs || !activeTab) return language;
+    const tabLower = activeTab.toLowerCase();
+    if (tabLower.includes('typescript') || tabLower === 'ts') return 'tsx';
+    if (tabLower.includes('javascript') || tabLower === 'js') return 'javascript';
+    if (tabLower === 'bash' || tabLower === 'sh' || ['pnpm', 'npm', 'yarn', 'bun'].includes(tabLower)) return 'bash';
+    return language;
   };
 
   return (
@@ -90,6 +126,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       className={cn(
         "unburn-code-block",
         `unburn-code-block-${variant}`,
+        tabs && "has-tabs",
         className,
         classNames?.root
       )}
@@ -100,20 +137,46 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         style={styles?.header}
       >
         <div className="unburn-code-info">
-          {title && (
-            <span 
-              className={cn("unburn-code-title", classNames?.title)}
-              style={styles?.title}
-            >
-              {title}
-            </span>
+          {tabs ? (
+            <div className="unburn-code-tabs-container">
+              <div className="unburn-code-terminal-icon">
+                <Terminal size={14} />
+              </div>
+              <div className={cn("unburn-code-tabs", classNames?.tabs)} style={styles?.tabs}>
+                {Object.keys(tabs).map((tab) => (
+                  <button
+                    key={tab}
+                    className={cn(
+                      "unburn-code-tab", 
+                      activeTab === tab && "active",
+                      classNames?.tab
+                    )}
+                    onClick={() => setActiveTab(tab)}
+                    style={styles?.tab}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+              {title && (
+                <span 
+                  className={cn("unburn-code-title", classNames?.title)}
+                  style={styles?.title}
+                >
+                  {title}
+                </span>
+              )}
+              <span 
+                className={cn("unburn-code-lang", classNames?.lang)}
+                style={styles?.lang}
+              >
+                {language}
+              </span>
+            </>
           )}
-          <span 
-            className={cn("unburn-code-lang", classNames?.lang)}
-            style={styles?.lang}
-          >
-            {language}
-          </span>
         </div>
         <button 
           className={cn("unburn-code-copy-btn", classNames?.copyButton)}
@@ -129,32 +192,38 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         className={cn("unburn-code-content", classNames?.content)}
         style={styles?.content}
       >
-        <SyntaxHighlighter
-          language={language}
-          style={unburnTheme}
-          showLineNumbers={showLineNumbers}
-          lineNumberStyle={{
-            minWidth: '2.5rem',
-            paddingRight: '1rem',
-            color: 'var(--text-muted)',
-            textAlign: 'right',
-            opacity: 0.5,
-            borderRight: '1px solid var(--border-color)',
-            marginRight: '1rem',
-            userSelect: 'none'
-          }}
-          customStyle={{
-            margin: 0,
-            padding: '1.25rem',
-            backgroundColor: 'transparent',
-            fontSize: '0.875rem',
-            lineHeight: '1.6',
-            border: 'none',
-            borderRadius: 0
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+        {!mounted || !Highlighter ? (
+          <pre className="unburn-code-ssr-fallback">
+            <code>{displayCode}</code>
+          </pre>
+        ) : (
+          <Highlighter
+            language={getLanguage()}
+            style={unburnTheme}
+            showLineNumbers={!tabs && showLineNumbers}
+            lineNumberStyle={{
+              minWidth: '2.5rem',
+              paddingRight: '1rem',
+              color: 'var(--text-muted)',
+              textAlign: 'right',
+              opacity: 0.5,
+              borderRight: '1px solid var(--border-color)',
+              marginRight: '1rem',
+              userSelect: 'none'
+            }}
+            customStyle={{
+              margin: 0,
+              padding: tabs ? '1.5rem 1.25rem' : '1.25rem',
+              backgroundColor: 'transparent',
+              fontSize: '0.875rem',
+              lineHeight: '1.6',
+              border: 'none',
+              borderRadius: 0
+            }}
+          >
+            {displayCode}
+          </Highlighter>
+        )}
       </div>
     </div>
   );

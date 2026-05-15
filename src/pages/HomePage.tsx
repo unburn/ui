@@ -1,15 +1,8 @@
 import React from 'react';
-import { Terminal, Layers, Palette, Zap, Copy, Check } from 'lucide-react';
+import { Layers, Palette, Zap } from 'lucide-react';
+import { CodeBlock } from '../components/ui/CodeBlock';
 
 export const HomePage: React.FC = () => {
-  const [copied, setCopied] = React.useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText('npm install @unburn/ui');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <div className="home-page">
       <div className="viewport-glow"></div>
@@ -24,30 +17,15 @@ export const HomePage: React.FC = () => {
 
       <div className="home-content">
         <h2 className="section-title">Quick Start</h2>
-        <div className="quick-start-box">
-          <Terminal size={18} style={{ color: 'var(--accent-color)' }} />
-          <code>npm install @unburn/ui</code>
-          <button
-            onClick={handleCopy}
-            style={{
-              marginLeft: '2rem',
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--text-muted)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              padding: '4px 8px',
-              borderLeft: '1px solid var(--border-color)'
-            }}
-          >
-            {copied ? <Check size={14} style={{ color: 'var(--color-green)' }} /> : <Copy size={14} />}
-            {copied ? 'COPIED' : 'COPY'}
-          </button>
-        </div>
+        <CodeBlock
+          defaultTab="npm"
+          tabs={{
+            pnpm: 'pnpm add @unburn/ui',
+            npm: 'npm install @unburn/ui',
+            yarn: 'yarn add @unburn/ui',
+            bun: 'bun add @unburn/ui'
+          }}
+        />
 
         <h2 className="section-title" style={{ marginTop: '6rem' }}>Core Philosophy</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
@@ -76,13 +54,10 @@ export const HomePage: React.FC = () => {
 
         <h2 className="section-title" style={{ marginTop: '6rem' }}>Supported Components</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
-          {['Buttons', 'Avatars', 'Alerts', 'Accordions', 'Badges', 'Dock', 'Code Block', 'Inputs', 'Modals'].map(comp => (
+          {['Buttons', 'Avatars', 'Alerts', 'Accordions', 'Badges', 'Dock', 'Code Block', 'Checkbox', 'Switch', 'Select', 'Inputs', 'Textarea'].map(comp => (
             <div key={comp} className="component-grid-item">
               {comp}
-              {['Inputs', 'Modals'].includes(comp) ?
-                <span style={{ fontSize: '10px', opacity: 0.5 }}>Coming Soon</span> :
-                <span style={{ color: 'var(--accent-color)' }}>Ready</span>
-              }
+              <span style={{ color: 'var(--accent-color)' }}>Ready</span>
             </div>
           ))}
         </div>

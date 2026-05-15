@@ -1,230 +1,150 @@
 import React from 'react';
 import { Accordion } from '../components/ui/Accordion';
 import { Showcase } from '../components/layout/Showcase';
-import { ApiReference } from '../components/layout/ApiReference';
-import { ComponentAnatomy } from '../components/layout/ComponentAnatomy';
+import { CodeBlock } from '../components/ui/CodeBlock';
+import { Props } from '../components/layout/Props';
+import { Zap, Shield, Settings } from 'lucide-react';
 
 export const AccordionsPage: React.FC = () => {
   return (
     <>
-      <h2 className="section-title">Accordion</h2>
+      <div className="section-header">
+        <h2 className="section-title">Accordions</h2>
+        <p className="section-description">
+          A vertically collapsing accordion component used to organize information into digestible, expandable sections.
+        </p>
+      </div>
 
       <Showcase
-        title="01. ACCORDION"
-        code={`import { Accordion } from '@unburn/ui';
-
-export default function Example() {
-  return (
-    <Accordion 
-      items={[
-        {
-          id: '1',
-          title: 'Accordion Item 01',
-          subtitle: 'This is the subtitle for the first item',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          id: '2',
-          title: 'Accordion Item 02',
-          subtitle: 'This is the subtitle for the second item',
-          content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        }
-      ]}
-    />
-  );
-}`}
+        title="PREVIEW"
+        code={`<Accordion 
+  items={[
+    { 
+      id: '1', 
+      title: 'General Settings', 
+      subtitle: 'Core preferences',
+      content: 'Configure your application preferences...',
+      icon: <Settings size={16} />
+    }
+  ]} 
+/>`}
       >
-        <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block' }}>
+        <div style={{ width: '100%', maxWidth: '600px' }}>
           <Accordion
             items={[
               {
                 id: '1',
-                title: 'Why choose Unburn UI?',
-                subtitle: 'The philosophy behind our design system',
-                content: 'Unburn UI focuses on soft geometry and accent-centric variables. This means you can change your entire brand identity by just updating one CSS variable.'
-              },
-              {
-                id: '2',
-                title: 'Is it production ready?',
-                subtitle: 'Performance and reliability',
-                content: 'Every component is built with pure CSS-in-JS logic, ensuring zero external dependencies and blazing-fast performance in any production environment.'
+                title: 'General Settings',
+                subtitle: 'Core application preferences',
+                content: 'Configure your themes, notifications, and language settings here.',
+                icon: <Settings size={16} />
               }
             ]}
           />
         </div>
       </Showcase>
 
-      <Showcase
-        title="02. MULTIPLE SELECTION"
-        code={`import { Accordion } from '@unburn/ui';
+      <div className="section-usage">
+        <h3 className="section-subtitle">Usage</h3>
+        <CodeBlock
+          language="tsx"
+          code={`import { Accordion } from '@unburn/ui';
+
+const items = [
+  { id: '1', title: 'Section 1', content: 'Content 1' },
+];
 
 export default function Example() {
-  return (
-    <Accordion 
-      allowMultiple={true}
-      items={[
-        {
-          id: '1',
-          title: 'Accordion Item 01',
-          subtitle: 'This is the subtitle for the first item',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          id: '2',
-          title: 'Accordion Item 02',
-          subtitle: 'This is the subtitle for the second item',
-          content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        }
-      ]}
-    />
-  );
+  return <Accordion items={items} />;
 }`}
-      >
-        <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block' }}>
-          <Accordion
-            allowMultiple={true}
-            items={[
-              {
-                id: '1',
-                title: 'Why choose Unburn UI?',
-                subtitle: 'The philosophy behind our design system',
-                content: 'Unburn UI focuses on soft geometry and accent-centric variables. This means you can change your entire brand identity by just updating one CSS variable.'
-              },
-              {
-                id: '2',
-                title: 'Is it production ready?',
-                subtitle: 'Performance and reliability',
-                content: 'Every component is built with pure CSS-in-JS logic, ensuring zero external dependencies and blazing-fast performance in any production environment.'
-              }
-            ]}
-          />
-        </div>
-      </Showcase>
-      <Showcase
-        title="03. BORDER"
-        code={`import { Accordion } from '@unburn/ui';
+        />
+      </div>
 
-export default function Example() {
-  return (
-    <Accordion 
-      variant="bordered"
-      items={[
-        {
-          id: '1',
-          title: 'Accordion Item 01',
-          subtitle: 'This is the subtitle for the first item',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          id: '2',
-          title: 'Accordion Item 02',
-          subtitle: 'This is the subtitle for the second item',
-          content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        }
-      ]}
-    />
-  );
-}`}
-      >
-        <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block' }}>
-          <Accordion
-            variant="bordered"
-            items={[
-              {
-                id: '1',
-                title: 'Why choose Unburn UI?',
-                subtitle: 'The philosophy behind our design system',
-                content: 'Unburn UI focuses on soft geometry and accent-centric variables. This means you can change your entire brand identity by just updating one CSS variable.'
-              },
-              {
-                id: '2',
-                title: 'Is it production ready?',
-                subtitle: 'Performance and reliability',
-                content: 'Every component is built with pure CSS-in-JS logic, ensuring zero external dependencies and blazing-fast performance in any production environment.'
-              }
-            ]}
-          />
-        </div>
-      </Showcase>
-      <Showcase
-        title="04. COLOR DUO"
-        code={`import { Accordion } from '@unburn/ui';
+      <div className="section-examples">
+        <h3 className="section-subtitle">Examples</h3>
 
-export default function Example() {
-  return (
-    <Accordion 
-      variant="duo"
-      items={[
-        {
-          id: '1',
-          title: 'Accordion Item 01',
-          subtitle: 'This is the subtitle for the first item',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-        },
-        {
-          id: '2',
-          title: 'Accordion Item 02',
-          subtitle: 'This is the subtitle for the second item',
-          content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        }
-      ]}
-    />
-  );
-}`}
-      >
-        <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', display: 'block' }}>
-          <Accordion
-            variant="duo"
-            items={[
-              {
-                id: '1',
-                title: 'Why choose Unburn UI?',
-                subtitle: 'The philosophy behind our design system',
-                content: 'Unburn UI focuses on soft geometry and accent-centric variables. This means you can change your entire brand identity by just updating one CSS variable.'
-              },
-              {
-                id: '2',
-                title: 'Is it production ready?',
-                subtitle: 'Performance and reliability',
-                content: 'Every component is built with pure CSS-in-JS logic, ensuring zero external dependencies and blazing-fast performance in any production environment.'
-              }
-            ]}
-          />
-        </div>
-      </Showcase>
+        <Showcase
+          title="VARIANTS"
+          description="Accordions support various visual styles: default, bordered, and duo."
+          code={`<Accordion variant="default" ... />
+<Accordion variant="bordered" ... />
+<Accordion variant="duo" ... />`}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '600px' }}>
+            <Accordion
+              variant="default"
+              items={[{ id: 'v1', title: 'Default Variant', content: 'The clean, minimal look.' }]}
+            />
+            <Accordion
+              variant="bordered"
+              items={[{ id: 'v2', title: 'Bordered Variant', content: 'Each item has a distinct border.' }]}
+            />
+            <Accordion
+              variant="duo"
+              items={[{ id: 'v3', title: 'Duo Variant', content: 'A softer, tinted look using system colors.' }]}
+            />
+          </div>
+        </Showcase>
 
-      <ComponentAnatomy 
-        parts={[
-          { key: 'root', label: 'Main Wrapper', description: 'The outer container holding all items.' },
-          { key: 'item', label: 'Accordion Item', description: 'The individual collapsible section container.' },
-          { key: 'header', label: 'Item Header', description: 'The clickable area that toggles the item.' },
-          { key: 'title', label: 'Item Title', description: 'The main heading text for the section.' },
-          { key: 'subtitle', label: 'Item Subtitle', description: 'The descriptive text below the title.' },
-          { key: 'icon', label: 'Chevron Icon', description: 'The arrow icon that rotates when expanded.' },
-          { key: 'content', label: 'Content Area', description: 'The collapsible body container.' },
-        ]}
-      >
-        <div style={{ width: '320px' }}>
-          <Accordion 
-            items={[
-              { 
-                id: '1', 
-                title: 'Design System', 
-                subtitle: 'Learn about our core values', 
-                content: 'Unburn UI is built on the principles of soft geometry and premium aesthetics.' 
-              }
-            ]}
-          />
-        </div>
-      </ComponentAnatomy>
+        <Showcase
+          title="WITH ICONS & SUBTITLES"
+          description="Add context to your accordion items with icons and helpful subtitles."
+          code={`<Accordion items={[
+  { 
+    id: 's1', 
+    title: 'Security', 
+    subtitle: 'Manage your keys',
+    icon: <Shield size={16} />,
+    content: '...' 
+  }
+]} />`}
+        >
+          <div style={{ width: '100%', maxWidth: '600px' }}>
+            <Accordion
+              items={[
+                {
+                  id: 's1',
+                  title: 'Security & Privacy',
+                  subtitle: 'Manage encryption and data sharing',
+                  content: 'Configure how your data is handled across the platform.',
+                  icon: <Shield size={16} />
+                },
+                {
+                  id: 's2',
+                  title: 'Messages',
+                  subtitle: 'Recent conversations',
+                  content: 'Your inbox is empty.',
+                  icon: <Zap size={16} />
+                }
+              ]}
+            />
+          </div>
+        </Showcase>
 
-      <ApiReference 
+        <Showcase
+          title="MULTIPLE SELECTION"
+          description="Control whether multiple items can be open at once."
+          code={`<Accordion allowMultiple={true} ... />`}
+        >
+          <div style={{ width: '100%', maxWidth: '600px' }}>
+            <Accordion
+              allowMultiple
+              items={[
+                { id: 'm1', title: 'Independent Item A', content: 'You can open this...' },
+                { id: 'm2', title: 'Independent Item B', content: '...and this at the same time.' }
+              ]}
+            />
+          </div>
+        </Showcase>
+      </div>
+
+      <Props
         props={[
-          { name: 'items', type: 'AccordionItem[]', required: true, description: 'Array of items to display in the accordion.' },
+          { name: 'items', type: 'AccordionItem[]', required: true, description: 'Array of items (id, title, subtitle, content, icon).' },
           { name: 'allowMultiple', type: 'boolean', defaultValue: 'false', description: 'Whether multiple items can be open at once.' },
           { name: 'variant', type: "'default' | 'bordered' | 'duo'", defaultValue: "'default'", description: 'The visual style variant.' },
           { name: 'color', type: 'string', description: 'Custom accent color for the accordion.' },
-          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements (root, item, header, content, icon, title, subtitle).' },
+          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements.' },
           { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },
         ]}
       />

@@ -15,10 +15,10 @@
   &.pos-right { right: 2rem; top: 50%; transform: translateY(-50%); }
 }
 
-.unburn-dock-wrapper.collapsed.pos-bottom { bottom: -6rem; }
-.unburn-dock-wrapper.collapsed.pos-top { top: -6rem; }
-.unburn-dock-wrapper.collapsed.pos-left { left: -6rem; }
-.unburn-dock-wrapper.collapsed.pos-right { right: -6rem; }
+.unburn-dock-wrapper.collapsed.pos-bottom { transform: translateX(-50%) translateY(calc(100% + 4rem)); }
+.unburn-dock-wrapper.collapsed.pos-top { transform: translateX(-50%) translateY(calc(-100% - 4rem)); }
+.unburn-dock-wrapper.collapsed.pos-left { transform: translateY(-50%) translateX(calc(-100% - 4rem)); }
+.unburn-dock-wrapper.collapsed.pos-right { transform: translateY(-50%) translateX(calc(100% + 4rem)); }
 
 .unburn-dock-wrapper.collapsed { pointer-events: none; }
 

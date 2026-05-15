@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { CodeBlock } from '../components/ui/CodeBlock';
 
@@ -246,7 +247,7 @@ export default function Home() {
       },
       {
         title: '4. Import and use components',
-        code: `import { Button, Alert, Badge, Avatar, Accordion, Dock, CodeBlock } from '@unburn/ui';`,
+        code: `import { Button, Alert, Badge, Avatar, Accordion, Checkbox, Switch, Select, Dock, CodeBlock } from '@unburn/ui';`,
         language: 'javascript',
       },
     ],
@@ -254,7 +255,9 @@ export default function Home() {
 };
 
 export const InstallationPage: React.FC = () => {
-  const [selected, setSelected] = useState<Framework>(null);
+  const { framework } = useParams<{ framework: string }>();
+  const navigate = useNavigate();
+  const selected = framework as Framework;
 
   if (selected && frameworkGuides[selected]) {
     const guide = frameworkGuides[selected];
@@ -262,7 +265,7 @@ export const InstallationPage: React.FC = () => {
 
     return (
       <div className="installation-page">
-        <button className="install-back-btn" onClick={() => setSelected(null)}>
+        <button className="install-back-btn" onClick={() => navigate('/installation')}>
           <ArrowLeft size={16} />
           <span>CHOOSE FRAMEWORK</span>
         </button>
@@ -280,11 +283,23 @@ export const InstallationPage: React.FC = () => {
               <div className="install-step-header">
                 <h3 className="install-step-title">{step.title}</h3>
               </div>
-              <CodeBlock 
-                code={step.code} 
-                language={step.language} 
-                variant="filled"
-              />
+              {step.language === 'bash' && step.code.includes('@unburn/ui') ? (
+                <CodeBlock 
+                  defaultTab="npm"
+                  tabs={{
+                    npm: step.code,
+                    pnpm: step.code.replace('npm install', 'pnpm add').replace('npx', 'pnpm dlx'),
+                    yarn: step.code.replace('npm install', 'yarn add').replace('npx', 'yarn dlx'),
+                    bun: step.code.replace('npm install', 'bun add').replace('npx', 'bunx'),
+                  }}
+                />
+              ) : (
+                <CodeBlock
+                  code={step.code}
+                  language={step.language}
+                  variant="filled"
+                />
+              )}
               {step.note && (
                 <p className="install-step-note">{step.note}</p>
               )}
@@ -304,11 +319,11 @@ export const InstallationPage: React.FC = () => {
 
       <div className="component-catalog-grid">
         {frameworks.map(fw => (
-          <button
+          <Link
             key={fw.id}
+            to={`/installation/${fw.id}`}
             className="component-catalog-card"
-            onClick={() => setSelected(fw.id)}
-            style={{ width: '100%', textAlign: 'left', cursor: 'pointer', padding: 0, background: 'none', outline: 'none', fontFamily: 'inherit' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className="catalog-preview-area">
               <div className="framework-icon-container">
@@ -319,7 +334,7 @@ export const InstallationPage: React.FC = () => {
               <h3 className="catalog-title" style={{ fontSize: '1.25rem' }}>{fw.name}</h3>
               <p className="catalog-desc" style={{ marginTop: '0.5rem' }}>Setup guide for {fw.name} projects.</p>
             </div>
-          </button>
+          </Link>
         ))}
       </div>
     </div>

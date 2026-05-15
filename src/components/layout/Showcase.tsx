@@ -3,18 +3,22 @@ import { CodeBlock } from '../ui/CodeBlock';
 
 interface ShowcaseProps {
   title: string;
+  description?: string;
   code: string;
   children: React.ReactNode;
 }
 
-export const Showcase: React.FC<ShowcaseProps> = ({ title, code, children }) => {
+export const Showcase: React.FC<ShowcaseProps> = ({ title, description, code, children }) => {
   const [showCode, setShowCode] = useState(false);
 
   return (
     <div className="showcase-block">
       <div className="showcase-header">
-        <span className="showcase-title">{title}</span>
-        <div className="showcase-line"></div>
+        <div className="showcase-title-row">
+          <span className="showcase-title">{title}</span>
+          <div className="showcase-line"></div>
+        </div>
+        {description && <p className="showcase-description">{description}</p>}
       </div>
       <div className="showcase-preview">
         <div className="showcase-content">

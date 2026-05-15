@@ -1,3 +1,5 @@
+"use client";
+
 import React, { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -7,6 +9,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'filled' | 'outlined' | 'duo';
   size?: 'sm' | 'default' | 'lg';
   loading?: boolean;
+  fullWidth?: boolean;
   opacityLevel?: '25' | '50' | '75' | '100';
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
@@ -30,6 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'filled',
       size = 'default',
       loading = false,
+      fullWidth = false,
       opacityLevel = '100',
       icon,
       iconPosition = 'left',
@@ -73,6 +77,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           `unburn-btn-${size}`,
           `unburn-btn-opacity-${opacityLevel}`,
           isIconOnly && 'unburn-btn-icon-only',
+          fullWidth && 'unburn-btn-full-width',
           className,
           classNames?.root
         )}

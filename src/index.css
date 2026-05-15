@@ -33,6 +33,11 @@
   --shadow: none;
   --viewport-glow: none;
 
+  /* Standard Component Heights */
+  --height-sm: 32px;
+  --height-default: 42px;
+  --height-lg: 52px;
+
   --transition-speed: 0.4s;
   --transition-curve: cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition: var(--transition-speed) var(--transition-curve);

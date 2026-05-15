@@ -40,12 +40,26 @@
   font-weight: 700;
   text-align: left;
   cursor: pointer;
+  transition: color 0.2s var(--transition-curve), transform 0.2s var(--transition-curve);
+  user-select: none;
+}
+
+.unburn-accordion-header:active {
+  transform: scale(0.99);
 }
 
 .unburn-accordion-header-content {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.unburn-accordion-leading-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  flex-shrink: 0;
 }
 
 .unburn-accordion-header:hover {
@@ -62,13 +76,27 @@
 
 .unburn-accordion-icon {
   color: var(--text-muted);
+  transition: transform 0.4s var(--transition-curve), color 0.2s var(--transition-curve);
 }
 
 .unburn-accordion-item[data-state="open"] .unburn-accordion-icon {
   transform: rotate(180deg);
+  color: var(--accent-color);
+}
+
+.unburn-accordion-content-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--transition-curve);
+  overflow: hidden;
+}
+
+.unburn-accordion-item[data-state="open"] .unburn-accordion-content-wrapper {
+  grid-template-rows: 1fr;
 }
 
 .unburn-accordion-content {
+  min-height: 0;
   font-family: var(--font-sans);
   font-size: 0.875rem;
   color: var(--text-muted);

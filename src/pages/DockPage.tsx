@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Dock } from '../components/layout/Dock';
+import { Dock } from '../components/ui/Dock';
 import { Showcase } from '../components/layout/Showcase';
-import { ApiReference } from '../components/layout/ApiReference';
-import { ComponentAnatomy } from '../components/layout/ComponentAnatomy';
+import { CodeBlock } from '../components/ui/CodeBlock';
+import { Props } from '../components/layout/Props';
 import { Plus, Search, Home } from 'lucide-react';
 
 export const DockPage: React.FC = () => {
@@ -13,25 +13,21 @@ export const DockPage: React.FC = () => {
 
   return (
     <>
-      <h2 className="section-title">Dock</h2>
+      <div className="section-header">
+        <h2 className="section-title">Dock</h2>
+        <p className="section-description">
+          A premium, fixed-position navigation control that houses system actions like theme toggling, accent customization, and custom menu triggers.
+        </p>
+      </div>
 
       <Showcase
-        title="01. DEFAULT DOCK"
-        code={`import { Dock } from '@unburn/ui';
-
-export default function Example() {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <Dock 
-      isMenuOpen={isOpen}
-      onMenuToggle={() => setIsOpen(!isOpen)}
-      theme="dark"
-      onThemeToggle={() => {}}
-      accent="red"
-      onAccentCycle={() => {}}
-    />
-  );
-}`}
+        title="PREVIEW"
+        code={`<Dock 
+  isMenuOpen={isOpen} 
+  onMenuToggle={() => setIsOpen(!isOpen)} 
+  theme="dark"
+  accent="red"
+/>`}
       >
         <div style={{ height: '120px', position: 'relative', width: '100%', overflow: 'hidden' }}>
           <Dock
@@ -40,131 +36,120 @@ export default function Example() {
             theme={theme}
             onThemeToggle={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
             accent={accent}
-            onAccentCycle={() => setAccent('blue')}
+            onAccentCycle={() => setAccent(accent === 'red' ? 'blue' : 'red')}
             className="showcase-dock"
           />
         </div>
       </Showcase>
 
-      <Showcase
-        title="02. CUSTOM ACTIONS"
-        code={`import { Dock } from '@unburn/ui';
-import { Home, Search, Plus } from 'lucide-react';
+      <div className="section-usage">
+        <h3 className="section-subtitle">Usage</h3>
+        <CodeBlock
+          language="tsx"
+          code={`import { Dock } from '@unburn/ui';
 
-export default function Example() {
+export default function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
-  return (
-    <Dock 
-      isMenuOpen={isOpen}
-      onMenuToggle={() => setIsOpen(!isOpen)}
-      theme="dark"
-      onThemeToggle={() => {}}
-      accent="blue"
-      onAccentCycle={() => {}}
-      showThemeToggle={false}
-    >
-      <button className="dock-action-btn"><Home size={20} /></button>
-      <button className="dock-action-btn"><Search size={20} /></button>
-      <button className="dock-action-btn"><Plus size={20} /></button>
-    </Dock>
-  );
-}`}
-      >
-        <div style={{ height: '120px', position: 'relative', width: '100%', overflow: 'hidden' }}>
-          <Dock
-            isMenuOpen={demoOpen2}
-            onMenuToggle={() => setDemoOpen2(!demoOpen2)}
-            theme={theme}
-            onThemeToggle={() => { }}
-            accent={accent}
-            onAccentCycle={() => { }}
-            showThemeToggle={false}
-            className="showcase-dock"
-          >
-            <button className="dock-action-btn"><Home size={20} /></button>
-            <button className="dock-action-btn"><Search size={20} /></button>
-            <button className="dock-action-btn"><Plus size={20} /></button>
-          </Dock>
-        </div>
-      </Showcase>
-
-      <Showcase
-        title="03. SIZES"
-        code={`import { Dock } from '@unburn/ui';
-
-export default function Example() {
+  
   return (
     <>
-      <Dock size="sm" ... />
-      <Dock size="default" ... />
-      <Dock size="lg" ... />
+      {children}
+      <Dock 
+        isMenuOpen={isOpen}
+        onMenuToggle={() => setIsOpen(!isOpen)}
+        theme="dark"
+        accent="red"
+      />
     </>
   );
 }`}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
-          <div style={{ height: '120px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--border-color)' }}>
-            <Dock size="sm" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="red" onAccentCycle={() => { }} className="showcase-dock" />
-          </div>
-          <div style={{ height: '140px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--border-color)' }}>
-            <Dock size="default" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="blue" onAccentCycle={() => { }} className="showcase-dock" />
-          </div>
-          <div style={{ height: '160px', position: 'relative', overflow: 'hidden' }}>
-            <Dock size="lg" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="green" onAccentCycle={() => { }} className="showcase-dock" />
-          </div>
-        </div>
-      </Showcase>
+        />
+      </div>
 
-      <Showcase
-        title="04. HIDE OPTION"
-        code={`import { Dock } from '@unburn/ui';
+      <div className="section-examples">
+        <h3 className="section-subtitle">Examples</h3>
 
-export default function Example() {
-  return (
-    <>
-      {/* Hide option disabled */}
-      <Dock showHideToggle={false} ... />
-      
-      {/* Hide option enabled (default) */}
-      <Dock showHideToggle={true} ... />
-    </>
-  );
-}`}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
-          <div style={{ height: '140px', position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--border-color)' }}>
-            <Dock showHideToggle={false} isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="purple" onAccentCycle={() => { }} className="showcase-dock" />
+        <Showcase
+          title="SIZES"
+          description="The Dock is available in three sizes: small, default, and large."
+          code={`<Dock size="sm" ... />
+<Dock size="default" ... />
+<Dock size="lg" ... />`}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
+            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+              <Dock size="sm" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="red" onAccentCycle={() => { }} className="showcase-dock" />
+            </div>
+            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+              <Dock size="default" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="blue" onAccentCycle={() => { }} className="showcase-dock" />
+            </div>
+            <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
+              <Dock size="lg" isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="green" onAccentCycle={() => { }} className="showcase-dock" />
+            </div>
           </div>
-          <div style={{ height: '140px', position: 'relative', overflow: 'hidden' }}>
-            <Dock showHideToggle={true} isMenuOpen={false} onMenuToggle={() => { }} theme="dark" onThemeToggle={() => { }} accent="blue" onAccentCycle={() => { }} className="showcase-dock" />
+        </Showcase>
+
+        <Showcase
+          title="CUSTOM ACTIONS"
+          description="Pass custom buttons as children to extend the dock's functionality."
+          code={`<Dock ...>
+  <button><Home /></button>
+  <button><Search /></button>
+</Dock>`}
+        >
+          <div style={{ height: '120px', position: 'relative', width: '100%', overflow: 'hidden' }}>
+            <Dock
+              isMenuOpen={demoOpen2}
+              onMenuToggle={() => setDemoOpen2(!demoOpen2)}
+              theme={theme}
+              onThemeToggle={() => { }}
+              accent={accent}
+              onAccentCycle={() => { }}
+              showThemeToggle={false}
+              className="showcase-dock"
+            >
+              <button className="dock-action-btn"><Home size={20} /></button>
+              <button className="dock-action-btn"><Search size={20} /></button>
+              <button className="dock-action-btn"><Plus size={20} /></button>
+            </Dock>
           </div>
-        </div>
-      </Showcase>
+        </Showcase>
 
-      <ComponentAnatomy 
-        parts={[
-          { key: 'root', label: 'Main Wrapper', description: 'The absolute/fixed positioned outer container.' },
-          { key: 'container', label: 'Dock Body', description: 'The glassmorphic container holding the buttons.' },
-          { key: 'trigger', label: 'Main Trigger', description: 'The prominent MENU/CLOSE button.' },
-          { key: 'actionBtn', label: 'Action Button', description: 'Standard buttons for theme, accent, and custom actions.' },
-          { key: 'collapseBtn', label: 'Hide Trigger', description: 'The arrow button used to collapse the dock.' },
-          { key: 'expandBtn', label: 'Show Trigger', description: 'The floating button shown when the dock is hidden.' },
-        ]}
-      >
-        <div style={{ height: '80px', position: 'relative' }}>
-          <Dock 
-            isMenuOpen={false} 
-            onMenuToggle={() => {}} 
-            theme="dark" 
-            onThemeToggle={() => {}} 
-            accent="blue" 
-            onAccentCycle={() => {}} 
-            style={{ position: 'relative', bottom: 0, left: 0, transform: 'none' }}
-          />
-        </div>
-      </ComponentAnatomy>
+        <Showcase
+          title="CONFIGURATION"
+          description="Selectively show or hide built-in toggles for theme, accent, and the hide handle."
+          code={`<Dock showThemeToggle={false} ... />\n<Dock showAccentToggle={false} ... />`}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
+            <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
+              <Dock
+                showThemeToggle={false}
+                isMenuOpen={false}
+                onMenuToggle={() => { }}
+                theme="dark"
+                onThemeToggle={() => { }}
+                accent="purple"
+                onAccentCycle={() => { }}
+                className="showcase-dock"
+              />
+            </div>
+            <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
+              <Dock
+                showAccentToggle={false}
+                isMenuOpen={false}
+                onMenuToggle={() => { }}
+                theme="dark"
+                onThemeToggle={() => { }}
+                accent="orange"
+                onAccentCycle={() => { }}
+                className="showcase-dock"
+              />
+            </div>
+          </div>
+        </Showcase>
+      </div>
 
-      <ApiReference 
+      <Props
         props={[
           { name: 'isMenuOpen', type: 'boolean', required: true, description: 'Controls whether the main menu is active.' },
           { name: 'onMenuToggle', type: 'function', required: true, description: 'Callback when the menu button is clicked.' },
@@ -177,7 +162,7 @@ export default function Example() {
           { name: 'showThemeToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the theme toggle button.' },
           { name: 'showAccentToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the accent cycle button.' },
           { name: 'showHideToggle', type: 'boolean', defaultValue: 'true', description: 'Whether to show the collapse/expand button.' },
-          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements (root, container, trigger, actionBtn, collapseBtn, expandBtn).' },
+          { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements.' },
           { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },
         ]}
       />

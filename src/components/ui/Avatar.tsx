@@ -9,6 +9,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   fallback?: React.ReactNode;
   showStatus?: boolean;
   status?: 'online' | 'offline' | 'dnd' | 'idle';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   color?: string;
   classNames?: {
     root?: string;
@@ -25,7 +26,9 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
-  ({ className, src, alt, fallback, showStatus = false, status = 'online', color, style, classNames, styles, ...props }, ref) => {
+  ({ className, src, alt, fallback, showStatus = false, status = 'online', size = 'md', color, style, classNames, styles, ...props }, ref) => {
+    const [hasError, setHasError] = React.useState(false);
+
     const colorMap: Record<string, string> = {
       red: 'var(--color-red)',
       orange: 'var(--color-orange)',
@@ -48,18 +51,20 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         style={{ ...style, ...colorStyle, ...styles?.root }}
         className={cn(
           'unburn-avatar', 
+          `size-${size}`,
           className,
           classNames?.root
         )} 
         {...props}
       >
         <div className="unburn-avatar-inner">
-          {src ? (
+          {src && !hasError ? (
             <img 
               src={src} 
               alt={alt || 'Avatar'} 
               className={cn("unburn-avatar-img", classNames?.image)} 
               style={styles?.image}
+              onError={() => setHasError(true)}
             />
           ) : (
             <div 

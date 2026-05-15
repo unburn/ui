@@ -9,11 +9,15 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all var(--transition);
+  transition: transform 0.2s var(--transition-curve), background-color 0.2s var(--transition-curve), border-color 0.2s var(--transition-curve), opacity 0.2s var(--transition-curve);
   padding: 0.5rem 1rem;
   outline: none;
   line-height: 1;
   border-radius: var(--radius);
+}
+
+.unburn-btn:active:not(:disabled) {
+  transform: scale(0.96);
 }
 
 .unburn-btn span, 
@@ -59,15 +63,18 @@
 
 /* Sizes */
 .unburn-btn-sm {
-  padding: 0.3rem 0.75rem;
+  min-height: var(--height-sm);
+  padding: 0 0.75rem;
   font-size: 0.75rem;
 }
 .unburn-btn-default {
-  padding: 0.5rem 1.25rem;
+  min-height: var(--height-default);
+  padding: 0 1.25rem;
   font-size: 0.875rem;
 }
 .unburn-btn-lg {
-  padding: 0.7rem 1.5rem;
+  min-height: var(--height-lg);
+  padding: 0 1.5rem;
   font-size: 1rem;
 }
 
@@ -106,3 +113,8 @@
   to { transform: rotate(360deg); }
 }
 
+.unburn-btn-full-width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

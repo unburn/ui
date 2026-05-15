@@ -33,8 +33,12 @@ export default defineConfig(({ mode }) => {
           'react-router-dom',
           'lucide-react',
           'clsx',
+          'react-syntax-highlighter',
+          'react-syntax-highlighter/dist/esm/prism',
+          'react-syntax-highlighter/dist/esm/styles/prism',
         ],
         output: {
+          banner: '"use client";',
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',

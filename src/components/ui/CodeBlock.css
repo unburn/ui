@@ -2,7 +2,7 @@
   border-radius: var(--radius);
   overflow: hidden;
   width: 100%;
-  transition: all 0.3s var(--transition-curve);
+  transition: border-color 0.3s var(--transition-curve), transform 0.3s var(--transition-curve);
 }
 
 /* Variants */
@@ -73,9 +73,26 @@
   transform: translateY(-1px);
 }
 
+.unburn-code-copy-btn:active {
+  transform: scale(0.95);
+}
+
 .unburn-code-content {
   overflow-x: auto;
   width: 100%;
+}
+
+.unburn-code-content::-webkit-scrollbar {
+  height: 6px;
+}
+
+.unburn-code-content::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.unburn-code-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
 .unburn-code-content pre {
@@ -96,3 +113,72 @@
     padding: 0.6rem 1rem;
   }
 }
+
+.unburn-code-block.has-tabs .unburn-code-header {
+  padding-left: 12px;
+}
+
+.unburn-code-tabs-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unburn-code-terminal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.unburn-code-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.unburn-code-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s var(--transition-curve);
+}
+
+.unburn-code-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.unburn-code-tab:active {
+  transform: scale(0.96);
+}
+
+.unburn-code-tab.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+}
+
+.unburn-code-ssr-fallback {
+  margin: 0;
+  padding: 1.25rem;
+  background-color: transparent;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+

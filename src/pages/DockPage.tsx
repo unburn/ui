@@ -22,12 +22,25 @@ export const DockPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Dock 
-  isMenuOpen={isOpen} 
-  onMenuToggle={() => setIsOpen(!isOpen)} 
-  theme="dark"
-  accent="red"
-/>`}
+        code={`import React, { useState } from 'react';
+import { Dock } from '@unburn/ui';
+
+export default function Example() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
+  const [accent, setAccent] = useState('red');
+
+  return (
+    <Dock
+      isMenuOpen={isOpen}
+      onMenuToggle={() => setIsOpen(!isOpen)}
+      theme={theme}
+      onThemeToggle={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+      accent={accent}
+      onAccentCycle={() => setAccent(accent === 'red' ? 'blue' : 'red')}
+    />
+  );
+}`}
       >
         <div style={{ height: '120px', position: 'relative', width: '100%', overflow: 'hidden' }}>
           <Dock
@@ -72,9 +85,17 @@ export default function Layout({ children }) {
         <Showcase
           title="SIZES"
           description="The Dock is available in three sizes: small, default, and large."
-          code={`<Dock size="sm" ... />
-<Dock size="default" ... />
-<Dock size="lg" ... />`}
+          code={`import { Dock } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+      <Dock size="sm" isMenuOpen={false} theme="dark" accent="red" />
+      <Dock size="default" isMenuOpen={false} theme="dark" accent="blue" />
+      <Dock size="lg" isMenuOpen={false} theme="dark" accent="green" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
             <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
@@ -92,10 +113,18 @@ export default function Layout({ children }) {
         <Showcase
           title="CUSTOM ACTIONS"
           description="Pass custom buttons as children to extend the dock's functionality."
-          code={`<Dock ...>
-  <button><Home /></button>
-  <button><Search /></button>
-</Dock>`}
+          code={`import { Dock } from '@unburn/ui';
+import { Home, Search, Plus } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <Dock isMenuOpen={false} theme="dark" accent="red">
+      <button className="dock-action-btn"><Home size={20} /></button>
+      <button className="dock-action-btn"><Search size={20} /></button>
+      <button className="dock-action-btn"><Plus size={20} /></button>
+    </Dock>
+  );
+}`}
         >
           <div style={{ height: '120px', position: 'relative', width: '100%', overflow: 'hidden' }}>
             <Dock
@@ -118,7 +147,16 @@ export default function Layout({ children }) {
         <Showcase
           title="CONFIGURATION"
           description="Selectively show or hide built-in toggles for theme, accent, and the hide handle."
-          code={`<Dock showThemeToggle={false} ... />\n<Dock showAccentToggle={false} ... />`}
+          code={`import { Dock } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+      <Dock showThemeToggle={false} isMenuOpen={false} theme="dark" accent="purple" />
+      <Dock showAccentToggle={false} isMenuOpen={false} theme="dark" accent="orange" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
             <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>

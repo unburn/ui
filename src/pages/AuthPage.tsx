@@ -3,7 +3,8 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Checkbox } from '../components/ui/Checkbox';
 import { Alert } from '../components/ui/Alert';
-import { Mail, Lock, User, Globe, LayoutGrid } from 'lucide-react';
+import { Mail, Lock, User, Globe, LayoutGrid, ArrowRight } from 'lucide-react';
+import './AuthPage.css';
 
 export const AuthPage: React.FC = () => {
   const [mode, setMode] = useState<'login' | 'signup'>('login');
@@ -21,47 +22,19 @@ export const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="auth-example-page" style={{ 
-      minHeight: '80vh', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      padding: '2rem'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '450px',
-        background: 'var(--bg-glass)',
-        border: '1px solid var(--border-color)',
-        borderRadius: '24px',
-        padding: '3rem',
-        backdropFilter: 'blur(16px)',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ 
-            width: '48px', 
-            height: '48px', 
-            background: 'var(--accent-color)', 
-            borderRadius: '14px', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            margin: '0 auto 1.5rem auto',
-            boxShadow: '0 8px 16px color-mix(in srgb, var(--accent-color) 20%, transparent)'
-          }}>
-            <Lock size={24} color="var(--accent-text)" />
+    <div className="auth-example-page">
+      <div className="auth-card feature-card glass">
+        <div className="auth-header">
+          <div className="auth-icon-wrapper">
+            <Lock size={28} color="var(--accent-text)" strokeWidth={1.5} />
           </div>
-          <h1 style={{ 
-            fontFamily: 'var(--font-serif)', 
-            fontSize: '2rem', 
-            fontWeight: 100,
-            marginBottom: '0.5rem' 
-          }}>
+          <h1 className="auth-title">
             {mode === 'login' ? 'Welcome Back' : 'Create Account'}
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            {mode === 'login' ? 'Please enter your details to sign in' : 'Start your premium experience today'}
+          <p className="auth-subtitle">
+            {mode === 'login' 
+              ? 'Enter your credentials to access your secure workstation.' 
+              : 'Join our elite community and start your journey today.'}
           </p>
         </div>
 
@@ -69,13 +42,13 @@ export const AuthPage: React.FC = () => {
           <Alert 
             status="success" 
             variant="duo"
-            title={mode === 'login' ? "Welcome back!" : "Account created!"}
-            description={mode === 'login' ? "Redirecting to your dashboard..." : "Please check your email to verify."}
+            title={mode === 'login' ? "Access Granted" : "Account Established"}
+            description={mode === 'login' ? "Synchronizing your profile data..." : "Please verify your identity via email."}
             style={{ marginBottom: '2rem' }}
           />
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <form onSubmit={handleSubmit} className="auth-form">
           {mode === 'signup' && (
             <Input 
               label="Full Name"
@@ -102,56 +75,47 @@ export const AuthPage: React.FC = () => {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
             <Checkbox label="Keep me signed in" />
-            <Button variant="duo" size="sm" style={{ padding: '0', background: 'transparent', border: 'none', textTransform: 'none', fontSize: '0.8rem', opacity: 0.7 }}>
+            <a href="#forgot" className="forgot-password-link">
               Forgot password?
-            </Button>
+            </a>
           </div>
 
           <Button 
             type="submit" 
             fullWidth 
             loading={isLoading}
-            style={{ marginTop: '1rem' }}
+            size="lg"
+            icon={<ArrowRight size={18} />}
+            iconPosition="right"
+            style={{ marginTop: '0.5rem' }}
           >
-            {mode === 'login' ? 'Sign In' : 'Create Account'}
+            {mode === 'login' ? 'Sign In' : 'Establish Account'}
           </Button>
 
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '1rem', 
-            margin: '1.5rem 0' 
-          }}>
-            <div style={{ flex: 1, height: '1px', background: 'var(--border-color)', opacity: 0.5 }}></div>
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Or continue with</span>
-            <div style={{ flex: 1, height: '1px', background: 'var(--border-color)', opacity: 0.5 }}></div>
+          <div className="auth-divider">
+            <div className="auth-divider-line"></div>
+            <span className="auth-divider-text">Or continue with</span>
+            <div className="auth-divider-line"></div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div className="auth-social-grid">
             <Button variant="outlined" fullWidth icon={<Globe size={18} />}>
               Google
             </Button>
             <Button variant="outlined" fullWidth icon={<LayoutGrid size={18} />}>
-              Organization
+              Microsoft
             </Button>
           </div>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid var(--border-color)' }}>
+        <div className="auth-footer">
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            {mode === 'login' ? "Don't have an account?" : "Already have an account?"}{' '}
+            {mode === 'login' ? "New to the platform?" : "Already a member?"}{' '}
             <button 
               onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: 'var(--accent-color)', 
-                fontWeight: 600, 
-                cursor: 'pointer',
-                padding: '0 4px'
-              }}
+              className="auth-mode-toggle"
             >
-              {mode === 'login' ? 'Sign up' : 'Log in'}
+              {mode === 'login' ? 'Create an account' : 'Sign in to access'}
             </button>
           </p>
         </div>
@@ -159,3 +123,4 @@ export const AuthPage: React.FC = () => {
     </div>
   );
 };
+

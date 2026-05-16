@@ -49,7 +49,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const isIconOnly = (icon || loading) && !children;
 
-    // Predefined colors from index.css mapping
+    // Predefined colors from base.css mapping
     const colorMap: Record<string, string> = {
       red: 'var(--color-red)',
       orange: 'var(--color-orange)',

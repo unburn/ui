@@ -17,17 +17,24 @@ export const AccordionsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Accordion 
-  items={[
-    { 
-      id: '1', 
-      title: 'General Settings', 
-      subtitle: 'Core preferences',
-      content: 'Configure your application preferences...',
-      icon: <Settings size={16} />
-    }
-  ]} 
-/>`}
+        code={`import { Accordion } from '@unburn/ui';
+import { Settings } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <Accordion
+      items={[
+        {
+          id: '1',
+          title: 'General Settings',
+          subtitle: 'Core application preferences',
+          content: 'Configure your themes, notifications, and language settings here.',
+          icon: <Settings size={16} />
+        }
+      ]}
+    />
+  );
+}`}
       >
         <div style={{ width: '100%', maxWidth: '600px' }}>
           <Accordion
@@ -65,10 +72,31 @@ export default function Example() {
 
         <Showcase
           title="VARIANTS"
-          description="Accordions support various visual styles: default, bordered, and duo."
-          code={`<Accordion variant="default" ... />
-<Accordion variant="bordered" ... />
-<Accordion variant="duo" ... />`}
+          description="Accordions support various visual styles: default, bordered, duo, and filled."
+          code={`import { Accordion } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Accordion
+        variant="default"
+        items={[{ id: 'v1', title: 'Default Variant', content: 'The clean, minimal look.' }]}
+      />
+      <Accordion
+        variant="bordered"
+        items={[{ id: 'v2', title: 'Bordered Variant', content: 'Each item has a distinct border and bezel.' }]}
+      />
+      <Accordion
+        variant="duo"
+        items={[{ id: 'v3', title: 'Duo Variant', content: 'A softer, tinted look using system colors.' }]}
+      />
+      <Accordion
+        variant="filled"
+        items={[{ id: 'v4', title: 'Filled Variant', content: 'A bold, solid background look with tactile bezel.' }]}
+      />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '600px' }}>
             <Accordion
@@ -77,11 +105,15 @@ export default function Example() {
             />
             <Accordion
               variant="bordered"
-              items={[{ id: 'v2', title: 'Bordered Variant', content: 'Each item has a distinct border.' }]}
+              items={[{ id: 'v2', title: 'Bordered Variant', content: 'Each item has a distinct border and bezel.' }]}
             />
             <Accordion
               variant="duo"
               items={[{ id: 'v3', title: 'Duo Variant', content: 'A softer, tinted look using system colors.' }]}
+            />
+            <Accordion
+              variant="filled"
+              items={[{ id: 'v4', title: 'Filled Variant', content: 'A bold, solid background look with tactile bezel.' }]}
             />
           </div>
         </Showcase>
@@ -89,15 +121,31 @@ export default function Example() {
         <Showcase
           title="WITH ICONS & SUBTITLES"
           description="Add context to your accordion items with icons and helpful subtitles."
-          code={`<Accordion items={[
-  { 
-    id: 's1', 
-    title: 'Security', 
-    subtitle: 'Manage your keys',
-    icon: <Shield size={16} />,
-    content: '...' 
-  }
-]} />`}
+          code={`import { Accordion } from '@unburn/ui';
+import { Shield, Zap } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <Accordion
+      items={[
+        {
+          id: 's1',
+          title: 'Security & Privacy',
+          subtitle: 'Manage encryption and data sharing',
+          content: 'Configure how your data is handled across the platform.',
+          icon: <Shield size={16} />
+        },
+        {
+          id: 's2',
+          title: 'Messages',
+          subtitle: 'Recent conversations',
+          content: 'Your inbox is empty.',
+          icon: <Zap size={16} />
+        }
+      ]}
+    />
+  );
+}`}
         >
           <div style={{ width: '100%', maxWidth: '600px' }}>
             <Accordion
@@ -124,7 +172,19 @@ export default function Example() {
         <Showcase
           title="MULTIPLE SELECTION"
           description="Control whether multiple items can be open at once."
-          code={`<Accordion allowMultiple={true} ... />`}
+          code={`import { Accordion } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <Accordion
+      allowMultiple
+      items={[
+        { id: 'm1', title: 'Independent Item A', content: 'You can open this...' },
+        { id: 'm2', title: 'Independent Item B', content: '...and this at the same time.' }
+      ]}
+    />
+  );
+}`}
         >
           <div style={{ width: '100%', maxWidth: '600px' }}>
             <Accordion
@@ -142,7 +202,7 @@ export default function Example() {
         props={[
           { name: 'items', type: 'AccordionItem[]', required: true, description: 'Array of items (id, title, subtitle, content, icon).' },
           { name: 'allowMultiple', type: 'boolean', defaultValue: 'false', description: 'Whether multiple items can be open at once.' },
-          { name: 'variant', type: "'default' | 'bordered' | 'duo'", defaultValue: "'default'", description: 'The visual style variant.' },
+          { name: 'variant', type: "'default' | 'bordered' | 'duo' | 'filled'", defaultValue: "'default'", description: 'The visual style variant.' },
           { name: 'color', type: 'string', description: 'Custom accent color for the accordion.' },
           { name: 'classNames', type: 'object', description: 'Custom CSS classes for sub-elements.' },
           { name: 'styles', type: 'object', description: 'Custom inline styles for sub-elements.' },

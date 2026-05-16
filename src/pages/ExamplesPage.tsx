@@ -21,9 +21,9 @@ const examples = [
   {
     title: 'SaaS Landing Page',
     description: 'A high-conversion landing page layout showcasing typography, hero sections, and feature grids.',
-    to: '#',
+    to: '/examples/landing',
     icon: <Layout size={40} strokeWidth={1} />,
-    status: 'Coming Soon'
+    status: 'Ready'
   }
 ];
 

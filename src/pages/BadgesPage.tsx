@@ -17,7 +17,11 @@ export const BadgesPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Badge variant="filled">New</Badge>`}
+        code={`import { Badge } from '@unburn/ui';
+
+export default function Example() {
+  return <Badge variant="filled">New</Badge>;
+}`}
       >
         <Badge variant="filled">New</Badge>
       </Showcase>
@@ -40,10 +44,18 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Badges come in four styles: filled, outlined, duo, and glass."
-          code={`<Badge variant="filled">Filled</Badge>
-<Badge variant="outlined">Outlined</Badge>
-<Badge variant="duo">Duo</Badge>
-<Badge variant="glass">Glass</Badge>`}
+          code={`import { Badge } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '0.75rem' }}>
+      <Badge variant="filled">Filled</Badge>
+      <Badge variant="outlined">Outlined</Badge>
+      <Badge variant="duo">Duo</Badge>
+      <Badge variant="glass">Glass</Badge>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <Badge variant="filled">Filled</Badge>
@@ -56,9 +68,17 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, default, and large sizes."
-          code={`<Badge size="sm">Small</Badge>
-<Badge size="default">Default</Badge>
-<Badge size="lg">Large</Badge>`}
+          code={`import { Badge } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+      <Badge size="sm">Small</Badge>
+      <Badge size="default">Default</Badge>
+      <Badge size="lg">Large</Badge>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             <Badge size="sm">Small</Badge>
@@ -70,10 +90,18 @@ export default function Example() {
         <Showcase
           title="WITH ICONS"
           description="Add icons to badges for better visual identification."
-          code={`import { Shield, Star, Check } from 'lucide-react';
+          code={`import { Badge } from '@unburn/ui';
+import { Shield, Star, Check } from 'lucide-react';
 
-<Badge icon={<Shield size={12} />}>Verified</Badge>
-<Badge icon={<Star size={12} />} iconPosition="right">Premium</Badge>`}
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '0.75rem' }}>
+      <Badge icon={<Shield size={12} />} variant="filled">Verified</Badge>
+      <Badge icon={<Star size={12} />} variant="duo" iconPosition="right">Premium</Badge>
+      <Badge icon={<Check size={12} />} variant="outlined" size="sm">Success</Badge>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <Badge icon={<Shield size={12} />} variant="filled">Verified</Badge>
@@ -85,7 +113,18 @@ export default function Example() {
         <Showcase
           title="STATUS COLORS"
           description="Apply custom brand colors to badges."
-          code={`<Badge variant="duo" style={{ color: 'var(--color-green)', ... }}>Online</Badge>`}
+          code={`import { Badge } from '@unburn/ui';
+import { Zap } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '0.75rem' }}>
+      <Badge variant="duo" style={{ color: 'var(--color-green)', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>Online</Badge>
+      <Badge variant="duo" style={{ color: 'var(--color-red)', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.2)' }}>Offline</Badge>
+      <Badge variant="duo" icon={<Zap size={12} />} style={{ color: 'var(--color-orange)', backgroundColor: 'rgba(249, 115, 22, 0.1)', borderColor: 'rgba(249, 115, 22, 0.2)' }}>Urgent</Badge>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <Badge variant="duo" style={{ color: 'var(--color-green)', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>Online</Badge>

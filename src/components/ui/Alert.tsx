@@ -4,7 +4,7 @@ import './Alert.css';
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   status?: 'success' | 'info' | 'warning' | 'error' | 'default';
-  variant?: 'outlined' | 'duo';
+  variant?: 'outlined' | 'duo' | 'filled';
   icon?: React.ReactNode;
   title: string;
   description?: React.ReactNode;
@@ -68,6 +68,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
           'unburn-alert',
           `unburn-alert-${status}`,
           variant === 'duo' && 'unburn-alert-duo',
+          variant === 'filled' && 'unburn-alert-filled',
           className,
           classNames?.root
         )}

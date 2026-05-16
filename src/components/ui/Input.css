@@ -28,6 +28,7 @@
   border: 1px solid var(--border-color);
   background-color: transparent;
   overflow: hidden;
+  box-shadow: var(--bezel);
 }
 
 .unburn-input-container-focus-highlight:focus-within {

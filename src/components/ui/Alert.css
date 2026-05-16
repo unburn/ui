@@ -7,7 +7,7 @@
   font-family: var(--font-mono);
   margin-bottom: 1rem;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--bezel);
   transition: all var(--transition);
 }
 
@@ -84,6 +84,27 @@
 .unburn-alert-default .unburn-alert-icon,
 .unburn-alert-default .unburn-alert-title {
   color: var(--text-main);
+}
+
+/* Filled Variant */
+.unburn-alert-filled {
+  border-color: transparent;
+}
+
+.unburn-alert-filled.unburn-alert-success { background-color: var(--color-green); color: white; }
+.unburn-alert-filled.unburn-alert-info { background-color: var(--color-blue); color: white; }
+.unburn-alert-filled.unburn-alert-warning { background-color: var(--color-orange); color: white; }
+.unburn-alert-filled.unburn-alert-error { background-color: var(--color-red); color: white; }
+.unburn-alert-filled.unburn-alert-default { background-color: var(--text-main); color: var(--bg-main); }
+
+.unburn-alert-filled .unburn-alert-icon,
+.unburn-alert-filled .unburn-alert-title {
+  color: inherit !important;
+}
+
+.unburn-alert-filled .unburn-alert-description {
+  color: inherit;
+  opacity: 0.9;
 }
 
 /* Duo Variant */

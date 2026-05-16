@@ -85,6 +85,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         <div 
           className={cn(
             "unburn-checkbox-container",
+            description && "unburn-checkbox-container-with-description",
             disabled && "unburn-checkbox-disabled",
             classNames?.container
           )}

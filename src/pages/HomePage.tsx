@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layers, Palette, Zap } from 'lucide-react';
 import { CodeBlock } from '../components/ui/CodeBlock';
+import { COMPONENTS } from '../config/navigation';
 
 export const HomePage: React.FC = () => {
   return (
@@ -54,9 +55,9 @@ export const HomePage: React.FC = () => {
 
         <h2 className="section-title" style={{ marginTop: '6rem' }}>Supported Components</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
-          {['Buttons', 'Avatars', 'Alerts', 'Accordions', 'Badges', 'Dock', 'Code Block', 'Checkbox', 'Switch', 'Select', 'Inputs', 'Textarea'].map(comp => (
-            <div key={comp} className="component-grid-item">
-              {comp}
+          {COMPONENTS.map(comp => (
+            <div key={comp.name} className="component-grid-item">
+              {comp.name}
               <span style={{ color: 'var(--accent-color)' }}>Ready</span>
             </div>
           ))}

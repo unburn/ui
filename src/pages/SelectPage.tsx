@@ -48,7 +48,25 @@ export const SelectPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Select options={fruitOptions} placeholder="Choose a fruit" label="Selection" />`}
+        code={`import { Select } from '@unburn/ui';
+
+const fruitOptions = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'blueberry', label: 'Blueberry' },
+  { value: 'grapes', label: 'Grapes' },
+  { value: 'pineapple', label: 'Pineapple' },
+];
+
+export default function Example() {
+  return (
+    <Select 
+      options={fruitOptions} 
+      placeholder="Choose a fruit" 
+      label="Favorite Fruit"
+    />
+  );
+}`}
       >
         <div style={{ width: '300px', paddingBottom: '200px' }}>
           <Select 
@@ -82,9 +100,23 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Selects support three visual styles: filled, outlined, and duo."
-          code={`<Select variant="filled" ... />
-<Select variant="outlined" ... />
-<Select variant="duo" ... />`}
+          code={`import { Select } from '@unburn/ui';
+
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'blueberry', label: 'Blueberry' },
+];
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Select variant="filled" label="Filled (Default)" options={options} defaultValue="apple" />
+      <Select variant="outlined" label="Outlined Variant" options={options} defaultValue="banana" />
+      <Select variant="duo" label="Duo Variant" options={options} defaultValue="blueberry" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '300px', paddingBottom: '200px' }}>
             <Select variant="filled" label="Filled (Default)" options={fruitOptions.slice(0, 3)} defaultValue="apple" />
@@ -96,9 +128,19 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, default, and large sizes."
-          code={`<Select size="sm" ... />
-<Select size="default" ... />
-<Select size="lg" ... />`}
+          code={`import { Select } from '@unburn/ui';
+
+const fruitOptions = [...];
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Select size="sm" placeholder="Small Select" options={fruitOptions} />
+      <Select size="default" placeholder="Default Select" options={fruitOptions} />
+      <Select size="lg" placeholder="Large Select" options={fruitOptions} />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '300px', paddingBottom: '200px' }}>
             <Select size="sm" placeholder="Small Select" options={fruitOptions} />
@@ -110,8 +152,28 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Validation feedback and disabled states."
-          code={`<Select error="Required field" ... />
-<Select disabled ... />`}
+          code={`import { Select } from '@unburn/ui';
+
+const fruitOptions = [...];
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <Select 
+        label="Error State"
+        error="Please select a valid fruit."
+        options={fruitOptions} 
+        placeholder="Error highlight"
+      />
+      <Select 
+        label="Disabled"
+        disabled
+        options={fruitOptions} 
+        placeholder="Cannot interact"
+      />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '300px', paddingBottom: '200px' }}>
             <Select 
@@ -132,8 +194,29 @@ export default function Example() {
         <Showcase
           title="CONTROLLED"
           description="Manage the selection state externally."
-          code={`const [value, setValue] = useState('banana');
-<Select value={value} onChange={setValue} options={options} />`}
+          code={`import React, { useState } from 'react';
+import { Select } from '@unburn/ui';
+
+const fruitOptions = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'blueberry', label: 'Blueberry' },
+  { value: 'grapes', label: 'Grapes' },
+  { value: 'pineapple', label: 'Pineapple' },
+];
+
+export default function Example() {
+  const [value, setValue] = useState('banana');
+  
+  return (
+    <Select 
+      label="Select a fruit" 
+      options={fruitOptions}
+      value={value} 
+      onChange={setValue} 
+    />
+  );
+}`}
         >
           <div style={{ width: '300px', paddingBottom: '200px' }}>
             <ControlledSelectExample />

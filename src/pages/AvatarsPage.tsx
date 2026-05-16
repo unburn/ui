@@ -16,11 +16,17 @@ export const AvatarsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Avatar 
-  src="https://avatars.githubusercontent.com/u/197804266" 
-  showStatus 
-  status="online" 
-/>`}
+        code={`import { Avatar } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://avatars.githubusercontent.com/u/197804266"
+      showStatus
+      status="online"
+    />
+  );
+}`}
       >
         <Avatar
           src="https://avatars.githubusercontent.com/u/197804266"
@@ -47,10 +53,18 @@ export default function Example() {
         <Showcase
           title="STATUS INDICATORS"
           description="Avatars can show a small status badge indicating user availability."
-          code={`<Avatar showStatus status="online" />
-<Avatar showStatus status="idle" />
-<Avatar showStatus status="dnd" />
-<Avatar showStatus status="offline" />`}
+          code={`import { Avatar } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1.5rem' }}>
+      <Avatar showStatus status="online" />
+      <Avatar showStatus status="idle" />
+      <Avatar showStatus status="dnd" />
+      <Avatar showStatus status="offline" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
             <Avatar showStatus status="online" />
@@ -63,11 +77,19 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Avatars come in five sizes from extra small to extra large."
-          code={`<Avatar size="xs" ... />
-<Avatar size="sm" ... />
-<Avatar size="md" ... />
-<Avatar size="lg" ... />
-<Avatar size="xl" ... />`}
+          code={`import { Avatar } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+      <Avatar size="xs" src="https://avatars.githubusercontent.com/u/197804266" />
+      <Avatar size="sm" src="https://avatars.githubusercontent.com/u/197804266" />
+      <Avatar size="md" src="https://avatars.githubusercontent.com/u/197804266" />
+      <Avatar size="lg" src="https://avatars.githubusercontent.com/u/197804266" />
+      <Avatar size="xl" src="https://avatars.githubusercontent.com/u/197804266" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <Avatar size="xs" src="https://avatars.githubusercontent.com/u/197804266" />
@@ -81,8 +103,18 @@ export default function Example() {
         <Showcase
           title="FALLBACKS & COLORS"
           description="Custom colors and initials fallbacks for when images are unavailable."
-          code={`<Avatar color="blue" fallback="JD" />
-<Avatar color="orange" fallback="AS" />`}
+          code={`import { Avatar } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1.5rem' }}>
+      <Avatar color="blue" fallback="JD" />
+      <Avatar color="orange" fallback="AS" />
+      <Avatar color="green" fallback="TH" />
+      <Avatar color="red" fallback="RR" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
             <Avatar color="blue" fallback="JD" />

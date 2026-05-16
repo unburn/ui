@@ -6,23 +6,15 @@ import { Props } from '../components/layout/Props';
 
 const ControlledCheckboxExample = () => {
   const [checked, setChecked] = useState(false);
-  
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <Checkbox 
-        label="Accept all terms" 
-        checked={checked} 
-        onChange={(e) => setChecked(e.target.checked)} 
+      <Checkbox
+        label="Accept all terms"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+        description={`Status: ${checked ? 'Accepted' : 'Not Accepted'}`}
       />
-      <p style={{ 
-        fontSize: '0.75rem', 
-        fontFamily: 'var(--font-mono)', 
-        color: 'var(--accent-color)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em'
-      }}>
-        Status: {checked ? 'Accepted' : 'Not Accepted'}
-      </p>
     </div>
   );
 };
@@ -39,7 +31,11 @@ export const CheckboxPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Checkbox label="Accept terms and conditions" defaultChecked />`}
+        code={`import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  return <Checkbox label="Accept terms and conditions" defaultChecked />;
+}`}
       >
         <Checkbox label="Accept terms and conditions" defaultChecked />
       </Showcase>
@@ -62,9 +58,17 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Checkboxes support three visual styles: filled, outlined, and duo."
-          code={`<Checkbox variant="filled" label="Filled" defaultChecked />
-<Checkbox variant="outlined" label="Outlined" defaultChecked />
-<Checkbox variant="duo" label="Duo" defaultChecked />`}
+          code={`import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Checkbox variant="filled" label="Filled (Default)" defaultChecked />
+      <Checkbox variant="outlined" label="Outlined Variant" defaultChecked />
+      <Checkbox variant="duo" label="Duo Variant" defaultChecked />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Checkbox variant="filled" label="Filled (Default)" defaultChecked />
@@ -76,9 +80,17 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, default, and large sizes."
-          code={`<Checkbox size="sm" label="Small" defaultChecked />
-<Checkbox size="default" label="Default" defaultChecked />
-<Checkbox size="lg" label="Large" defaultChecked />`}
+          code={`import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Checkbox size="sm" label="Small Checkbox" defaultChecked />
+      <Checkbox size="default" label="Default Checkbox" defaultChecked />
+      <Checkbox size="lg" label="Large Checkbox" defaultChecked />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Checkbox size="sm" label="Small Checkbox" defaultChecked />
@@ -90,15 +102,27 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Validation feedback and disabled states."
-          code={`<Checkbox disabled label="Disabled" />
-<Checkbox error="This field is required" label="Error State" />`}
+          code={`import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Checkbox disabled label="Disabled Checkbox" />
+      <Checkbox disabled defaultChecked label="Disabled Checked" />
+      <Checkbox
+        label="Privacy Policy"
+        error="You must agree to the privacy policy."
+      />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Checkbox disabled label="Disabled Checkbox" />
             <Checkbox disabled defaultChecked label="Disabled Checked" />
-            <Checkbox 
-              label="Privacy Policy" 
-              error="You must agree to the privacy policy." 
+            <Checkbox
+              label="Privacy Policy"
+              error="You must agree to the privacy policy."
             />
           </div>
         </Showcase>
@@ -106,14 +130,20 @@ export default function Example() {
         <Showcase
           title="WITH DESCRIPTION"
           description="Provide additional context for the checkbox option."
-          code={`<Checkbox 
-  label="Notifications" 
-  description="Receive email updates about your activity." 
-  defaultChecked 
-/>`}
+          code={`import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <Checkbox
+      label="Notifications"
+      description="Receive email updates about your account activity and security."
+      defaultChecked
+    />
+  );
+}`}
         >
-          <Checkbox 
-            label="Notifications" 
+          <Checkbox
+            label="Notifications"
             description="Receive email updates about your account activity and security."
             defaultChecked
           />
@@ -122,8 +152,21 @@ export default function Example() {
         <Showcase
           title="CONTROLLED"
           description="Manage the checkbox state externally."
-          code={`const [checked, setChecked] = useState(false);
-<Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} label="Controlled" />`}
+          code={`import React, { useState } from 'react';
+import { Checkbox } from '@unburn/ui';
+
+export default function Example() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Accept all terms"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+      description={\`Status: \${checked ? 'Accepted' : 'Not Accepted'}\`}
+    />
+  );
+}`}
         >
           <ControlledCheckboxExample />
         </Showcase>

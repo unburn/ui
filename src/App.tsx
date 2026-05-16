@@ -2,7 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/layout/Header';
-import { Sidebar } from './components/layout/Sidebar';
+import { Menu } from './components/layout/Menu';
 import { Dock } from './components/ui/Dock';
 
 // Lazy load pages for better performance
@@ -24,6 +24,8 @@ const InstallationPage = lazy(() => import('./pages/InstallationPage').then(m =>
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })));
 const ExamplesPage = lazy(() => import('./pages/ExamplesPage').then(m => ({ default: m.ExamplesPage })));
 const AuthPage = lazy(() => import('./pages/AuthPage').then(m => ({ default: m.AuthPage })));
+const DropzonePage = lazy(() => import('./pages/DropzonePage').then(m => ({ default: m.DropzonePage })));
+const LandingPage = lazy(() => import('./pages/LandingPage').then(m => ({ default: m.LandingPage })));
 
 type Theme = 'light' | 'dark';
 
@@ -37,7 +39,7 @@ function App() {
     return localStorage.getItem('unburn-accent') || 'green';
   });
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
@@ -75,9 +77,9 @@ function App() {
         />
 
         <div className="unburn-layout">
-          <Sidebar
-            isMobileMenuOpen={isMenuOpen}
-            setIsMobileMenuOpen={setIsMenuOpen}
+          <Menu
+            isMenuOpen={isMenuOpen}
+            setMenuOpen={setMenuOpen}
           />
 
           <main className="unburn-main">
@@ -87,6 +89,7 @@ function App() {
                 <Route path="/examples" element={<ExamplesPage />} />
                 <Route path="/examples/dashboard" element={<DashboardPage />} />
                 <Route path="/examples/auth" element={<AuthPage />} />
+                <Route path="/examples/landing" element={<LandingPage />} />
                 <Route path="/installation" element={<InstallationPage />} />
                 <Route path="/installation/:framework" element={<InstallationPage />} />
                 <Route path="/components" element={<ComponentsPage />} />
@@ -102,6 +105,7 @@ function App() {
                 <Route path="/components/inputs" element={<InputsPage />} />
                 <Route path="/components/textarea" element={<TextareaPage />} />
                 <Route path="/components/code-block" element={<CodeBlockPage />} />
+                <Route path="/components/dropzone" element={<DropzonePage />} />
               </Routes>
             </Suspense>
           </main>
@@ -109,7 +113,7 @@ function App() {
 
         <Dock
           isMenuOpen={isMenuOpen}
-          onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+          onMenuToggle={() => setMenuOpen(!isMenuOpen)}
           theme={theme}
           onThemeToggle={toggleTheme}
           position='bottom'

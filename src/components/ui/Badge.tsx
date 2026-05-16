@@ -7,6 +7,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'sm' | 'default' | 'lg';
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  color?: string;
   classNames?: {
     root?: string;
     icon?: string;
@@ -25,12 +26,30 @@ export const Badge: React.FC<BadgeProps> = ({
   size = 'default',
   icon,
   iconPosition = 'left',
+  color,
   className,
   classNames,
   styles,
   style,
   ...props
 }) => {
+  // Predefined colors from base.css mapping
+  const colorMap: Record<string, string> = {
+    red: 'var(--color-red)',
+    orange: 'var(--color-orange)',
+    blue: 'var(--color-blue)',
+    green: 'var(--color-green)',
+    purple: 'var(--color-purple)',
+    black: 'var(--color-black)',
+    white: 'var(--color-white)',
+  };
+
+  const resolvedColor = color ? (colorMap[color] || color) : undefined;
+  const accentTextStyle = resolvedColor ? {
+    '--accent-color': resolvedColor,
+    '--accent-text': color === 'white' || color === 'orange' || color === 'green' ? 'black' : 'white'
+  } as React.CSSProperties : {};
+
   return (
     <div
       className={cn(
@@ -40,7 +59,7 @@ export const Badge: React.FC<BadgeProps> = ({
         className,
         classNames?.root
       )}
-      style={{ ...style, ...styles?.root }}
+      style={{ ...style, ...accentTextStyle, ...styles?.root }}
       {...props}
     >
       {icon && iconPosition === 'left' && (

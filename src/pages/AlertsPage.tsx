@@ -18,12 +18,19 @@ export const AlertsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Alert 
-  status="info" 
-  title="Update Available" 
-  description="A new version of the library is now available." 
-  icon={<Info size={16} />}
-/>`}
+        code={`import { Alert } from '@unburn/ui';
+import { Info } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <Alert
+      status="info"
+      title="Update Available"
+      icon={<Info size={16} />}
+      description="A new version of the library is now available. Please update to get the latest features."
+    />
+  );
+}`}
       >
         <div style={{ width: '100%', maxWidth: '600px' }}>
           <Alert
@@ -61,10 +68,19 @@ export default function Example() {
         <Showcase
           title="STATUS"
           description="Alerts come in four standard semantic statuses plus a default state."
-          code={`<Alert status="success" title="Success" ... />
-<Alert status="info" title="Info" ... />
-<Alert status="warning" title="Warning" ... />
-<Alert status="error" title="Error" ... />`}
+          code={`import { Alert } from '@unburn/ui';
+import { CheckCircle2, Info } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert status="success" icon={<CheckCircle2 size={16} />} title="Payment Successful" description="Your transaction has been processed." />
+      <Alert status="info" icon={<Info size={16} />} title="System Info" description="The server is undergoing maintenance." />
+      <Alert status="warning" icon={<Info size={16} />} title="Weak Password" description="Consider using a stronger password." />
+      <Alert status="error" icon={<Info size={16} />} title="Upload Failed" description="Could not connect to the server." />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '600px' }}>
             <Alert status="success" icon={<CheckCircle2 size={16} />} title="Payment Successful" description="Your transaction has been processed." />
@@ -76,24 +92,49 @@ export default function Example() {
 
         <Showcase
           title="VARIANTS"
-          description="Choose between outlined (default) and duo variants."
-          code={`<Alert variant="outlined" title="Outlined" ... />
-<Alert variant="duo" title="Duo" ... />`}
+          description="Choose between outlined (default), duo, and filled variants."
+          code={`import { Alert } from '@unburn/ui';
+import { Info } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert variant="outlined" status="info" icon={<Info size={16} />} title="Outlined Variant" description="The default clean look." />
+      <Alert variant="duo" status="info" icon={<Info size={16} />} title="Duo Variant" description="A softer, tinted background look." />
+      <Alert variant="filled" status="info" icon={<Info size={16} />} title="Filled Variant" description="A bold, solid background look." />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '600px' }}>
             <Alert variant="outlined" status="info" icon={<Info size={16} />} title="Outlined Variant" description="The default clean look." />
             <Alert variant="duo" status="info" icon={<Info size={16} />} title="Duo Variant" description="A softer, tinted background look." />
+            <Alert variant="filled" status="info" icon={<Info size={16} />} title="Filled Variant" description="A bold, solid background look." />
           </div>
         </Showcase>
 
         <Showcase
           title="WITH ACTIONS"
           description="Add interactive elements like buttons to your alerts."
-          code={`<Alert 
-  status="info" 
-  title="Action Required" 
-  actions={<Button size="sm">Update Now</Button>} 
-/>`}
+          code={`import { Alert, Button } from '@unburn/ui';
+import { Info } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <Alert
+      status="info"
+      icon={<Info size={16} />}
+      title="New feature available"
+      description="We've added dark mode support. Check it out now."
+      actions={
+        <>
+          <Button variant="outlined" size="sm" color="blue">CHECK OUT</Button>
+          <Button variant="outlined" color="red" size="sm">CANCEL</Button>
+        </>
+      }
+    />
+  );
+}`}
         >
           <div style={{ width: '100%', maxWidth: '600px' }}>
             <Alert
@@ -116,7 +157,7 @@ export default function Example() {
         props={[
           { name: 'title', type: 'string', required: true, description: 'The main title text of the alert.' },
           { name: 'status', type: "'success' | 'info' | 'warning' | 'error' | 'default'", defaultValue: "'default'", description: 'The status/severity of the alert.' },
-          { name: 'variant', type: "'outlined' | 'duo'", defaultValue: "'outlined'", description: 'The visual style variant.' },
+          { name: 'variant', type: "'outlined' | 'duo' | 'filled'", defaultValue: "'outlined'", description: 'The visual style variant.' },
           { name: 'description', type: 'ReactNode', description: 'Additional context or message text.' },
           { name: 'icon', type: 'ReactNode', description: 'Optional icon to display.' },
           { name: 'actions', type: 'ReactNode', description: 'Optional action buttons or elements.' },

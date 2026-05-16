@@ -13,7 +13,7 @@
   /* Base Light Theme Variables */
   --bg-main: #ffffff;
   --bg-secondary: #f4f4f5;
-  --border-color: #e4e4e7;
+  --border-color: #c8c8c8ce;
   --text-main: #000000;
   --text-muted: #71717a;
 
@@ -29,11 +29,9 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* Design Tokens */
-  --phi: 1.618;
-  --spacing-unit: 1rem;
   --radius: 20px;
   --shadow: none;
+  --bezel: inset 0 1px 0 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 0 rgba(0, 0, 0, 0.05);
 
   /* Standard Component Heights */
   --height-sm: 32px;
@@ -45,25 +43,13 @@
   --transition: var(--transition-speed) var(--transition-curve);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-}
-
 :root[data-theme="dark"] {
   --bg-main: #0a0a0a;
   --bg-secondary: #161616;
   --border-color: #222222;
   --text-main: #ffffff;
   --text-muted: #888888;
+  --bezel: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
 
   --accent-color: #ffffff;
   --accent-text: #000000;
@@ -77,6 +63,7 @@ textarea {
   background-color: var(--bg-glass, rgba(255, 255, 255, 0.45));
   border: 1px solid rgba(255, 255, 255, 0.1);
   transform: translateZ(0);
+  /* Force hardware acceleration */
   will-change: backdrop-filter;
 }
 
@@ -116,25 +103,119 @@ textarea {
   --accent-text: #ffffff;
 }
 
-/* Scrollbar Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Utility Classes */
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Layout & Spacing */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Reset for components */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  border-radius: var(--radius);
+  /* Controlled by style variable */
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border: 3px solid transparent;
-  background-clip: content-box;
-  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
-  border: 3px solid transparent;
-  background-clip: content-box;
+}
+
+/* Accessibility & UX Enhancements */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+::selection {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+.viewport-glow {
+  position: fixed;
+  top: -250px;
+  left: -250px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+  filter: blur(120px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 2000;
+  animation: viewport-float 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+[data-theme="light"] .viewport-glow {
+  opacity: 0.08;
+}
+
+@keyframes viewport-float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(150px, 100px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-50px, 200px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(100px, -50px) scale(1);
+  }
 }

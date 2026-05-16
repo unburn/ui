@@ -30,7 +30,7 @@
     "src/App.tsx",
     "src/main.tsx",
     "src/components/layout/Header.tsx",
-    "src/components/layout/Sidebar.tsx",
+    "src/components/layout/Menu.tsx",
     "src/components/layout/Showcase.tsx",
     "node_modules",
     "dist"

@@ -6,7 +6,10 @@ import {
   TrendingUp,
   Clock,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  MoreVertical,
+  ArrowUpRight,
+  ArrowDownRight
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Select } from '../components/ui/Select';
@@ -15,6 +18,7 @@ import { Checkbox } from '../components/ui/Checkbox';
 import { Avatar } from '../components/ui/Avatar';
 import { Badge } from '../components/ui/Badge';
 import { Alert } from '../components/ui/Alert';
+import './DashboardPage.css';
 
 export const DashboardPage: React.FC = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -28,78 +32,106 @@ export const DashboardPage: React.FC = () => {
     { value: 'offline', label: 'Invisible' },
   ];
 
+  const stats = [
+    {
+      title: 'Total Revenue',
+      value: '$45,231.89',
+      trend: '+20.1%',
+      isUp: true,
+      icon: <CreditCard size={18} />,
+      color: 'var(--accent-color)'
+    },
+    {
+      title: 'Active Users',
+      value: '+2,350',
+      trend: '+18.1%',
+      isUp: true,
+      icon: <Users size={18} />,
+      color: 'var(--accent-color)'
+    },
+    {
+      title: 'System Uptime',
+      value: '99.98%',
+      trend: '+0.01%',
+      isUp: true,
+      icon: <TrendingUp size={18} />,
+      color: 'var(--accent-color)'
+    },
+    {
+      title: 'Response Time',
+      value: '142ms',
+      trend: '-12%',
+      isUp: false,
+      icon: <Clock size={18} />,
+      color: 'var(--accent-color)'
+    },
+  ];
+
   return (
-    <div className="dashboard-container" style={{ paddingBottom: '4rem' }}>
+    <div className="dashboard-container">
       {/* Dashboard Header */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '3rem'
-      }}>
-        <div>
-          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 100, marginBottom: '0.25rem' }}>
-            System <span style={{ color: 'var(--accent-color)' }}>Overview</span>
+      <header className="dashboard-header">
+        <div className="dashboard-title-group">
+          <h1>
+            System <span className="hero-accent">Overview</span>
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Welcome back, administrator. Everything looks healthy.</p>
+          <p className="dashboard-subtitle">
+            Welcome back, administrator. All systems are currently performing within optimal parameters.
+          </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <Button variant="outlined" size="sm" icon={<Bell size={16} />} />
-          <Avatar
-            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop"
-            alt="Admin"
-            size="md"
-            status="online"
-          />
+        <div className="dashboard-actions">
+          <Button variant="outlined" size="sm" icon={<Bell size={18} />} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div className="user-info-text">
+              <div style={{ fontSize: '0.875rem', fontWeight: 600 }}>Kunal K.</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Super Admin</div>
+            </div>
+            <Avatar
+              src="https://avatars.githubusercontent.com/u/197804266"
+              alt="Admin"
+              size="md"
+              status="online"
+            />
+          </div>
         </div>
       </header>
 
-      {/* Top Stats Row */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '3rem'
-      }}>
-        {[
-          { title: 'Total Revenue', value: '$45,231.89', trend: '+20.1%', icon: <CreditCard size={20} />, color: 'var(--accent-color)' },
-          { title: 'Active Users', value: '+2,350', trend: '+180.1%', icon: <Users size={20} />, color: 'blue' },
-          { title: 'System Uptime', value: '99.98%', trend: '+0.1%', icon: <TrendingUp size={20} />, color: 'purple' },
-          { title: 'Response Time', value: '142ms', trend: '-12%', icon: <Clock size={20} />, color: 'orange' },
-        ].map((stat, i) => (
-          <div key={i} className="feature-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: stat.color, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                {stat.title}
-              </span>
-              <div style={{ color: 'var(--text-muted)' }}>{stat.icon}</div>
+      {/* Stats Grid */}
+      <div className="stats-grid">
+        {stats.map((stat, i) => (
+          <div key={i} className="feature-card stat-card glass">
+            <div className="stat-label">
+              <span style={{ color: stat.color }}>{stat.title}</span>
+              <div style={{ color: 'var(--text-muted)', opacity: 0.5 }}>{stat.icon}</div>
             </div>
-            <div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 600, fontFamily: 'var(--font-sans)' }}>{stat.value}</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-                <Badge variant="duo" size="sm" color={stat.trend.startsWith('+') ? 'green' : 'red'}>
-                  {stat.trend}
-                </Badge>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>from last month</span>
-              </div>
+            <div className="stat-value">{stat.value}</div>
+            <div className="stat-trend">
+              <Badge
+                variant="duo"
+                size="sm"
+                color={stat.isUp ? 'green' : 'red'}
+                icon={stat.isUp ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+              >
+                {stat.trend}
+              </Badge>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>vs last period</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '2fr 1fr',
-        gap: '2rem'
-      }}>
-        {/* Left Column: Form & Settings Showcase */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className="feature-card">
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', marginBottom: '1.5rem' }}>Project Configuration</h3>
+      <div className="main-content-grid">
+        {/* Left Column */}
+        <div className="dashboard-section">
+          <div className="feature-card glass">
+            <div className="section-card-title">
+              Project Configuration
+              <Button variant="outlined" size="sm" icon={<MoreVertical size={16} />} />
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+            <div className="settings-group">
+              <div className="settings-row">
                 <Select
                   label="Availability Status"
                   options={statusOptions}
@@ -107,14 +139,17 @@ export const DashboardPage: React.FC = () => {
                   onChange={setStatus}
                   size="default"
                 />
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                  <Button variant="filled" size="default" fullWidth style={{ background: 'var(--accent-color)' }}>
-                    Apply Changes
-                  </Button>
-                </div>
+                <Button
+                  variant="filled"
+                  size="default"
+                  fullWidth
+                  style={{ background: 'var(--accent-color)', color: 'var(--accent-text)' }}
+                >
+                  Apply Changes
+                </Button>
               </div>
 
-              <div style={{ height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }}></div>
+              <div className="divider" />
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <Switch
@@ -133,7 +168,7 @@ export const DashboardPage: React.FC = () => {
                 />
               </div>
 
-              <div style={{ height: '1px', background: 'var(--border-color)', margin: '0.5rem 0' }}></div>
+              <div className="divider" />
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
                 <Checkbox label="Agree to analytics" defaultChecked size="default" />
@@ -144,59 +179,67 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <Alert
-            variant="duo"
+            variant="filled"
             title="Scheduled Maintenance"
+            description="The system will undergo scheduled maintenance on Sunday, May 24th at 02:00 AM UTC. Expect minor downtime."
             icon={<AlertCircle size={18} />}
+            status='error'
           >
-            The system will undergo scheduled maintenance on Sunday, May 24th at 02:00 AM UTC. Expect minor downtime.
           </Alert>
         </div>
 
-        {/* Right Column: Recent Activity */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className="feature-card">
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', marginBottom: '1.5rem' }}>Recent Activity</h3>
+        {/* Right Column */}
+        <div className="dashboard-section">
+          <div className="feature-card glass">
+            <div className="section-card-title">
+              Recent Activity
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 400 }}>Live Feed</span>
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div className="activity-list">
               {[
-                { user: 'Sarah Wilson', action: 'Uploaded new assets', time: '2m ago', color: 'green' },
-                { user: 'James Miller', action: 'Deployed to production', time: '15m ago', color: 'purple' },
-                { user: 'Michael Chen', action: 'Updated security policy', time: '1h ago', color: 'blue' },
-                { user: 'System Bot', action: 'Backing up database', time: '2h ago', color: 'orange' },
+                { user: 'Sarah Wilson', action: 'Uploaded new assets', time: '2m ago', color: 'green', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop' },
+                { user: 'James Miller', action: 'Deployed to production', time: '15m ago', color: 'purple', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop' },
+                { user: 'Michael Chen', action: 'Updated security policy', time: '1h ago', color: 'blue', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop' },
+                { user: 'System Bot', action: 'Backing up database', time: '2h ago', color: 'orange', avatar: null },
               ].map((activity, i) => (
-                <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div key={i} className="activity-item">
                   <Avatar
                     size="sm"
-                    color={activity.color}
+                    src={activity.avatar || undefined}
+                    color={!activity.avatar ? activity.color : undefined}
                   />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '0.875rem', fontWeight: 500 }}>{activity.user}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{activity.action}</div>
+                  <div className="activity-info">
+                    <div className="activity-user">{activity.user}</div>
+                    <div className="activity-action">{activity.action}</div>
                   </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                  <div className="activity-time">
                     {activity.time}
                   </div>
                 </div>
               ))}
 
-              <Button variant="outlined" size="sm" fullWidth style={{ marginTop: '0.5rem' }}>
-                View All Activity
+              <Button variant="outlined" size="default" fullWidth style={{ marginTop: '0.5rem' }}>
+                View Full Audit Log
               </Button>
             </div>
           </div>
 
-          <div className="feature-card" style={{ background: 'var(--bg-secondary)', borderStyle: 'dashed' }}>
-            <div style={{ textAlign: 'center', padding: '1rem' }}>
-              <div style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                <CheckCircle2 size={32} strokeWidth={1} style={{ margin: '0 auto' }} />
-              </div>
-              <h4 style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>Integrations Ready</h4>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>Connect your favorite tools to automate your workflow.</p>
-              <Button variant="outlined" size="sm" color="white">Connect Tools</Button>
+          <div className="feature-card integration-card glass">
+            <div style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+              <CheckCircle2 size={40} strokeWidth={1} style={{ margin: '0 auto', color: 'var(--accent-color)' }} />
             </div>
+            <h4 style={{ fontSize: '1rem', fontFamily: 'var(--font-serif)', fontWeight: 100, marginBottom: '0.75rem' }}>
+              Integrations Ready
+            </h4>
+            <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              Connect your professional toolchain to automate repetitive tasks and sync data.
+            </p>
+            <Button variant="outlined" size="default" fullWidth>Manage Plugins</Button>
           </div>
         </div>
       </div>
     </div>
   );
 };
+

@@ -17,7 +17,11 @@ export const ButtonsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Button variant="filled">Get Started</Button>`}
+        code={`import { Button } from '@unburn/ui';
+
+export default function Example() {
+  return <Button variant="filled">Get Started</Button>;
+}`}
       >
         <Button variant="filled">Get Started</Button>
       </Showcase>
@@ -40,9 +44,17 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Buttons come in three distinct variants: filled, outlined, and duo."
-          code={`<Button variant="filled">Filled</Button>
-<Button variant="outlined">Outlined</Button>
-<Button variant="duo">Duo</Button>`}
+          code={`import { Button } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Button variant="filled">Filled</Button>
+      <Button variant="outlined">Outlined</Button>
+      <Button variant="duo">Duo</Button>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Button variant="filled">Filled</Button>
@@ -54,9 +66,17 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, default, and large sizes to fit various layouts."
-          code={`<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>`}
+          code={`import { Button } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <Button size="sm">Small</Button>
+      <Button size="default">Default</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <Button size="sm">Small</Button>
@@ -68,11 +88,18 @@ export default function Example() {
         <Showcase
           title="ICONS"
           description="Enhance buttons with icons from any library like Lucide."
-          code={`import { ArrowLeft, ArrowRight, Mail } from 'lucide-react';
+          code={`import { Button } from '@unburn/ui';
+import { ArrowLeft, ArrowRight, Mail } from 'lucide-react';
 
-<Button icon={<ArrowLeft size={16} />}>Back</Button>
-<Button icon={<ArrowRight size={16} />} iconPosition="right">Next</Button>
-<Button icon={<Mail size={16} />} />`}
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Button icon={<ArrowLeft size={16} />}>Back</Button>
+      <Button icon={<ArrowRight size={16} />} iconPosition="right">Next</Button>
+      <Button icon={<Mail size={16} />} />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Button icon={<ArrowLeft size={16} />}>Back</Button>
@@ -84,8 +111,16 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Loading and disabled states for handling user interactions."
-          code={`<Button loading>Processing</Button>
-<Button disabled>Not Allowed</Button>`}
+          code={`import { Button } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Button loading>Processing</Button>
+      <Button disabled>Not Allowed</Button>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Button loading>Processing</Button>
@@ -96,9 +131,17 @@ export default function Example() {
         <Showcase
           title="OPACITY LEVELS"
           description="Fine-tune the visual weight of the button background."
-          code={`<Button opacityLevel="25">Low</Button>
-<Button opacityLevel="50">Medium</Button>
-<Button opacityLevel="100">Full</Button>`}
+          code={`import { Button } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <Button opacityLevel="25">Low</Button>
+      <Button opacityLevel="50">Medium</Button>
+      <Button opacityLevel="100">Full</Button>
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Button opacityLevel="25">Low</Button>

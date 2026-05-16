@@ -3,7 +3,7 @@ dist/banner.jpg
 dist/favicon.svg
 dist/icons.svg
 dist/src/components/layout/Header.d.ts
-dist/src/components/layout/Sidebar.d.ts
+dist/src/components/layout/Menu.d.ts
 dist/src/components/layout/Showcase.d.ts
 
 # Exclude docs build

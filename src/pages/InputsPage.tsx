@@ -41,7 +41,11 @@ export const InputsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Input label="Email" placeholder="you@example.com" />`}
+        code={`import { Input } from '@unburn/ui';
+
+export default function Example() {
+  return <Input label="Email" placeholder="you@example.com" />;
+}`}
       >
         <div style={{ width: '100%', maxWidth: '400px' }}>
           <Input label="Email" placeholder="you@example.com" />
@@ -66,9 +70,17 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose between filled, outlined, and duo variants to match your UI's depth."
-          code={`<Input variant="filled" placeholder="Filled (Default)" />
-<Input variant="outlined" placeholder="Outlined variant" />
-<Input variant="duo" placeholder="Duo variant" />`}
+          code={`import { Input } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Input variant="filled" placeholder="Filled (Default)" />
+      <Input variant="outlined" placeholder="Outlined variant" />
+      <Input variant="duo" placeholder="Duo variant" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '400px' }}>
             <Input variant="filled" placeholder="Filled (Default)" />
@@ -80,9 +92,17 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Inputs come in small, default, and large sizes."
-          code={`<Input size="sm" placeholder="Small input" />
-<Input size="default" placeholder="Default input" />
-<Input size="lg" placeholder="Large input" />`}
+          code={`import { Input } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Input size="sm" placeholder="Small input" />
+      <Input size="default" placeholder="Default input" />
+      <Input size="lg" placeholder="Large input" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '400px' }}>
             <Input size="sm" placeholder="Small input" />
@@ -94,10 +114,24 @@ export default function Example() {
         <Showcase
           title="ICONS"
           description="Place icons on the left or right to provide extra context."
-          code={`import { Mail, Lock, User } from 'lucide-react';
+          code={`import { Input } from '@unburn/ui';
+import { Mail, Lock, User } from 'lucide-react';
 
-<Input leftIcon={<User size={16} />} placeholder="Username" />
-<Input leftIcon={<Mail size={16} />} rightIcon={<Lock size={16} />} placeholder="Dual icons" />`}
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Input
+        leftIcon={<User size={16} />}
+        placeholder="Username"
+      />
+      <Input
+        leftIcon={<Mail size={16} />}
+        rightIcon={<Lock size={16} />}
+        placeholder="Email with dual icons"
+      />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '400px' }}>
             <Input
@@ -115,13 +149,30 @@ export default function Example() {
         <Showcase
           title="PROGRESSIVE INPUT"
           description="Visual feedback for password strength or completion tracking."
-          code={`const [password, setPassword] = useState('');
-<Input 
-  type="password" 
-  value={password} 
-  onChange={(e) => setPassword(e.target.value)} 
-  progressLevel={getProgress(password)} 
-/>`}
+          code={`import React, { useState } from 'react';
+import { Input } from '@unburn/ui';
+
+export default function Example() {
+  const [password, setPassword] = useState('');
+  
+  const getProgress = (val: string) => {
+    if (!val) return 0;
+    if (val.length < 5) return 1;
+    if (val.length < 8) return 2;
+    return 3;
+  };
+
+  return (
+    <Input 
+      label="Interactive Password" 
+      type="password" 
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      progressLevel={getProgress(password)}
+      placeholder="Type to see progress..."
+    />
+  );
+}`}
         >
           <InteractiveProgressiveInput />
         </Showcase>
@@ -129,8 +180,25 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Handle validation errors and disabled interactions."
-          code={`<Input error="Invalid email address" placeholder="error@example.com" />
-<Input disabled placeholder="Cannot type here" />`}
+          code={`import { Input } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <Input
+        label="Error State"
+        error="Password must be at least 8 characters."
+        placeholder="Enter your password"
+        type="password"
+      />
+      <Input
+        label="Disabled"
+        disabled
+        placeholder="Disabled input"
+      />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '400px' }}>
             <Input

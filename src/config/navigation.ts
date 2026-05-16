@@ -1,0 +1,15 @@
+export const COMPONENTS = [
+  { name: 'Buttons', path: '/components/buttons' },
+  { name: 'Avatars', path: '/components/avatars' },
+  { name: 'Alerts', path: '/components/alerts' },
+  { name: 'Accordions', path: '/components/accordions' },
+  { name: 'Badges', path: '/components/badges' },
+  { name: 'Checkbox', path: '/components/checkbox' },
+  { name: 'Switch', path: '/components/switch' },
+  { name: 'Select', path: '/components/select' },
+  { name: 'Inputs', path: '/components/inputs' },
+  { name: 'Textarea', path: '/components/textarea' },
+  { name: 'Code Block', path: '/components/code-block' },
+  { name: 'Dropzone', path: '/components/dropzone' },
+  { name: 'Dock', path: '/components/dock' },
+];

@@ -17,7 +17,7 @@ export interface AccordionProps {
   items: AccordionItemProps[];
   allowMultiple?: boolean;
   className?: string;
-  variant?: 'default' | 'bordered' | 'duo';
+  variant?: 'default' | 'bordered' | 'duo' | 'filled';
   color?: string;
   classNames?: {
     root?: string;
@@ -83,6 +83,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         'unburn-accordion',
         variant === 'bordered' && 'unburn-accordion-bordered',
         variant === 'duo' && 'unburn-accordion-duo',
+        variant === 'filled' && 'unburn-accordion-filled',
         className,
         classNames?.root
       )}

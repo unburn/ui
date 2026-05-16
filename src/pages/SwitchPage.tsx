@@ -39,7 +39,11 @@ export const SwitchPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`<Switch label="Enable notifications" defaultChecked />`}
+        code={`import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  return <Switch label="Enable notifications" defaultChecked />;
+}`}
       >
         <Switch label="Enable notifications" defaultChecked />
       </Showcase>
@@ -62,9 +66,17 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Switches support three visual styles: filled, outlined, and duo."
-          code={`<Switch variant="filled" label="Filled" defaultChecked />
-<Switch variant="outlined" label="Outlined" defaultChecked />
-<Switch variant="duo" label="Duo" defaultChecked />`}
+          code={`import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Switch variant="filled" label="Filled (Default)" defaultChecked />
+      <Switch variant="outlined" label="Outlined Variant" defaultChecked />
+      <Switch variant="duo" label="Duo Variant" defaultChecked />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Switch variant="filled" label="Filled (Default)" defaultChecked />
@@ -76,9 +88,17 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, default, and large sizes."
-          code={`<Switch size="sm" label="Small" defaultChecked />
-<Switch size="default" label="Default" defaultChecked />
-<Switch size="lg" label="Large" defaultChecked />`}
+          code={`import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Switch size="sm" label="Small Switch" defaultChecked />
+      <Switch size="default" label="Default Switch" defaultChecked />
+      <Switch size="lg" label="Large Switch" defaultChecked />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Switch size="sm" label="Small Switch" defaultChecked />
@@ -90,11 +110,16 @@ export default function Example() {
         <Showcase
           title="WITH DESCRIPTION"
           description="Provide additional context for the toggle."
-          code={`<Switch 
-  label="Airplane Mode" 
-  description="Disable all wireless communications." 
-  defaultChecked 
-/>`}
+          code={`import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <Switch 
+      label="Airplane Mode" 
+      description="Disable all wireless communications including Wi-Fi and Bluetooth."
+    />
+  );
+}`}
         >
           <Switch 
             label="Airplane Mode" 
@@ -105,8 +130,16 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Disabled state for non-interactive toggles."
-          code={`<Switch disabled label="Disabled" />
-<Switch disabled defaultChecked label="Disabled Active" />`}
+          code={`import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Switch disabled label="Disabled Switch" />
+      <Switch disabled defaultChecked label="Disabled Active" />
+    </div>
+  );
+}`}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Switch disabled label="Disabled Switch" />
@@ -117,8 +150,20 @@ export default function Example() {
         <Showcase
           title="CONTROLLED"
           description="Manage the switch state externally."
-          code={`const [enabled, setEnabled] = useState(false);
-<Switch checked={enabled} onChange={setEnabled} label="Controlled" />`}
+          code={`import React, { useState } from 'react';
+import { Switch } from '@unburn/ui';
+
+export default function Example() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <Switch 
+      label="Enable features" 
+      checked={enabled} 
+      onChange={(e) => setEnabled(e)} 
+    />
+  );
+}`}
         >
           <ControlledSwitchExample />
         </Showcase>

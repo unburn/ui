@@ -18,7 +18,7 @@ export const AvatarsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Avatar } from '@unburn/ui';
+        code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
   return (
@@ -41,7 +41,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Avatar } from '@unburn/ui';
+          code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
   return <Avatar src="/path/to/image.jpg" alt="User" />;
@@ -55,7 +55,7 @@ export default function Example() {
         <Showcase
           title="STATUS INDICATORS"
           description="Show a small color dot indicating if a user is online or busy."
-          code={`import { Avatar } from '@unburn/ui';
+          code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
   return (
@@ -79,7 +79,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in five sizes from extra small to extra large."
-          code={`import { Avatar } from '@unburn/ui';
+          code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
   return (
@@ -105,7 +105,7 @@ export default function Example() {
         <Showcase
           title="FALLBACKS & COLORS"
           description="Show initials or custom colors if the image is missing."
-          code={`import { Avatar } from '@unburn/ui';
+          code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
   return (

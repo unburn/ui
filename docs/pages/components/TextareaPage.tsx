@@ -18,7 +18,7 @@ export const TextareaPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Textarea } from '@unburn/ui';
+        code={`import { Textarea } from '@unburn/ui/Textarea';
 
 export default function Example() {
   return (
@@ -37,7 +37,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Textarea } from '@unburn/ui';
+          code={`import { Textarea } from '@unburn/ui/Textarea';
 
 export default function Example() {
   return <Textarea label="Biography" placeholder="Tell your story..." />;
@@ -51,7 +51,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: filled, outlined, and duo."
-          code={`import { Textarea } from '@unburn/ui';
+          code={`import { Textarea } from '@unburn/ui/Textarea';
 
 export default function Example() {
   return (
@@ -73,7 +73,7 @@ export default function Example() {
         <Showcase
           title="CHARACTER COUNT"
           description="Show the number of typed characters."
-          code={`import { Textarea } from '@unburn/ui';
+          code={`import { Textarea } from '@unburn/ui/Textarea';
 
 export default function Example() {
   return (
@@ -101,7 +101,7 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Use error states and disabled textareas."
-          code={`import { Textarea } from '@unburn/ui';
+          code={`import { Textarea } from '@unburn/ui/Textarea';
 
 export default function Example() {
   return (

@@ -42,7 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         code: `// app/page.tsx
 'use client';
 
-import { Button, Badge } from '@unburn/ui';
+import { Button } from '@unburn/ui/Button';
+import { Badge } from '@unburn/ui/Badge';
 
 export default function Home() {
   return (
@@ -84,7 +85,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       {
         title: '3. Use components',
         code: `// src/App.tsx
-import { Button, Alert } from '@unburn/ui';
+import { Button } from '@unburn/ui/Button';
+import { Alert } from '@unburn/ui/Alert';
 
 function App() {
   return (
@@ -130,7 +132,8 @@ export default function App() {
       {
         title: '3. Use components in any route',
         code: `// app/routes/_index.tsx
-import { Button, Badge } from '@unburn/ui';
+import { Button } from '@unburn/ui/Button';
+import { Badge } from '@unburn/ui/Badge';
 
 export default function Index() {
   return (
@@ -180,7 +183,7 @@ import '@unburn/ui/styles.css';
         code: `---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import { Button } from '@unburn/ui';
+import { Button } from '@unburn/ui/Button';
 ---
 
 <Layout>
@@ -210,7 +213,8 @@ import '@unburn/ui/styles.css';`,
       {
         title: '3. Use components in any page',
         code: `// src/pages/index.tsx
-import { Button, Accordion } from '@unburn/ui';
+import { Button } from '@unburn/ui/Button';
+import { Accordion } from '@unburn/ui/Accordion';
 
 export default function Home() {
   return (
@@ -247,7 +251,16 @@ export default function Home() {
       },
       {
         title: '4. Import and use components',
-        code: `import { Button, Alert, Badge, Avatar, Accordion, Checkbox, Switch, Select, Dock, CodeBlock } from '@unburn/ui';`,
+        code: `import { Button } from '@unburn/ui/Button';
+import { Alert } from '@unburn/ui/Alert';
+import { Badge } from '@unburn/ui/Badge';
+import { Avatar } from '@unburn/ui/Avatar';
+import { Accordion } from '@unburn/ui/Accordion';
+import { Checkbox } from '@unburn/ui/Checkbox';
+import { Switch } from '@unburn/ui/Switch';
+import { Select } from '@unburn/ui/Select';
+import { Dock } from '@unburn/ui/Dock';
+import { CodeBlock } from '@unburn/ui/CodeBlock';`,
         language: 'javascript',
       },
     ],

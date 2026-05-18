@@ -43,7 +43,7 @@ export const InputsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Input } from '@unburn/ui';
+        code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
   return (
@@ -62,7 +62,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
   return <Input label="Username" placeholder="Enter your name" />;
@@ -76,7 +76,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: filled, outlined, and duo."
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
   return (
@@ -98,7 +98,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Choose from small, medium, or large sizes."
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
   return (
@@ -120,7 +120,7 @@ export default function Example() {
         <Showcase
           title="ICONS"
           description="Add icons on the left or right side of the input field."
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 import { User, Mail, Lock } from 'lucide-react';
 
 export default function Example() {
@@ -155,7 +155,7 @@ export default function Example() {
         <Showcase
           title="PROGRESSIVE INPUT"
           description="Show a password strength bar under the field."
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 import { useState } from 'react';
 
 export default function Example() {
@@ -188,7 +188,7 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Use error messages and disabled inputs for forms."
-          code={`import { Input } from '@unburn/ui';
+          code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
   return (

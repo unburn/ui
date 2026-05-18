@@ -37,7 +37,8 @@ export const DockPage: React.FC<DockPageProps> = ({ globalTheme, setGlobalTheme,
 
       <Showcase
         title="PREVIEW"
-        code={`import { Dock, ActionButton } from '@unburn/ui';
+        code={`import { Dock } from '@unburn/ui/Dock';
+import { ActionButton } from '@unburn/ui/ActionButton';
 import { Sun, Moon } from 'lucide-react';
 
 export default function Example() {
@@ -79,7 +80,8 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Dock, ActionButton } from '@unburn/ui';
+          code={`import { Dock } from '@unburn/ui/Dock';
+import { ActionButton } from '@unburn/ui/ActionButton';
 import { Sun, Moon } from 'lucide-react';
 
 export default function Layout({ children }) {
@@ -108,7 +110,7 @@ export default function Layout({ children }) {
         <Showcase
           title="SIZES"
           description="Choose from three sizes: small, medium, or large."
-          code={`import { Dock } from '@unburn/ui';
+          code={`import { Dock } from '@unburn/ui/Dock';
 
 export default function Example() {
   return (
@@ -136,7 +138,8 @@ export default function Example() {
         <Showcase
           title="CUSTOM ACTIONS"
           description="Add custom action buttons inside the dock."
-          code={`import { Dock, ActionButton } from '@unburn/ui';
+          code={`import { Dock } from '@unburn/ui/Dock';
+import { ActionButton } from '@unburn/ui/ActionButton';
 import { Home, Search, Plus } from 'lucide-react';
 
 export default function Example() {
@@ -170,7 +173,7 @@ export default function Example() {
         <Showcase
           title="CONFIGURATION"
           description="Show or hide the collapse button on the right."
-          code={`import { Dock } from '@unburn/ui';
+          code={`import { Dock } from '@unburn/ui/Dock';
 
 export default function Example() {
   return (

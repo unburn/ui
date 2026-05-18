@@ -42,7 +42,7 @@ export const SelectPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Select } from '@unburn/ui';
+        code={`import { Select } from '@unburn/ui/Select';
 
 const fruitOptions = [
   { value: 'apple', label: 'Apple' },
@@ -77,7 +77,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Select } from '@unburn/ui';
+          code={`import { Select } from '@unburn/ui/Select';
 
 const options = [
   { value: '1', label: 'Option 1' },
@@ -96,7 +96,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: filled, outlined, and duo."
-          code={`import { Select } from '@unburn/ui';
+          code={`import { Select } from '@unburn/ui/Select';
 
 const fruitOptions = [
   { value: 'apple', label: 'Apple' },
@@ -124,7 +124,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Choose from small, medium, or large sizes."
-          code={`import { Select } from '@unburn/ui';
+          code={`import { Select } from '@unburn/ui/Select';
 
 const fruitOptions = [
   { value: 'apple', label: 'Apple' },
@@ -151,7 +151,7 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Use error states and disabled dropdowns for forms."
-          code={`import { Select } from '@unburn/ui';
+          code={`import { Select } from '@unburn/ui/Select';
 
 const fruitOptions = [
   { value: 'apple', label: 'Apple' },
@@ -196,7 +196,7 @@ export default function Example() {
         <Showcase
           title="CONTROLLED"
           description="Control and track selected options easily."
-          code={`import { Select } from '@unburn/ui';
+          code={`import { Select } from '@unburn/ui/Select';
 import { useState } from 'react';
 
 const fruitOptions = [

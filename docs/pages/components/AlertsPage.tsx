@@ -20,7 +20,7 @@ export const AlertsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Alert } from '@unburn/ui';
+        code={`import { Alert } from '@unburn/ui/Alert';
 import { Info } from 'lucide-react';
 
 export default function Example() {
@@ -46,7 +46,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Alert } from '@unburn/ui';
+          code={`import { Alert } from '@unburn/ui/Alert';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function Example() {
@@ -67,7 +67,7 @@ export default function Example() {
         <Showcase
           title="COLORS"
           description="Change the look of alerts with colors like green, blue, orange, or red."
-          code={`import { Alert } from '@unburn/ui';
+          code={`import { Alert } from '@unburn/ui/Alert';
 import { CheckCircle2, Info } from 'lucide-react';
 
 export default function Example() {
@@ -92,7 +92,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: outlined, duo, and filled."
-          code={`import { Alert } from '@unburn/ui';
+          code={`import { Alert } from '@unburn/ui/Alert';
 import { Info } from 'lucide-react';
 
 export default function Example() {
@@ -115,7 +115,8 @@ export default function Example() {
         <Showcase
           title="WITH ACTIONS"
           description="Add action buttons directly into your alerts."
-          code={`import { Alert, Button } from '@unburn/ui';
+          code={`import { Alert } from '@unburn/ui/Alert';
+import { Button } from '@unburn/ui/Button';
 import { Info } from 'lucide-react';
 
 export default function Example() {

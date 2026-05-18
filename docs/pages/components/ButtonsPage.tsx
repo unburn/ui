@@ -19,7 +19,7 @@ export const ButtonsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Button } from '@unburn/ui';
+        code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return <Button variant="filled">Get Started</Button>;
@@ -32,7 +32,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return <Button>Click me</Button>;
@@ -46,7 +46,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: filled, outlined, and duo."
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return (
@@ -68,7 +68,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Available in small, medium, and large sizes."
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return (
@@ -90,7 +90,7 @@ export default function Example() {
         <Showcase
           title="ICONS"
           description="Add icons on the left or right to make buttons look better."
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 import { ArrowLeft, ArrowRight, Mail } from 'lucide-react';
 
 export default function Example() {
@@ -113,7 +113,7 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Use loading animations and disabled states for button actions."
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return (
@@ -133,7 +133,7 @@ export default function Example() {
         <Showcase
           title="OPACITY LEVELS"
           description="Adjust the background opacity for custom designs."
-          code={`import { Button } from '@unburn/ui';
+          code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
   return (

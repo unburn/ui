@@ -25,7 +25,7 @@ export default HelloWorld;`;
 
       <Showcase
         title="PREVIEW"
-        code={`import { CodeBlock } from '@unburn/ui';
+        code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 const code = \`import React from 'react';
 
@@ -60,7 +60,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { CodeBlock } from '@unburn/ui';
+          code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 export default function Example() {
   return (
@@ -79,7 +79,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose between two styles: filled and outlined."
-          code={`import { CodeBlock } from '@unburn/ui';
+          code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 export default function Example() {
   return (
@@ -119,7 +119,7 @@ export default function Example() {
         <Showcase
           title="TABS (PACKAGE MANAGERS)"
           description="Display multiple snippets under tabs for easy switching."
-          code={`import { CodeBlock } from '@unburn/ui';
+          code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 export default function Example() {
   return (
@@ -153,7 +153,7 @@ export default function Example() {
         <Showcase
           title="TITLE & NO LINE NUMBERS"
           description="Show a file title header and hide line numbers if needed."
-          code={`import { CodeBlock } from '@unburn/ui';
+          code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 export default function Example() {
   return (

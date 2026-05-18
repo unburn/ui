@@ -19,7 +19,7 @@ export const AccordionsPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Accordion } from '@unburn/ui';
+        code={`import { Accordion } from '@unburn/ui/Accordion';
 import { Settings } from 'lucide-react';
 
 const items = [
@@ -59,7 +59,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Accordion } from '@unburn/ui';
+          code={`import { Accordion } from '@unburn/ui/Accordion';
 
 const items = [
   { id: '1', title: 'Section 1', content: 'Content 1' },
@@ -77,7 +77,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: bordered, duo, and filled."
-          code={`import { Accordion } from '@unburn/ui';
+          code={`import { Accordion } from '@unburn/ui/Accordion';
 
 export default function Example() {
   return (
@@ -117,7 +117,7 @@ export default function Example() {
         <Showcase
           title="WITH ICONS & SUBTITLES"
           description="Add icons and subtitles to give more details to each item."
-          code={`import { Accordion } from '@unburn/ui';
+          code={`import { Accordion } from '@unburn/ui/Accordion';
 import { Shield, Zap } from 'lucide-react';
 
 const items = [
@@ -170,7 +170,7 @@ export default function Example() {
         <Showcase
           title="MULTIPLE SELECTION"
           description="Allow users to open more than one item at the same time."
-          code={`import { Accordion } from '@unburn/ui';
+          code={`import { Accordion } from '@unburn/ui/Accordion';
 
 const items = [
   { id: 'm1', title: 'Independent Item A', content: 'You can open this...' },

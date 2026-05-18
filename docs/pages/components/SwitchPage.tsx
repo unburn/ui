@@ -33,7 +33,7 @@ export const SwitchPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Switch } from '@unburn/ui';
+        code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return <Switch label="Enable notifications" defaultChecked />;
@@ -46,7 +46,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return <Switch label="Toggle me" />;
@@ -60,7 +60,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from three styles: filled, outlined, and duo."
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return (
@@ -82,7 +82,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Choose from small, medium, or large sizes."
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return (
@@ -104,7 +104,7 @@ export default function Example() {
         <Showcase
           title="WITH DESCRIPTION"
           description="Add descriptive text below the switch label."
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return (
@@ -124,7 +124,7 @@ export default function Example() {
         <Showcase
           title="STATES"
           description="Use disabled states for switches."
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 
 export default function Example() {
   return (
@@ -144,7 +144,7 @@ export default function Example() {
         <Showcase
           title="CONTROLLED"
           description="Control and track selected states easily."
-          code={`import { Switch } from '@unburn/ui';
+          code={`import { Switch } from '@unburn/ui/Switch';
 import { useState } from 'react';
 
 export default function Example() {

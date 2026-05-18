@@ -19,7 +19,7 @@ export const BadgesPage: React.FC = () => {
 
       <Showcase
         title="PREVIEW"
-        code={`import { Badge } from '@unburn/ui';
+        code={`import { Badge } from '@unburn/ui/Badge';
 
 export default function Example() {
   return <Badge variant="filled">NEW</Badge>;
@@ -32,7 +32,7 @@ export default function Example() {
         <h3 className="section-subtitle">Usage</h3>
         <CodeBlock
           language="tsx"
-          code={`import { Badge } from '@unburn/ui';
+          code={`import { Badge } from '@unburn/ui/Badge';
 
 export default function Example() {
   return <Badge>Status</Badge>;
@@ -46,7 +46,7 @@ export default function Example() {
         <Showcase
           title="VARIANTS"
           description="Choose from four styles: filled, outlined, duo, and glass."
-          code={`import { Badge } from '@unburn/ui';
+          code={`import { Badge } from '@unburn/ui/Badge';
 
 export default function Example() {
   return (
@@ -70,7 +70,7 @@ export default function Example() {
         <Showcase
           title="SIZES"
           description="Choose from small, medium, or large sizes."
-          code={`import { Badge } from '@unburn/ui';
+          code={`import { Badge } from '@unburn/ui/Badge';
 
 export default function Example() {
   return (
@@ -92,7 +92,7 @@ export default function Example() {
         <Showcase
           title="WITH ICONS"
           description="Add small icons next to the text for extra detail."
-          code={`import { Badge } from '@unburn/ui';
+          code={`import { Badge } from '@unburn/ui/Badge';
 import { Shield, Star, Check } from 'lucide-react';
 
 export default function Example() {
@@ -115,7 +115,7 @@ export default function Example() {
         <Showcase
           title="STATUS COLORS"
           description="Change the label colors to match its status."
-          code={`import { Badge } from '@unburn/ui';
+          code={`import { Badge } from '@unburn/ui/Badge';
 import { Zap } from 'lucide-react';
 
 export default function Example() {

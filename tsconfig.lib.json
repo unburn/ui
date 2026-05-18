@@ -15,23 +15,17 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "rootDir": "package"
   },
   "include": [
-    "src/index.ts",
-    "src/css.d.ts",
-    "src/components/ui/**/*.ts",
-    "src/components/ui/**/*.tsx",
-    "src/components/layout/Dock.tsx",
-    "src/lib/**/*.ts"
+    "package/index.ts",
+    "package/css.d.ts",
+    "package/components/**/*.ts",
+    "package/components/**/*.tsx",
+    "package/lib/**/*.ts"
   ],
   "exclude": [
-    "src/pages",
-    "src/App.tsx",
-    "src/main.tsx",
-    "src/components/layout/Header.tsx",
-    "src/components/layout/Menu.tsx",
-    "src/components/layout/Showcase.tsx",
     "node_modules",
     "dist"
   ]

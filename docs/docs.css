@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
+
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+  --color-red: #ef4444;
+  --color-orange: #f97316;
+  --color-yellow: #facc15;
+  --color-blue: #3b82f6;
+  --color-green: #10b981;
+  --color-purple: #8b5cf6;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-serif: "Gloock", serif;
+}
+
+:root[data-accent="red"] {
+  --accent-color: var(--color-red);
+}
+
+:root[data-accent="orange"] {
+  --accent-color: var(--color-orange);
+}
+
+:root[data-accent="blue"] {
+  --accent-color: var(--color-blue);
+}
+
+:root[data-accent="green"] {
+  --accent-color: var(--color-green);
+}
+
+:root[data-accent="purple"] {
+  --accent-color: var(--color-purple);
+}
+
+:root[data-accent="white"] {
+  --accent-color: var(--color-white);
+}
+
+:root[data-accent="black"] {
+  --accent-color: var(--color-black);
+}

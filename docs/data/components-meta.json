@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Accordions",
+    "description": "Collapsible boxes to hide and show details smoothly.",
+    "path": "/components/accordions",
+    "addedAt": "2026-05-13"
+  },
+  {
+    "name": "Alerts",
+    "description": "Banners for quick notices, warnings, and messages.",
+    "path": "/components/alerts",
+    "addedAt": "2026-05-13"
+  },
+  {
+    "name": "Avatars",
+    "description": "User profile pictures with online/offline status indicators.",
+    "path": "/components/avatars",
+    "addedAt": "2026-05-13"
+  },
+  {
+    "name": "Badges",
+    "description": "Small status labels to highlight information with icons.",
+    "path": "/components/badges",
+    "addedAt": "2026-05-13"
+  },
+  {
+    "name": "Buttons",
+    "description": "Buttons for actions, with loading spinners and icons.",
+    "path": "/components/buttons",
+    "addedAt": "2026-05-13"
+  },
+  {
+    "name": "Checkbox",
+    "description": "Checkboxes with labels and descriptions.",
+    "path": "/components/checkbox",
+    "addedAt": "2026-05-14"
+  },
+  {
+    "name": "Code Block",
+    "description": "Code syntax highlighting blocks with built-in copy buttons.",
+    "path": "/components/code-block",
+    "addedAt": "2026-05-14"
+  },
+  {
+    "name": "Dock",
+    "description": "Floating menu bar with smooth pop-out animations.",
+    "path": "/components/dock",
+    "addedAt": "2026-05-14"
+  },
+  {
+    "name": "Dropzone",
+    "description": "Drag and drop file uploaders with file lists.",
+    "path": "/components/dropzone",
+    "addedAt": "2026-05-16"
+  },
+  {
+    "name": "Inputs",
+    "description": "Text input fields with icons, labels, and error states.",
+    "path": "/components/inputs",
+    "addedAt": "2026-05-16"
+  },
+  {
+    "name": "Select",
+    "description": "Dropdown menus with glassmorphism effects.",
+    "path": "/components/select",
+    "addedAt": "2026-05-16"
+  },
+  {
+    "name": "Switch",
+    "description": "Smooth toggle switches with beautiful animations.",
+    "path": "/components/switch",
+    "addedAt": "2026-05-16"
+  },
+  {
+    "name": "Textarea",
+    "description": "Multi-line text areas with support for text limits.",
+    "path": "/components/textarea",
+    "addedAt": "2026-05-16"
+  }
+]

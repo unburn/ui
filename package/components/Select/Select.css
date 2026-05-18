@@ -1,0 +1,201 @@
+.unburn-select-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.unburn-select-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+.unburn-select-container {
+  position: relative;
+}
+
+.unburn-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  outline: none;
+  border: 1px solid transparent;
+  box-shadow: var(--bezel);
+}
+
+.unburn-select-trigger-filled {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.unburn-select-trigger-outlined {
+  background-color: transparent;
+  border-color: var(--border-color);
+}
+
+.unburn-select-trigger-duo {
+  background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+  border-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+}
+
+.unburn-select-trigger-duo.unburn-select-trigger-open {
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  border-color: var(--accent-color);
+}
+
+.unburn-select-trigger-sm {
+  min-height: var(--height-sm);
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+}
+
+.unburn-select-trigger-default {
+  min-height: var(--height-default);
+  padding: 0 1rem;
+  font-size: 0.9375rem;
+}
+
+.unburn-select-trigger-lg {
+  min-height: var(--height-lg);
+  padding: 0 1.25rem;
+  font-size: 1rem;
+}
+
+.unburn-select-trigger-focus-highlight:hover:not(.unburn-select-trigger-disabled) {
+  border-color: var(--accent-color);
+}
+
+.unburn-select-trigger-focus-highlight.unburn-select-trigger-open {
+  border-color: var(--accent-color);
+}
+
+.unburn-select-trigger-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.unburn-select-placeholder {
+  color: var(--text-muted);
+}
+
+.unburn-select-chevron {
+  color: var(--text-muted);
+  transition: transform 0.3s var(--transition-curve);
+  flex-shrink: 0;
+}
+
+.unburn-select-chevron-open {
+  transform: rotate(180deg);
+}
+
+.unburn-select-content {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  background: color-mix(in srgb, var(--bg-main) 95%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  z-index: 100;
+  padding: 0.375rem;
+  box-shadow: var(--bezel), 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  animation: unburn-select-enter 0.3s var(--transition-curve);
+}
+
+.unburn-select-viewport {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.unburn-select-viewport::-webkit-scrollbar {
+  width: 4px;
+}
+
+.unburn-select-viewport::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+@keyframes unburn-select-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.unburn-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  border-radius: calc(var(--radius) - 4px);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-main);
+  transition: all 0.2s var(--transition-curve);
+  user-select: none;
+}
+
+.unburn-select-item:hover:not(.unburn-select-item-disabled) {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: var(--bezel);
+}
+
+.unburn-select-item-selected {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--bezel);
+}
+
+.unburn-select-item-selected:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--bezel);
+}
+
+.unburn-select-item-check {
+  color: var(--text-main);
+  opacity: 1;
+}
+
+.unburn-select-item-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.unburn-select-footer {
+  margin-top: 0.125rem;
+}
+
+.unburn-select-description {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.unburn-select-error {
+  font-size: 0.8125rem;
+  color: var(--color-red);
+  font-weight: 500;
+}

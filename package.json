@@ -1,6 +1,6 @@
 {
   "name": "@unburn/ui",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "private": false,
   "description": "A premium, softly-rounded React component library.",
   "author": "Unburn",
@@ -15,7 +15,87 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/ui.css"
+    "./styles.css": "./dist/ui.css",
+    "./Accordion": {
+      "types": "./dist/components/Accordion/Accordion.d.ts",
+      "import": "./dist/components/Accordion/Accordion.mjs",
+      "require": "./dist/components/Accordion/Accordion.cjs"
+    },
+    "./ActionButton": {
+      "types": "./dist/components/ActionButton/ActionButton.d.ts",
+      "import": "./dist/components/ActionButton/ActionButton.mjs",
+      "require": "./dist/components/ActionButton/ActionButton.cjs"
+    },
+    "./Alert": {
+      "types": "./dist/components/Alert/Alert.d.ts",
+      "import": "./dist/components/Alert/Alert.mjs",
+      "require": "./dist/components/Alert/Alert.cjs"
+    },
+    "./Avatar": {
+      "types": "./dist/components/Avatar/Avatar.d.ts",
+      "import": "./dist/components/Avatar/Avatar.mjs",
+      "require": "./dist/components/Avatar/Avatar.cjs"
+    },
+    "./Badge": {
+      "types": "./dist/components/Badge/Badge.d.ts",
+      "import": "./dist/components/Badge/Badge.mjs",
+      "require": "./dist/components/Badge/Badge.cjs"
+    },
+    "./Button": {
+      "types": "./dist/components/Button/Button.d.ts",
+      "import": "./dist/components/Button/Button.mjs",
+      "require": "./dist/components/Button/Button.cjs"
+    },
+    "./Checkbox": {
+      "types": "./dist/components/Checkbox/Checkbox.d.ts",
+      "import": "./dist/components/Checkbox/Checkbox.mjs",
+      "require": "./dist/components/Checkbox/Checkbox.cjs"
+    },
+    "./CodeBlock": {
+      "types": "./dist/components/CodeBlock/CodeBlock.d.ts",
+      "import": "./dist/components/CodeBlock/CodeBlock.mjs",
+      "require": "./dist/components/CodeBlock/CodeBlock.cjs"
+    },
+    "./Dock": {
+      "types": "./dist/components/Dock/Dock.d.ts",
+      "import": "./dist/components/Dock/Dock.mjs",
+      "require": "./dist/components/Dock/Dock.cjs"
+    },
+    "./Dropzone": {
+      "types": "./dist/components/Dropzone/Dropzone.d.ts",
+      "import": "./dist/components/Dropzone/Dropzone.mjs",
+      "require": "./dist/components/Dropzone/Dropzone.cjs"
+    },
+    "./Input": {
+      "types": "./dist/components/Input/Input.d.ts",
+      "import": "./dist/components/Input/Input.mjs",
+      "require": "./dist/components/Input/Input.cjs"
+    },
+    "./Select": {
+      "types": "./dist/components/Select/Select.d.ts",
+      "import": "./dist/components/Select/Select.mjs",
+      "require": "./dist/components/Select/Select.cjs"
+    },
+    "./Switch": {
+      "types": "./dist/components/Switch/Switch.d.ts",
+      "import": "./dist/components/Switch/Switch.mjs",
+      "require": "./dist/components/Switch/Switch.cjs"
+    },
+    "./Textarea": {
+      "types": "./dist/components/Textarea/Textarea.d.ts",
+      "import": "./dist/components/Textarea/Textarea.mjs",
+      "require": "./dist/components/Textarea/Textarea.cjs"
+    },
+    "./utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "import": "./dist/lib/utils.mjs",
+      "require": "./dist/lib/utils.cjs"
+    },
+    "./colors": {
+      "types": "./dist/lib/colors.d.ts",
+      "import": "./dist/lib/colors.mjs",
+      "require": "./dist/lib/colors.cjs"
+    }
   },
   "files": [
     "dist",

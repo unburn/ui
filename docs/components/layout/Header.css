@@ -1,0 +1,140 @@
+.unburn-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 72px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.unburn-header.glass {
+  background-color: var(--bg-glass, rgba(255, 255, 255, 0.45));
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+.unburn-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+}
+
+.unburn-logo svg {
+  display: block;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+}
+
+.unburn-logo svg rect {
+  rx: var(--radius);
+  transition: all var(--transition);
+}
+
+.unburn-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.unburn-color-swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1rem;
+  border-right: 1px solid var(--border-color);
+}
+
+.unburn-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.unburn-swatch:hover {
+  transform: scale(1.2);
+}
+
+.unburn-theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.github-link-btn {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 100px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  overflow: hidden;
+  transition: all var(--transition);
+  height: 32px;
+}
+
+.github-link-btn:hover {
+  border-color: var(--accent-color);
+  background-color: var(--bg-main);
+  transform: translateY(-1px);
+}
+
+.github-icon-wrapper {
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.github-divider {
+  width: 1px;
+  height: 12px;
+  background-color: var(--border-color);
+}
+
+.github-star-wrapper {
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+}
+
+.github-star-wrapper span {
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 900px) {
+  .header-container {
+    padding: 1.5rem;
+  }
+}
+

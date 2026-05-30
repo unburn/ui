@@ -92,38 +92,6 @@ export default function Example() {
             </div>
           </div>
         </Showcase>
-
-        <Showcase
-          title="CUSTOM ACCENTS"
-          description="Paint custom glowing accent controls to match your brand style."
-          code={`import { VideoEmbed } from '@unburn/ui/VideoEmbed';
-
-export default function Example() {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', width: '100%' }}>
-      <VideoEmbed
-        src="https://getsamplefiles.com/download/mp4/sample-2.mp4"
-        color="#a855f7" // Purple theme
-      />
-      <VideoEmbed
-        src="https://getsamplefiles.com/download/mp4/sample-2.mp4"
-        color="#ec4899" // Pink theme
-      />
-    </div>
-  );
-}`}
-        >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', width: '100%' }}>
-            <VideoEmbed
-              src="https://getsamplefiles.com/download/mp4/sample-2.mp4"
-              color="#a855f7"
-            />
-            <VideoEmbed
-              src="https://getsamplefiles.com/download/mp4/sample-2.mp4"
-              color="#ec4899"
-            />
-          </div>
-        </Showcase>
       </div>
 
       <Props

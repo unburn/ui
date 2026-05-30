@@ -24,7 +24,7 @@ const frameworkGuides: Record<string, { steps: { title: string; code: string; la
       },
       {
         title: '2. Import styles in your root layout',
-        code: `// app/layout.tsx
+        code: `
 import '@unburn/ui/styles.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       },
       {
         title: '3. Use components',
-        code: `// app/page.tsx
+        code: `
 'use client';
 
 import { Button } from '@unburn/ui/Button';
@@ -68,7 +68,7 @@ export default function Home() {
       },
       {
         title: '2. Import styles in your entry file',
-        code: `// src/main.tsx
+        code: `
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '@unburn/ui/styles.css';
@@ -84,7 +84,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       },
       {
         title: '3. Use components',
-        code: `// src/App.tsx
+        code: `
 import { Button } from '@unburn/ui/Button';
 import { Alert } from '@unburn/ui/Alert';
 
@@ -111,7 +111,7 @@ export default App;`,
       },
       {
         title: '2. Import styles in your root',
-        code: `// app/root.tsx
+        code: `
 import '@unburn/ui/styles.css';
 
 export default function App() {
@@ -131,7 +131,7 @@ export default function App() {
       },
       {
         title: '3. Use components in any route',
-        code: `// app/routes/_index.tsx
+        code: `
 import { Button } from '@unburn/ui/Button';
 import { Badge } from '@unburn/ui/Badge';
 
@@ -163,7 +163,7 @@ export default function Index() {
       {
         title: '3. Import styles in your layout',
         code: `---
-// src/layouts/Layout.astro
+
 import '@unburn/ui/styles.css';
 ---
 
@@ -181,7 +181,7 @@ import '@unburn/ui/styles.css';
       {
         title: '4. Use components with client directive',
         code: `---
-// src/pages/index.astro
+
 import Layout from '../layouts/Layout.astro';
 import { Button } from '@unburn/ui/Button';
 ---
@@ -205,14 +205,14 @@ import { Button } from '@unburn/ui/Button';
       },
       {
         title: '2. Import styles in gatsby-browser',
-        code: `// gatsby-browser.js
+        code: `
 import '@unburn/ui/styles.css';`,
         language: 'javascript',
         note: 'Set data-theme and data-accent on the <html> element via gatsby-ssr.js or a layout component.',
       },
       {
         title: '3. Use components in any page',
-        code: `// src/pages/index.tsx
+        code: `
 import { Button } from '@unburn/ui/Button';
 import { Accordion } from '@unburn/ui/Accordion';
 

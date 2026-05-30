@@ -313,23 +313,96 @@ const PREVIEWS: Record<string, React.ReactNode> = {
         }}></div>
       </div>
     </div>
+  ),
+  Slider: (
+    <div style={{
+      width: '140px',
+      padding: '12px 16px',
+      background: 'var(--bg-glass)',
+      border: '1px solid var(--border-color)',
+      borderRadius: '8px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '8px',
+      backdropFilter: 'blur(10px)',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ width: '30%', height: '4px', background: 'var(--text-main)', opacity: 0.5, borderRadius: '2px' }}></div>
+        <div style={{ width: '15%', height: '4px', background: 'var(--accent-color)', borderRadius: '2px' }}></div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', position: 'relative', height: '12px' }}>
+        <div style={{ width: '100%', height: '4px', background: 'var(--border-color)', borderRadius: '2px' }}></div>
+        <div style={{ width: '60%', height: '4px', background: 'var(--accent-color)', borderRadius: '2px', position: 'absolute', left: 0 }}></div>
+        <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--accent-color)', position: 'absolute', left: '60%', transform: 'translateX(-50%)' }}></div>
+      </div>
+    </div>
+  ),
+  Tooltip: (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '8px',
+      position: 'relative',
+      padding: '8px'
+    }}>
+      {/* Floating Tooltip Bubble */}
+      <div style={{
+        background: 'var(--accent-color)',
+        padding: '6px 12px',
+        borderRadius: '6px',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 2
+      }}>
+        <div style={{ width: '16px', height: '3px', background: 'var(--accent-text)', borderRadius: '1.5px', opacity: 0.8 }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '-3px',
+          left: '50%',
+          transform: 'translateX(-50%) rotate(45deg)',
+          width: '6px',
+          height: '6px',
+          background: 'var(--accent-color)',
+        }} />
+      </div>
+      
+      {/* Trigger Area */}
+      <div style={{
+        width: '90px',
+        height: '32px',
+        border: '1px solid var(--border-color)',
+        borderRadius: '8px',
+        background: 'var(--bg-glass)',
+        backdropFilter: 'blur(10px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '6px',
+        opacity: 0.8
+      }}>
+        <div style={{ width: '40px', height: '4px', background: 'var(--text-main)', opacity: 0.3, borderRadius: '2px' }} />
+      </div>
+    </div>
   )
 };
 
 export const ComponentsPage: React.FC = () => {
-  // Sort alphabetically by name
+  
   const sortedComponents = [...componentsMeta].sort((a, b) => a.name.localeCompare(b.name));
 
   const isComponentNew = (addedAtString: string) => {
     const addedDate = new Date(addedAtString);
     const currentDate = new Date();
 
-    // Calculate difference in milliseconds
+    
     const diffTime = currentDate.getTime() - addedDate.getTime();
-    // Convert to days
+    
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-    // Returns true if added within last 5 days and is not in the future
+    
     return diffDays >= 0 && diffDays <= 5;
   };
 

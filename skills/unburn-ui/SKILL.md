@@ -66,7 +66,7 @@ Every component is standardizing on exactly three styling variants:
 
 ## Core Components Roster
 
-You have access to the following 14 highly-polished components:
+You have access to the following 16 highly-polished components:
 
 1. **`@unburn/ui/Accordion`**: Smooth, collapsible detail boxes.
 2. **`@unburn/ui/Alert`**: Notification banners and warnings with level icons.
@@ -79,9 +79,11 @@ You have access to the following 14 highly-polished components:
 9. **`@unburn/ui/Dropzone`**: Drag-and-drop file upload areas with concentric spacing.
 10. **`@unburn/ui/Input`**: Text fields with embedded icons and error states.
 11. **`@unburn/ui/Select`**: Elegant glassmorphic dropdown menus.
-12. **`@unburn/ui/Switch`**: Animated toggle switches with tactile click transitions and elastic physics.
-13. **`@unburn/ui/Textarea`**: Expanding multi-line text boxes with limit counters.
-14. **`@unburn/ui/VideoEmbed`**: A premium HTML5 custom video player with glassmorphic center play triggers and dock controls.
+12. **`@unburn/ui/Slider`**: Premium fluid sliders for adjusting values with precision glassmorphic tooltip feeds.
+13. **`@unburn/ui/Switch`**: Animated toggle switches with tactile click transitions and clean custom curves.
+14. **`@unburn/ui/Textarea`**: Expanding multi-line text boxes with limit counters.
+15. **`@unburn/ui/Tooltip`**: Frosted glass floating tooltips for displaying helpful interactive content, conforming to the three-variant system.
+16. **`@unburn/ui/VideoEmbed`**: A premium HTML5 custom video player with glassmorphic center play triggers and dock controls.
 
 ## Implementation Workflow
 
@@ -99,6 +101,8 @@ import React from 'react';
 import { Button } from '@unburn/ui/Button';
 import { Switch } from '@unburn/ui/Switch';
 import { Input } from '@unburn/ui/Input';
+import { Slider } from '@unburn/ui/Slider';
+import { Tooltip } from '@unburn/ui/Tooltip';
 
 export default function SettingsPanel() {
   return (
@@ -117,7 +121,20 @@ export default function SettingsPanel() {
       
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Enable Notifications</span>
-        <Switch color="#3b82f6" variant="filled" defaultChecked />
+        <Tooltip content="We will only send important updates" position="right">
+          <Switch color="#3b82f6" variant="filled" defaultChecked />
+        </Tooltip>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <Slider 
+          label="Volume" 
+          description="Adjust notification sound volume"
+          min={0}
+          max={100}
+          defaultValue={80}
+          showTooltip
+        />
       </div>
       
       <Button variant="filled">Save Changes</Button>

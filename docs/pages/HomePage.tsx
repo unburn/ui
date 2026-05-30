@@ -41,13 +41,11 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      <div className="viewport-glow"></div>
 
       <section className="hero-section">
         <div className="hero-container">
           <div className="hero-left">
             <div className="hero-badge">
-              <span className="hero-badge-dot"></span>
               <span>{version} Release</span>
             </div>
 

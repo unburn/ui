@@ -18,7 +18,6 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="lp-container">
       <section className="lp-section lp-hero">
-        <div className="viewport-glow" style={{ top: '0', left: '50%', transform: 'translateX(-50%)' }} />
 
         <Badge variant="duo" size="sm" style={{ marginBottom: '2rem' }}>
           New: AI-Powered Analytics is here

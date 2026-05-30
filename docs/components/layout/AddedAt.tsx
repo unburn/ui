@@ -9,13 +9,13 @@ export const AddedAt: React.FC<AddedAtProps> = ({ componentName }) => {
   const meta = componentsMeta.find(c => c.name === componentName);
   if (!meta) return null;
 
-  // Format date-only string YYYY-MM-DD cleanly to "May 15, 2026"
+  
   const date = new Date(meta.addedAt);
   const formattedDate = date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    timeZone: 'UTC' // Keep it absolute to match JSON date exactly
+    timeZone: 'UTC' 
   });
 
   return (

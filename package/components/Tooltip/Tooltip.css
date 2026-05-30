@@ -1,0 +1,202 @@
+.unburn-tooltip-root {
+  position: relative;
+  display: inline-block;
+}
+
+.unburn-tooltip-trigger {
+  display: inline-flex;
+}
+
+.unburn-tooltip-bubble {
+  position: absolute;
+  background: var(--accent-color, var(--bg-glass));
+  border: 1px solid var(--accent-color, var(--border-color));
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-text, var(--text-main));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  will-change: left, top, bottom, right, opacity, transform;
+  box-sizing: border-box;
+}
+
+.unburn-tooltip-arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-color, color-mix(in srgb, var(--bg-secondary) 40%, transparent));
+  border-right: 1px solid var(--accent-color, var(--border-color));
+  border-bottom: 1px solid var(--accent-color, var(--border-color));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-sizing: border-box;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* Tooltip Variants */
+
+/* 1. Filled (Default) */
+.unburn-tooltip-bubble-filled {
+  background: var(--accent-color, var(--bg-glass));
+  border: 1px solid var(--accent-color, var(--border-color));
+  color: var(--accent-text, var(--text-main));
+}
+
+.unburn-tooltip-bubble-filled .unburn-tooltip-arrow {
+  background: var(--accent-color, color-mix(in srgb, var(--bg-secondary) 40%, transparent));
+  border-right: 1px solid var(--accent-color, var(--border-color));
+  border-bottom: 1px solid var(--accent-color, var(--border-color));
+}
+
+/* 2. Outlined */
+.unburn-tooltip-bubble-outlined {
+  background: var(--bg-glass);
+  border: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
+  color: var(--accent-color, var(--text-main));
+}
+
+.unburn-tooltip-bubble-outlined .unburn-tooltip-arrow {
+  background: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
+}
+
+/* 3. Duo */
+.unburn-tooltip-bubble-duo {
+  background: color-mix(in srgb, var(--accent-color) 8%, var(--bg-glass));
+  border: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--border-color));
+  color: var(--accent-color, var(--text-main));
+}
+
+.unburn-tooltip-bubble-duo .unburn-tooltip-arrow {
+  background: color-mix(in srgb, var(--accent-color) 8%, color-mix(in srgb, var(--bg-secondary) 40%, transparent));
+  border-right: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--border-color));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--border-color));
+}
+
+/* Directional Alignments */
+
+/* Top Position */
+.unburn-tooltip-bubble-top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  animation: unburn-tooltip-fade-top 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.unburn-tooltip-bubble-top .unburn-tooltip-arrow {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Bottom Position */
+.unburn-tooltip-bubble-bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  animation: unburn-tooltip-fade-bottom 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.unburn-tooltip-bubble-bottom .unburn-tooltip-arrow {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-135deg);
+}
+
+/* Left Position */
+.unburn-tooltip-bubble-left {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: unburn-tooltip-fade-left 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.unburn-tooltip-bubble-left .unburn-tooltip-arrow {
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* Right Position */
+.unburn-tooltip-bubble-right {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: unburn-tooltip-fade-right 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.unburn-tooltip-bubble-right .unburn-tooltip-arrow {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+/* Standalone positioning rules (e.g. within Slider) */
+.unburn-tooltip-bubble-standalone {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  animation: unburn-tooltip-fade-top 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.unburn-tooltip-bubble-standalone .unburn-tooltip-arrow {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Animations */
+@keyframes unburn-tooltip-fade-top {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes unburn-tooltip-fade-bottom {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes unburn-tooltip-fade-left {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@keyframes unburn-tooltip-fade-right {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}

@@ -7,7 +7,7 @@ import { Dock } from '../package/components/Dock/Dock';
 import { Button } from '../package/components/Button/Button';
 import { Sun, Moon } from 'lucide-react';
 
-// Lazy load pages for better performance
+
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
 const ButtonsPage = lazy(() => import('./pages/components/ButtonsPage').then(m => ({ default: m.ButtonsPage })));
 const AvatarsPage = lazy(() => import('./pages/components/AvatarsPage').then(m => ({ default: m.AvatarsPage })));
@@ -29,6 +29,8 @@ const AuthPage = lazy(() => import('./pages/examples/AuthPage').then(m => ({ def
 const DropzonePage = lazy(() => import('./pages/components/DropzonePage').then(m => ({ default: m.DropzonePage })));
 const LandingPage = lazy(() => import('./pages/examples/LandingPage').then(m => ({ default: m.LandingPage })));
 const VideoEmbedPage = lazy(() => import('./pages/components/VideoEmbedPage').then(m => ({ default: m.VideoEmbedPage })));
+const SliderPage = lazy(() => import('./pages/components/SliderPage').then(m => ({ default: m.SliderPage })));
+const TooltipPage = lazy(() => import('./pages/components/TooltipPage').then(m => ({ default: m.TooltipPage })));
 
 type Theme = 'light' | 'dark';
 
@@ -48,10 +50,6 @@ function App() {
     return (saved as Theme) || 'dark';
   });
 
-  const [accent, setAccent] = useState(() => {
-    return localStorage.getItem('unburn-accent') || 'green';
-  });
-
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleTheme = () => {
@@ -62,11 +60,6 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('unburn-theme', theme);
   }, [theme]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-accent', accent);
-    localStorage.setItem('unburn-accent', accent);
-  }, [accent]);
 
   return (
     <Router>
@@ -98,7 +91,7 @@ function App() {
                 <Route path="/components/alerts" element={<AlertsPage />} />
                 <Route path="/components/accordions" element={<AccordionsPage />} />
                 <Route path="/components/badges" element={<BadgesPage />} />
-                <Route path="/components/dock" element={<DockPage globalTheme={theme} setGlobalTheme={setTheme} globalAccent={accent} setGlobalAccent={setAccent} />} />
+                <Route path="/components/dock" element={<DockPage globalTheme={theme} setGlobalTheme={setTheme} />} />
                 <Route path="/components/checkbox" element={<CheckboxPage />} />
                 <Route path="/components/switch" element={<SwitchPage />} />
                 <Route path="/components/select" element={<SelectPage />} />
@@ -107,6 +100,8 @@ function App() {
                 <Route path="/components/code-block" element={<CodeBlockPage />} />
                 <Route path="/components/dropzone" element={<DropzonePage />} />
                 <Route path="/components/video-embed" element={<VideoEmbedPage />} />
+                <Route path="/components/slider" element={<SliderPage />} />
+                <Route path="/components/tooltip" element={<TooltipPage />} />
               </Routes>
             </Suspense>
           </main>
@@ -118,22 +113,9 @@ function App() {
           position='bottom'
         >
           {!isMenuOpen && (
-            <>
-              <Button onClick={toggleTheme}>
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </Button>
-              <Button onClick={() => {
-                const colors = ['red', 'orange', 'blue', 'green', 'purple', theme === 'dark' ? 'white' : 'black'];
-                const currentIndex = colors.indexOf(accent);
-                const nextIndex = (currentIndex + 1) % colors.length;
-                setAccent(colors[nextIndex]);
-              }}>
-                <div
-                  className="unburn-accent-preview"
-                  style={{ backgroundColor: 'var(--accent-color)' }}
-                />
-              </Button>
-            </>
+            <Button onClick={toggleTheme}>
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </Button>
           )}
         </Dock>
 

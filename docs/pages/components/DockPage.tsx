@@ -10,18 +10,13 @@ import { ComponentHeader } from '../../components/layout/ComponentHeader';
 export interface DockPageProps {
   globalTheme?: 'light' | 'dark';
   setGlobalTheme?: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
-  globalAccent?: string;
-  setGlobalAccent?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const DockPage: React.FC<DockPageProps> = ({ globalTheme, setGlobalTheme, globalAccent, setGlobalAccent }) => {
+export const DockPage: React.FC<DockPageProps> = ({ globalTheme, setGlobalTheme }) => {
   const [localTheme, setLocalTheme] = useState<'light' | 'dark'>('dark');
-  const [localAccent, setLocalAccent] = useState('red');
 
   const theme = globalTheme || localTheme;
   const setTheme = setGlobalTheme || setLocalTheme;
-  const accent = globalAccent || localAccent;
-  const setAccent = setGlobalAccent || setLocalAccent;
   const [demoOpen1, setDemoOpen1] = useState(false);
   const [demoOpen2, setDemoOpen2] = useState(false);
 
@@ -59,12 +54,6 @@ export default function Example() {
           >
             <Button onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}>
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </Button>
-            <Button onClick={() => setAccent(accent === 'red' ? 'blue' : 'red')}>
-              <div
-                className="unburn-accent-preview"
-                style={{ backgroundColor: 'var(--accent-color)' }}
-              />
             </Button>
           </Dock>
         </div>

@@ -82,5 +82,17 @@
     "description": "Premium HTML5 custom video player with glassmorphic controls.",
     "path": "/components/video-embed",
     "addedAt": "2026-05-19"
+  },
+  {
+    "name": "Slider",
+    "description": "Premium range sliders with touch support and live value bubbles.",
+    "path": "/components/slider",
+    "addedAt": "2026-05-30"
+  },
+  {
+    "name": "Tooltip",
+    "description": "Elegant floating info bubbles with glassmorphic depth overrides.",
+    "path": "/components/tooltip",
+    "addedAt": "2026-05-30"
   }
 ]

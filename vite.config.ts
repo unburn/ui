@@ -33,6 +33,8 @@ export default defineConfig(({ mode }) => {
           'components/Input/Input': resolve(__dirname, 'package/components/Input/Input.tsx'),
           'components/Select/Select': resolve(__dirname, 'package/components/Select/Select.tsx'),
           'components/Switch/Switch': resolve(__dirname, 'package/components/Switch/Switch.tsx'),
+          'components/Slider/Slider': resolve(__dirname, 'package/components/Slider/Slider.tsx'),
+          'components/Tooltip/Tooltip': resolve(__dirname, 'package/components/Tooltip/Tooltip.tsx'),
           'components/Textarea/Textarea': resolve(__dirname, 'package/components/Textarea/Textarea.tsx'),
           'components/VideoEmbed/VideoEmbed': resolve(__dirname, 'package/components/VideoEmbed/VideoEmbed.tsx'),
           'lib/utils': resolve(__dirname, 'package/lib/utils.ts'),

@@ -13,7 +13,7 @@ export const AlertsPage: React.FC = () => {
       <ComponentHeader title="Alerts" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Alert } from '@unburn/ui/Alert';
 import { Info } from 'lucide-react';
 
@@ -59,7 +59,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="COLORS"
+          title="Colors"
           description="Change the look of alerts with colors like green, blue, orange, or red."
           code={`import { Alert } from '@unburn/ui/Alert';
 import { CheckCircle2, Info } from 'lucide-react';
@@ -84,7 +84,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: outlined, duo, and filled."
           code={`import { Alert } from '@unburn/ui/Alert';
 import { Info } from 'lucide-react';
@@ -107,7 +107,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="WITH ACTIONS"
+          title="With Actions"
           description="Add action buttons directly into your alerts."
           code={`import { Alert } from '@unburn/ui/Alert';
 import { Button } from '@unburn/ui/Button';
@@ -137,7 +137,7 @@ export default function Example() {
               title="New feature available"
               description="We've added dark mode support. Check it out now."
               color='blue'
-              variant='duo'
+              variant='outlined'
               actions={
                 <>
                   <Button size='sm' color='blue'>Check Out</Button>
@@ -153,7 +153,7 @@ export default function Example() {
         props={[
           { name: 'title', type: 'string', required: true, description: 'The header text of the alert.' },
           { name: 'color', type: 'string', description: 'Custom color theme for the banner.' },
-          { name: 'variant', type: "'outlined' | 'duo' | 'filled'", defaultValue: "'outlined'", description: 'The style variant of the alert.' },
+          { name: 'variant', type: "'outlined' | 'duo' | 'filled'", defaultValue: "'filled'", description: 'The style variant of the alert.' },
           { name: 'description', type: 'ReactNode', description: 'The message details shown inside the alert.' },
           { name: 'icon', type: 'ReactNode', description: 'An icon shown next to the title.' },
           { name: 'actions', type: 'ReactNode', description: 'Buttons or links for user actions.' },

@@ -31,6 +31,10 @@
   overflow: hidden;
 }
 
+.unburn-input-container:focus-within {
+  border-color: var(--accent-color);
+}
+
 .unburn-input-container-filled {
   background-color: var(--bg-secondary);
   background-image: linear-gradient(135deg, var(--bg-secondary) 0%, color-mix(in srgb, var(--bg-secondary) 60%, var(--bg-main)) 100%);
@@ -224,4 +228,33 @@
 
 .unburn-input-progress-bar-3.active {
   background-color: var(--color-green);
+}
+
+.unburn-input-right-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding-right: 0.75rem;
+  pointer-events: none;
+}
+
+.unburn-input-kbd {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.unburn-input-container:has(.unburn-input-right-section) .unburn-input {
+  padding-right: 4.5rem;
 }

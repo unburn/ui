@@ -70,7 +70,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       onChange?.(e);
     };
 
-    // Custom Resize Logic for both Mouse and Touch
     const handleResizeStart = (e: React.MouseEvent | React.TouchEvent) => {
       if (disabled) return;
       
@@ -79,7 +78,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       const startHeight = containerRef.current?.offsetHeight || 0;
 
       const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
-        // Prevent default screen scrolling during mobile touch dragging
         if ('touches' in moveEvent) {
           if (moveEvent.cancelable) {
             moveEvent.preventDefault();

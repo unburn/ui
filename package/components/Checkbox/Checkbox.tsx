@@ -54,7 +54,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const generatedId = useId();
     const checkboxId = id || generatedId;
 
-    // Internal state to track check for animation
     const [isChecked, setIsChecked] = useState(controlledChecked ?? defaultChecked ?? false);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -82,7 +81,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <div
         className={cn(
           "unburn-checkbox-root",
-          isAnimating && (isChecked ? "unburn-checkbox-jar-on" : "unburn-switch-jar-off"), // Using switch animations for consistency or naming
+          isAnimating && (isChecked ? "unburn-checkbox-jar-on" : "unburn-switch-jar-off"),
           classNames?.root
         )}
         style={{ ...styles?.root, ...accentStyle }}

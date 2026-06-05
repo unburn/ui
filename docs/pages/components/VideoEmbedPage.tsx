@@ -11,7 +11,7 @@ export const VideoEmbedPage: React.FC = () => {
       <ComponentHeader title="Video Embed" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         description="A beautiful, high-performance direct video player using glassmorphic overlays and custom seeking controls."
         code={`import { VideoEmbed } from '@unburn/ui/VideoEmbed';
 
@@ -52,7 +52,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="ASPECT RATIOS"
+          title="Aspect Ratios"
           description="Support for 16:9, 4:3, 1:1, or custom ratio scaling configurations."
           code={`import { VideoEmbed } from '@unburn/ui/VideoEmbed';
 

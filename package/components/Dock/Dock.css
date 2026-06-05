@@ -4,24 +4,9 @@
   transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   isolation: isolate;
   backface-visibility: hidden;
-
-  &.unburn-size-sm {
-    --dock-height: 36px;
-    --dock-padding: 0.5rem;
-    --dock-gap: 0.5rem;
-  }
-
-  &.unburn-size-default {
-    --dock-height: 48px;
-    --dock-padding: 0.75rem;
-    --dock-gap: 0.75rem;
-  }
-
-  &.unburn-size-lg {
-    --dock-height: 60px;
-    --dock-padding: 1rem;
-    --dock-gap: 1rem;
-  }
+  --dock-height: 48px;
+  --dock-padding: 0.75rem;
+  --dock-gap: 0.75rem;
 
   &.unburn-pos-bottom {
     bottom: 2rem;
@@ -116,99 +101,65 @@
 .unburn-btn.unburn-dock-trigger {
   background-color: var(--text-main);
   background-image: none;
-  /* override filled-gradient overlay */
   color: var(--bg-main);
   border: none;
   border-radius: var(--radius-lg);
+  width: var(--dock-height);
   height: var(--dock-height);
-  padding: 0 0.5rem 0 1.5rem;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.875rem;
+  padding: 0;
   cursor: pointer;
   transition: all 0.4s var(--transition-curve);
   display: flex;
   align-items: center;
+  justify-content: center;
   scroll-snap-align: center;
   flex-shrink: 0;
-  box-shadow: none;
-
-  .unburn-pos-left &,
-  .unburn-pos-right & {
-    width: var(--dock-height);
-    height: auto;
-    min-height: calc(var(--dock-height) * 2.2);
-    flex-direction: column-reverse;
-    padding: 0.75rem 0 0.5rem 0;
-    gap: 1rem;
-    justify-content: space-between;
-  }
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.unburn-trigger-inner {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  .unburn-pos-left &,
-  .unburn-pos-right & {
-    flex-direction: column-reverse;
-    gap: 0.75rem;
-    height: 100%;
-    justify-content: center;
-  }
+.unburn-btn.unburn-dock-trigger.unburn-open {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
-.unburn-trigger-text {
-  font-family: var(--font-sans);
-  font-size: 0.90rem;
-  font-weight: 500;
-
-  .unburn-pos-left &,
-  .unburn-pos-right & {
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-    margin-bottom: 0.25rem;
-  }
-}
-
-.unburn-trigger-icon {
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  border-radius: var(--radius-full);
+.unburn-trigger-icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  width: calc(var(--dock-height) - 16px);
-  height: calc(var(--dock-height) - 16px);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 100%;
+  height: 100%;
 }
 
-.unburn-btn.unburn-dock-trigger.unburn-open .unburn-trigger-icon {
+.unburn-btn.unburn-dock-trigger.unburn-open .unburn-trigger-icon-wrapper {
   transform: rotate(90deg);
 }
 
 .unburn-btn.unburn-dock-trigger:active:not(:disabled) {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 
 .unburn-btn.unburn-dock-trigger:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: 1;
   background-color: var(--text-main);
   color: var(--bg-main);
-  background-image: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.unburn-btn.unburn-dock-trigger.unburn-open:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .unburn-btn.unburn-dock-collapse-btn {
   background-color: var(--bg-secondary);
   background-image: none;
-  /* override filled-gradient overlay */
   color: var(--text-muted);
   border: 1px solid var(--border-color);
   width: var(--dock-height);
   height: var(--dock-height);
   min-height: var(--dock-height);
-  /* override standard min-height */
   padding: 0;
   border-radius: var(--radius-lg);
   display: flex;
@@ -242,20 +193,18 @@
   position: absolute;
   background-color: var(--bg-main);
   background-image: none;
-  /* override filled-gradient overlay */
   color: var(--accent-color);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
   transition: all 0.5s var(--transition-curve);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   padding: 0;
   min-height: unset;
-  /* override standard min-height */
 
   .unburn-pos-bottom & {
     top: -1.5rem;
@@ -295,8 +244,8 @@
 }
 
 .unburn-dock-wrapper.unburn-collapsed .unburn-btn.unburn-dock-expand-btn {
-  opacity: 1;
-  pointer-events: auto;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 
   .unburn-pos-bottom & {
     transform: translateX(-50%) translateY(-2.5rem);
@@ -315,7 +264,7 @@
   }
 }
 
-.unburn-btn.unburn-dock-expand-btn:hover:not(:disabled) {
+.unburn-dock-wrapper.unburn-collapsed .unburn-btn.unburn-dock-expand-btn:hover:not(:disabled) {
   opacity: 1;
   color: var(--accent-color);
   background-color: var(--bg-main);
@@ -346,19 +295,15 @@
   display: flex;
 }
 
-/* Custom Action Button styling inside the Dock */
 .unburn-dock .unburn-btn:not(.unburn-dock-trigger):not(.unburn-dock-collapse-btn):not(.unburn-dock-expand-btn) {
   background-color: var(--bg-secondary);
   background-image: none;
-  /* override filled-gradient overlay */
   color: var(--text-main);
   border: 1px solid var(--border-color);
   width: var(--dock-height);
   height: var(--dock-height);
   min-height: var(--dock-height);
-  /* override standard min-height */
   padding: 0;
-  /* override standard padding */
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;

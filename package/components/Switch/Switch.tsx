@@ -151,7 +151,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                   id={`${switchId}-label`}
                   className={cn("unburn-switch-label", classNames?.label)}
                   style={styles?.label}
-                  onClick={(e) => e.preventDefault()} // Clicks are handled by container
+                  onClick={(e) => e.preventDefault()}
                 >
                   {label}
                 </label>

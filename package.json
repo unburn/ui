@@ -1,6 +1,6 @@
 {
   "name": "@unburn/ui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": false,
   "description": "A premium, softly-rounded React component library.",
   "author": "Unburn",
@@ -96,6 +96,21 @@
       "import": "./dist/components/VideoEmbed/VideoEmbed.mjs",
       "require": "./dist/components/VideoEmbed/VideoEmbed.cjs"
     },
+    "./Steps": {
+      "types": "./dist/components/Steps/Steps.d.ts",
+      "import": "./dist/components/Steps/Steps.mjs",
+      "require": "./dist/components/Steps/Steps.cjs"
+    },
+    "./Tabs": {
+      "types": "./dist/components/Tabs/Tabs.d.ts",
+      "import": "./dist/components/Tabs/Tabs.mjs",
+      "require": "./dist/components/Tabs/Tabs.cjs"
+    },
+    "./VoiceAgent": {
+      "types": "./dist/components/VoiceAgent/VoiceAgent.d.ts",
+      "import": "./dist/components/VoiceAgent/VoiceAgent.mjs",
+      "require": "./dist/components/VoiceAgent/VoiceAgent.cjs"
+    },
     "./utils": {
       "types": "./dist/lib/utils.d.ts",
       "import": "./dist/lib/utils.mjs",
@@ -139,7 +154,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --mode lib",
-    "build:docs": "tsc -b && vite build",
+    "build:docs": "tsc -b && vite build && node docs/index-docs.cjs",
     "lint": "eslint .",
     "preview": "vite preview --outDir dist-docs",
     "prepublishOnly": "npm run build"

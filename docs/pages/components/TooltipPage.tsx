@@ -12,7 +12,7 @@ export const TooltipPage: React.FC = () => {
       <ComponentHeader title="Tooltip" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         description="A premium glassmorphic hover information bubble showing interactive trigger components."
         code={`import { Tooltip } from '@unburn/ui/Tooltip';
 import { Button } from '@unburn/ui/Button';
@@ -53,7 +53,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="POSITIONS"
+          title="Positions"
           description="Support for four-directional alignments: top, bottom, left, and right."
           code={`import { Tooltip } from '@unburn/ui/Tooltip';
 import { Button } from '@unburn/ui/Button';
@@ -94,7 +94,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Support for three distinct styling architectures: filled (solid color/high-contrast), outlined (crisp border highlight), and duo (translucent background and border tinter)."
           code={`import { Tooltip } from '@unburn/ui/Tooltip';
 import { Button } from '@unburn/ui/Button';
@@ -129,7 +129,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Support for disabled states, preventing bubble rendering when disabled is set."
           code={`import { Tooltip } from '@unburn/ui/Tooltip';
 import { Button } from '@unburn/ui/Button';

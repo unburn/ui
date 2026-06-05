@@ -1,0 +1,74 @@
+.unburn-steps {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+}
+
+.unburn-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.unburn-step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+.unburn-step-marker {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent-color);
+  color: var(--accent-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.unburn-step-connector {
+  width: 1px;
+  flex: 1;
+  min-height: 2rem;
+  background: linear-gradient(to bottom, var(--accent-color), color-mix(in srgb, var(--border-color) 40%, transparent));
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.4;
+}
+
+.unburn-step-content {
+  flex: 1;
+  padding-bottom: 2rem;
+}
+
+.unburn-step:last-child .unburn-step-content {
+  padding-bottom: 0;
+}
+
+.unburn-step-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  padding-top: 0.35rem;
+}
+
+.unburn-step-description {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.unburn-step-body {
+  margin-top: 0.75rem;
+}

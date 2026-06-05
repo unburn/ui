@@ -43,9 +43,6 @@
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
-/* Tooltip Variants */
-
-/* 1. Filled (Default) */
 .unburn-tooltip-bubble-filled {
   background: var(--accent-color, var(--bg-glass));
   border: 1px solid var(--accent-color, var(--border-color));
@@ -58,7 +55,6 @@
   border-bottom: 1px solid var(--accent-color, var(--border-color));
 }
 
-/* 2. Outlined */
 .unburn-tooltip-bubble-outlined {
   background: var(--bg-glass);
   border: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
@@ -71,7 +67,6 @@
   border-bottom: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
 }
 
-/* 3. Duo */
 .unburn-tooltip-bubble-duo {
   background: color-mix(in srgb, var(--accent-color) 8%, var(--bg-glass));
   border: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--border-color));
@@ -84,9 +79,6 @@
   border-bottom: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--border-color));
 }
 
-/* Directional Alignments */
-
-/* Top Position */
 .unburn-tooltip-bubble-top {
   bottom: calc(100% + 8px);
   left: 50%;
@@ -100,7 +92,6 @@
   transform: translateX(-50%) rotate(45deg);
 }
 
-/* Bottom Position */
 .unburn-tooltip-bubble-bottom {
   top: calc(100% + 8px);
   left: 50%;
@@ -114,7 +105,6 @@
   transform: translateX(-50%) rotate(-135deg);
 }
 
-/* Left Position */
 .unburn-tooltip-bubble-left {
   right: calc(100% + 8px);
   top: 50%;
@@ -128,7 +118,6 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
-/* Right Position */
 .unburn-tooltip-bubble-right {
   left: calc(100% + 8px);
   top: 50%;
@@ -142,7 +131,6 @@
   transform: translateY(-50%) rotate(135deg);
 }
 
-/* Standalone positioning rules (e.g. within Slider) */
 .unburn-tooltip-bubble-standalone {
   position: absolute;
   bottom: calc(100% + 8px);

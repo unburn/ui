@@ -12,7 +12,7 @@ export const BadgesPage: React.FC = () => {
       <ComponentHeader title="Badges" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Badge } from '@unburn/ui/Badge';
 
 export default function Example() {
@@ -38,7 +38,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from four styles: filled, outlined, duo."
           code={`import { Badge } from '@unburn/ui/Badge';
 
@@ -60,7 +60,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Choose from small, medium, or large sizes."
           code={`import { Badge } from '@unburn/ui/Badge';
 
@@ -82,7 +82,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="WITH ICONS"
+          title="With Icons"
           description="Add small icons next to the text for extra detail."
           code={`import { Badge } from '@unburn/ui/Badge';
 import { Shield, Star, Check } from 'lucide-react';
@@ -105,7 +105,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATUS COLORS"
+          title="Status Colors"
           description="Change the label colors to match its status."
           code={`import { Badge } from '@unburn/ui/Badge';
 import { Zap } from 'lucide-react';
@@ -131,7 +131,8 @@ export default function Example() {
       <Props
         props={[
           { name: 'variant', type: "'filled' | 'outlined' | 'duo'", defaultValue: "'filled'", description: 'The style of the badge.' },
-          { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The size of the badge label.' },
+          { name: 'size', type: "'sm' | 'md' | 'lg'", defaultValue: "'md'", description: 'The size of the badge.' },
+          { name: 'color', type: 'string', description: 'Custom accent color for borders and highlights.' },
           { name: 'icon', type: 'ReactNode', description: 'An icon shown next to the label text.' },
           { name: 'iconPosition', type: "'left' | 'right'", defaultValue: "'left'", description: 'Show the icon on the left or right side.' },
           { name: 'classNames', type: 'object', description: 'Custom CSS classes for each part of the badge.' },

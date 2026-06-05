@@ -14,7 +14,7 @@ export const CheckboxPage: React.FC = () => {
       <ComponentHeader title="Checkbox" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Checkbox } from '@unburn/ui/Checkbox';
 
 export default function Example() {
@@ -40,7 +40,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: filled, outlined, and duo."
           code={`import { Checkbox } from '@unburn/ui/Checkbox';
 
@@ -62,7 +62,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Choose from small, medium, or large sizes."
           code={`import { Checkbox } from '@unburn/ui/Checkbox';
 
@@ -84,7 +84,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Use disabled states and validation checks."
           code={`import { Checkbox } from '@unburn/ui/Checkbox';
 
@@ -104,7 +104,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="WITH DESCRIPTION"
+          title="With Description"
           description="Add descriptive text below the checkbox label."
           code={`import { Checkbox } from '@unburn/ui/Checkbox';
 
@@ -126,7 +126,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="INTERACTIVE"
+          title="Interactive"
           description="Show error messages when unchecked."
           code={`import { Checkbox } from '@unburn/ui/Checkbox';
 import { useState } from 'react';
@@ -160,6 +160,7 @@ export default function Example() {
           { name: 'error', type: 'string', description: 'Error message to show under the checkbox.' },
           { name: 'variant', type: "'filled' | 'outlined' | 'duo'", defaultValue: "'filled'", description: 'The style variant of the checkbox.' },
           { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The size of the checkbox.' },
+          { name: 'color', type: 'string', description: 'Custom accent color for borders and checked background.' },
           { name: 'checked', type: 'boolean', description: 'Set if the checkbox is checked.' },
           { name: 'defaultChecked', type: 'boolean', description: 'Set if the checkbox starts as checked.' },
           { name: 'onChange', type: '(e: ChangeEvent) => void', description: 'Function called when the checkbox state changes.' },

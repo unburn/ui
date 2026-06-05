@@ -2,7 +2,10 @@
   width: 100%;
 }
 
-.unburn-accordion-item {}
+.unburn-accordion-item {
+  position: relative;
+  overflow: visible;
+}
 
 .unburn-accordion-outlined {
   border-top: none;
@@ -13,7 +16,7 @@
 
 .unburn-accordion-outlined .unburn-accordion-item {
   border: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xxl);
   padding: 0 1.25rem;
   background-color: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
   backdrop-filter: blur(12px);
@@ -22,6 +25,15 @@
 
 .unburn-accordion-outlined .unburn-accordion-item:last-child {
   border-bottom: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
+}
+
+.unburn-accordion-outlined .unburn-accordion-item[data-state="open"] {
+  border-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color) 4%, color-mix(in srgb, var(--bg-secondary) 40%, transparent));
+}
+
+.unburn-accordion-outlined .unburn-accordion-item[data-state="open"] .unburn-accordion-header {
+  color: var(--accent-color);
 }
 
 .unburn-accordion-header {
@@ -49,16 +61,38 @@
 
 .unburn-accordion-header-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
 }
 
 .unburn-accordion-leading-icon {
+  position: absolute;
+  left: 2.5rem;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  z-index: 2;
+  transition: all var(--transition);
+  background-color: var(--bg-main);
+  border: 2px solid color-mix(in srgb, var(--border-color) 60%, transparent);
+  box-shadow: 0 0 0 3px var(--bg-main);
   color: var(--accent-color);
   flex-shrink: 0;
+}
+
+.unburn-accordion-leading-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.unburn-accordion-item[data-state="open"] .unburn-accordion-leading-icon {
+  border-color: var(--accent-color);
 }
 
 .unburn-accordion-header:hover {
@@ -66,10 +100,10 @@
 }
 
 .unburn-accordion-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 400;
-  margin-top: 0.125rem;
+  margin-top: 0.25rem;
   display: block;
 }
 
@@ -97,9 +131,9 @@
 .unburn-accordion-content {
   min-height: 0;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .unburn-accordion-content-inner {
@@ -116,7 +150,7 @@
 .unburn-accordion-duo .unburn-accordion-item {
   background-color: color-mix(in srgb, var(--accent-color) 8%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent-color) 15%, transparent);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xxl);
   padding: 0 1.25rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -140,9 +174,8 @@
 
 .unburn-accordion-filled .unburn-accordion-item {
   background-color: var(--accent-color);
-  background-image: var(--filled-gradient);
   border: 1px solid var(--accent-color);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xxl);
   padding: 0 1.25rem;
   color: var(--accent-text);
 }
@@ -165,5 +198,29 @@
 
 .unburn-accordion-filled .unburn-accordion-item[data-state="open"] {
   background-color: color-mix(in srgb, var(--accent-color) 90%, black);
-  background-image: var(--filled-gradient);
+}
+
+.unburn-accordion-item-has-icon .unburn-accordion-header {
+  padding-top: 2.25rem;
+}
+
+.unburn-accordion-duo .unburn-accordion-leading-icon {
+  background-color: color-mix(in srgb, var(--accent-color) 8%, var(--bg-main));
+  border-color: color-mix(in srgb, var(--accent-color) 15%, transparent);
+}
+
+.unburn-accordion-duo .unburn-accordion-item[data-state="open"] .unburn-accordion-leading-icon {
+  background-color: color-mix(in srgb, var(--accent-color) 12%, var(--bg-main));
+  border-color: var(--accent-color);
+}
+
+.unburn-accordion-filled .unburn-accordion-leading-icon {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--accent-text) !important;
+}
+
+.unburn-accordion-filled .unburn-accordion-item[data-state="open"] .unburn-accordion-leading-icon {
+  background-color: color-mix(in srgb, var(--accent-color) 90%, black);
+  border-color: color-mix(in srgb, var(--accent-color) 90%, black);
 }

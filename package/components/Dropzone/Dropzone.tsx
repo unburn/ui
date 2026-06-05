@@ -11,7 +11,7 @@ export interface DropzoneProps {
   onFilesDrop?: (files: File[]) => void;
   accept?: string;
   multiple?: boolean;
-  maxSize?: number; // in bytes
+  maxSize?: number;
   label?: string;
   description?: string;
   icon?: React.ReactNode;
@@ -79,7 +79,6 @@ export const Dropzone: React.FC<DropzoneProps> = ({
     const filesArray = Array.from(newFiles);
 
     filesArray.forEach(file => {
-      // Basic validation (can be expanded)
       if (maxSize && file.size > maxSize) return;
       validFiles.push(file);
     });

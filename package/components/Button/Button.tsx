@@ -99,3 +99,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
+
+export interface ButtonGroupProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export const ButtonGroup: React.FC<ButtonGroupProps> = ({
+  children,
+  className,
+  style
+}) => {
+  return (
+    <div className={cn('unburn-btn-group', className)} style={style}>
+      {children}
+    </div>
+  );
+};

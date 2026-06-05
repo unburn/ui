@@ -51,6 +51,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
         style={{ ...style, ...accentStyle, ...styles?.root }}
         className={cn(
           'unburn-alert',
+          icon && 'unburn-alert-has-icon',
           variant !== 'filled' && 'unburn-glass',
           variant === 'duo' && 'unburn-alert-duo',
           variant === 'filled' && 'unburn-alert-filled',
@@ -59,7 +60,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
         )}
         {...props}
       >
-        <div className="unburn-alert-content">
+        <div className="unburn-alert-header">
           {icon && (
             <div
               className={cn("unburn-alert-icon", classNames?.icon)}
@@ -68,23 +69,21 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
               {icon}
             </div>
           )}
-          <div className="unburn-alert-text">
-            <div
-              className={cn("unburn-alert-title", classNames?.title)}
-              style={styles?.title}
-            >
-              {title}
-            </div>
-            {description && (
-              <div
-                className={cn("unburn-alert-description", classNames?.description)}
-                style={styles?.description}
-              >
-                {description}
-              </div>
-            )}
+          <div
+            className={cn("unburn-alert-title", classNames?.title)}
+            style={styles?.title}
+          >
+            {title}
           </div>
         </div>
+        {description && (
+          <div
+            className={cn("unburn-alert-description", classNames?.description)}
+            style={styles?.description}
+          >
+            {description}
+          </div>
+        )}
         {actions && (
           <div
             className={cn("unburn-alert-actions", classNames?.actions)}

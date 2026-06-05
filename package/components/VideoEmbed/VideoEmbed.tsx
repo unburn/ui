@@ -33,7 +33,6 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
   style,
   playIcon,
 }) => {
-  // States
   const [isLoaded, setIsLoaded] = useState(autoplay && !poster);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -44,14 +43,12 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
   const [showControls, setShowControls] = useState(true);
   const [isBuffering, setIsBuffering] = useState(false);
 
-  // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const accentStyle = getAccentVariables(color);
 
   const isPlayerMounted = isLoaded || !poster;
 
-  // Auto-play trigger once activated by gesture
   useEffect(() => {
     if (isLoaded && videoRef.current) {
       setIsBuffering(true);
@@ -61,7 +58,6 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
     }
   }, [isLoaded]);
 
-  // Sync fullscreen change events
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -72,7 +68,6 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
     };
   }, []);
 
-  // Idle controls hide controller
   useEffect(() => {
     if (!isPlaying) {
       const id = setTimeout(() => setShowControls(true), 0);
@@ -107,7 +102,6 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
     setIsLoaded(true);
   };
 
-  // Custom Controls Handlers
   const togglePlay = (e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
@@ -208,8 +202,8 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
       style={{ ...style, ...accentStyle }}
       onClick={isPlayerMounted ? togglePlay : undefined}
     >
-      {/* Dynamic Buffering & Loading Spinner Overlay */}
-      <div 
+
+      <div
         className={cn(
           "unburn-video-loading-overlay",
           isBuffering && "unburn-video-loading-overlay-active"
@@ -237,7 +231,6 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
         </div>
       )}
 
-      {/* Frame Mounting */}
       {(isLoaded || !poster) && (
         <>
           <video
@@ -257,31 +250,27 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
             onCanPlay={() => setIsBuffering(false)}
             onLoadStart={() => setIsBuffering(true)}
           />
-          
-          {/* Sculpted Glassmorphic Capsule Custom Video Controls Panel */}
+
           {controls && isLoaded && (
-            <div 
+            <div
               className={cn(
-                "unburn-video-controls", 
+                "unburn-video-controls",
                 !showControls && "unburn-video-controls-hidden"
               )}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Play Pause Button */}
-              <button 
-                className="unburn-video-control-btn" 
+              <button
+                className="unburn-video-control-btn"
                 onClick={togglePlay}
                 aria-label={isPlaying ? "Pause video" : "Play video"}
               >
                 {isPlaying ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
               </button>
-              
-              {/* Elapsed Time readout */}
+
               <span className="unburn-video-time-display">
                 {formatTime(currentTime)}
               </span>
 
-              {/* Wide Floating Seekbar */}
               <div className="unburn-video-seekbar-wrapper">
                 <input
                   type="range"
@@ -295,15 +284,13 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
                 />
               </div>
 
-              {/* Total Duration readout */}
               <span className="unburn-video-time-display">
                 {formatTime(duration)}
               </span>
 
-              {/* Volume Controller */}
               <div className="unburn-video-volume-group">
-                <button 
-                  className="unburn-video-control-btn" 
+                <button
+                  className="unburn-video-control-btn"
                   onClick={toggleMute}
                   aria-label={isMuted ? "Unmute audio" : "Mute audio"}
                 >
@@ -322,9 +309,8 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
                 />
               </div>
 
-              {/* Fullscreen Trigger */}
-              <button 
-                className="unburn-video-control-btn" 
+              <button
+                className="unburn-video-control-btn"
                 onClick={toggleFullscreen}
                 aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
               >

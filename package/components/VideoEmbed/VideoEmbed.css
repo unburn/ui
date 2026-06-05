@@ -9,7 +9,6 @@
   display: block;
 }
 
-/* Subtle glowing outer reflection and inner frame border on hover */
 .unburn-video-embed-container::after {
   content: '';
   position: absolute;
@@ -89,7 +88,6 @@
   filter: brightness(0.9);
 }
 
-/* Premium Frosted Glassmorphic Play Trigger */
 .unburn-video-play-btn-glass {
   position: relative;
   width: 68px;
@@ -116,12 +114,10 @@
   transition: transform 0.4s var(--transition-curve);
 }
 
-/* Visually center the play triangle icon */
 .unburn-video-play-btn-glass-inner svg {
   transform: translateX(1.5px);
 }
 
-/* Pulsating Ripple Animation */
 .unburn-video-play-btn-ripple {
   position: absolute;
   inset: -1px;
@@ -143,7 +139,6 @@
   }
 }
 
-/* Hover Actions */
 .unburn-video-embed-container:hover .unburn-video-play-btn-glass {
   transform: scale(1.08);
   background: rgba(255, 255, 255, 0.15);
@@ -155,7 +150,6 @@
   transform: scale(1.08);
 }
 
-/* Premium Buffering & Loading Overlays */
 .unburn-video-loading-overlay {
   position: absolute;
   inset: 0;
@@ -189,7 +183,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Sculpted Floating Dock Controls Bar Centered at the Bottom */
 .unburn-video-controls {
   position: absolute;
   bottom: 20px;
@@ -201,7 +194,7 @@
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid color-mix(in srgb, var(--text-main) 8%, transparent);
-  border-radius: 100px; /* Perfect pill-shaped dock! */
+  border-radius: 100px;
   padding: 8px 20px;
   display: flex;
   align-items: center;
@@ -213,18 +206,16 @@
 
 .unburn-video-controls-hidden {
   opacity: 0;
-  transform: translate(-50%, 12px); /* Safely retain horizontal centering while sliding down! */
+  transform: translate(-50%, 12px);
   pointer-events: none;
 }
 
-/* Center timeline seekbar wrapper */
 .unburn-video-seekbar-wrapper {
   flex-grow: 1;
   display: flex;
   align-items: center;
 }
 
-/* Timeline Custom Seekbar Range Slider with progressive filled track */
 .unburn-video-seekbar {
   -webkit-appearance: none;
   appearance: none;
@@ -266,14 +257,13 @@
   transform: scale(1.1);
 }
 
-/* Custom Tactical Buttons */
 .unburn-video-control-btn {
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
   padding: 4px;
-  border-radius: 50%; /* Rounded button triggers */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -306,7 +296,6 @@
   white-space: nowrap;
 }
 
-/* Volume Slider Controls */
 .unburn-video-volume-group {
   display: flex;
   align-items: center;

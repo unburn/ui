@@ -1,6 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useParams, Link } from 'react-router-dom';
 import { CodeBlock } from '../../package/components/CodeBlock/CodeBlock';
 
 type Framework = 'nextjs' | 'vite' | 'astro' | 'remix' | 'gatsby' | 'manual' | null;
@@ -269,7 +268,6 @@ import { CodeBlock } from '@unburn/ui/CodeBlock';`,
 
 export const InstallationPage: React.FC = () => {
   const { framework } = useParams<{ framework: string }>();
-  const navigate = useNavigate();
   const selected = framework as Framework;
 
   if (selected && frameworkGuides[selected]) {
@@ -278,12 +276,7 @@ export const InstallationPage: React.FC = () => {
 
     return (
       <div className="installation-page">
-        <button className="install-back-btn" onClick={() => navigate('/installation')}>
-          <ArrowLeft size={16} />
-          <span>CHOOSE FRAMEWORK</span>
-        </button>
-
-        <h2 className="section-title" style={{ marginTop: '2rem' }}>
+        <h2 className="section-title">
           {fw.name}
         </h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '3rem', lineHeight: '1.6' }}>
@@ -325,30 +318,86 @@ export const InstallationPage: React.FC = () => {
 
   return (
     <div className="installation-page">
-      <h2 className="section-title">Installation</h2>
-      <p style={{ color: 'var(--text-muted)', fontSize: '1.125rem', maxWidth: '600px', lineHeight: '1.6' }}>
-        Choose your framework below to get started. @unburn/ui works perfectly in any React environment.
+      <h2 className="section-title">Quick Start</h2>
+      <p style={{ color: 'var(--text-muted)', fontSize: '1.125rem', maxWidth: '600px', lineHeight: '1.6', marginBottom: '3rem' }}>
+        Get started with @unburn/ui in less than a minute. Our components work seamlessly out of the box in any modern React application.
       </p>
 
-      <div className="component-catalog-grid">
-        {frameworks.map(fw => (
-          <Link
-            key={fw.id}
-            to={`/installation/${fw.id}`}
-            className="component-catalog-card"
-            style={{ textDecoration: 'none' }}
-          >
-            <div className="catalog-preview-area">
-              <div className="framework-icon-container">
-                <span className="framework-icon">{fw.icon}</span>
+      <div className="install-steps" style={{ marginBottom: '5rem' }}>
+        <div className="install-step">
+          <h3 className="install-step-title">1. Install package</h3>
+          <CodeBlock
+            defaultTab="npm"
+            tabs={{
+              npm: 'npm install @unburn/ui',
+              pnpm: 'pnpm add @unburn/ui',
+              yarn: 'yarn add @unburn/ui',
+              bun: 'bun add @unburn/ui',
+            }}
+          />
+        </div>
+
+        <div className="install-step">
+          <h3 className="install-step-title">2. Import styles</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1.25rem', lineHeight: '1.6' }}>
+            Import Unburn UI's main stylesheet at the top of your root or entry file (e.g., <code style={{ color: 'var(--text-main)', fontFamily: 'var(--font-mono)' }}>main.tsx</code>, <code style={{ color: 'var(--text-main)', fontFamily: 'var(--font-mono)' }}>index.js</code>, or <code style={{ color: 'var(--text-main)', fontFamily: 'var(--font-mono)' }}>layout.tsx</code>):
+          </p>
+          <CodeBlock
+            code="import '@unburn/ui/styles.css';"
+            language="tsx"
+            variant="filled"
+          />
+        </div>
+
+        <div className="install-step">
+          <h3 className="install-step-title">3. Render components</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1.25rem', lineHeight: '1.6' }}>
+            Now you can import and render any components in your application:
+          </p>
+          <CodeBlock
+            code={`import { Button } from '@unburn/ui/Button';
+import { Badge } from '@unburn/ui/Badge';
+
+export default function App() {
+  return (
+    <div style={{ display: 'flex', gap: '1rem', padding: '2rem' }}>
+      <Button variant="filled">Get Started</Button>
+      <Badge variant="duo">NEW</Badge>
+    </div>
+  );
+}`}
+            language="tsx"
+            variant="filled"
+          />
+        </div>
+      </div>
+
+      <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '4rem' }}>
+        <h3 className="section-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Framework Guides</h3>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', maxWidth: '600px', lineHeight: '1.6', marginBottom: '2.5rem' }}>
+          Choose your framework below for deep integrations, SSR setups, and customized configurations.
+        </p>
+
+        <div className="component-catalog-grid">
+          {frameworks.map(fw => (
+            <Link
+              key={fw.id}
+              to={`/docs/quick-start/${fw.id}`}
+              className="component-catalog-card"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="catalog-preview-area">
+                <div className="framework-icon-container">
+                  <span className="framework-icon">{fw.icon}</span>
+                </div>
               </div>
-            </div>
-            <div className="catalog-info-area">
-              <h3 className="catalog-title" style={{ fontSize: '1.25rem' }}>{fw.name}</h3>
-              <p className="catalog-desc" style={{ marginTop: '0.5rem' }}>Setup guide for {fw.name} projects.</p>
-            </div>
-          </Link>
-        ))}
+              <div className="catalog-info-area">
+                <h3 className="catalog-title" style={{ fontSize: '1.25rem' }}>{fw.name}</h3>
+                <p className="catalog-desc" style={{ marginTop: '0.5rem' }}>Setup guide for {fw.name} projects.</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

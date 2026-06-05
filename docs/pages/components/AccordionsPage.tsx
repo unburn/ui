@@ -12,7 +12,7 @@ export const AccordionsPage: React.FC = () => {
       <ComponentHeader title="Accordions" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Accordion } from '@unburn/ui/Accordion';
 import { Settings } from 'lucide-react';
 
@@ -69,7 +69,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: outlined, duo, and filled."
           code={`import { Accordion } from '@unburn/ui/Accordion';
 
@@ -109,7 +109,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="WITH ICONS & SUBTITLES"
+          title="With Icons & Subtitles"
           description="Add icons and subtitles to give more details to each item."
           code={`import { Accordion } from '@unburn/ui/Accordion';
 import { Shield, Zap } from 'lucide-react';
@@ -162,7 +162,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="MULTIPLE SELECTION"
+          title="Multiple Selection"
           description="Allow users to open more than one item at the same time."
           code={`import { Accordion } from '@unburn/ui/Accordion';
 

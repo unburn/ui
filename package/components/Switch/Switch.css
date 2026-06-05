@@ -157,12 +157,6 @@
   background-color: var(--accent-text);
 }
 
-/* Filled Variant (Soft dynamic gradient) */
-.unburn-switch-track-filled.unburn-switch-track-checked {
-  background-image: var(--filled-gradient);
-}
-
-/* Outlined Variant (Glassmorphic) */
 .unburn-switch-track-outlined {
   background-color: color-mix(in srgb, var(--bg-secondary) 30%, transparent);
   border-color: color-mix(in srgb, var(--border-color) 60%, transparent);
@@ -184,7 +178,6 @@
   background-color: var(--accent-color);
 }
 
-/* Duo Variant (Glassmorphic Accent Tint) */
 .unburn-switch-track-duo {
   background-color: color-mix(in srgb, var(--accent-color) 8%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent-color) 15%, transparent);

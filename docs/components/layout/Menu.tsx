@@ -13,12 +13,10 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
   const location = useLocation();
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname, setMenuOpen]);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -30,9 +28,8 @@ export const Menu: React.FC<MenuProps> = ({
 
   const navLinks = [
     { to: '/', label: 'Introduction', desc: 'Crafted design philosophy & principles.' },
-    { to: '/installation', label: 'Installation', desc: 'Quick setup and variables styling.' },
-    { to: '/components', label: 'Components', desc: 'Browse the interactive components.' },
-    { to: '/examples', label: 'Examples', desc: 'Pre-designed premium application templates.' },
+    { to: '/docs', label: 'Documentation', desc: 'Browse interactive components & installation guides.' },
+    { to: 'https://discord.gg/W8wTjESM3t', label: 'Discord', desc: 'Join the community and chat with other developers.', isExternal: true }
   ];
 
   return (
@@ -40,24 +37,50 @@ export const Menu: React.FC<MenuProps> = ({
       <div className="menu-overlay-container unburn-glass">
         <div className="menu-nav-panel">
           <nav className="menu-overlay-content">
-            {navLinks.map((link, index) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className="menu-overlay-link"
-                style={{ animationDelay: `${index * 0.08}s` }}
-              >
-                <div className="active-indicator" />
-                <div className="menu-link-left">
-                  <span className="menu-overlay-link-number">0{index + 1}</span>
-                  <div className="menu-link-text-group">
-                    <span className="menu-overlay-link-text">{link.label}</span>
-                    <span className="menu-overlay-link-desc">{link.desc}</span>
+            {navLinks.map((link, index) => {
+              const className = `menu-overlay-link ${link.isExternal ? 'discord-touch' : ''}`;
+              const delayStyle = { animationDelay: `${index * 0.08}s` } as React.CSSProperties;
+              
+              const linkContent = (
+                <>
+                  <div className="active-indicator" />
+                  <div className="menu-link-left">
+                    <span className="menu-overlay-link-number">0{index + 1}</span>
+                    <div className="menu-link-text-group">
+                      <span className="menu-overlay-link-text">{link.label}</span>
+                      <span className="menu-overlay-link-desc">{link.desc}</span>
+                    </div>
                   </div>
-                </div>
-                <ArrowRight className="menu-link-arrow" size={20} />
-              </NavLink>
-            ))}
+                  <ArrowRight className="menu-link-arrow" size={20} />
+                </>
+              );
+
+              if (link.isExternal) {
+                return (
+                  <a
+                    key={link.to}
+                    href={link.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                    style={delayStyle}
+                  >
+                    {linkContent}
+                  </a>
+                );
+              }
+
+              return (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={className}
+                  style={delayStyle}
+                >
+                  {linkContent}
+                </NavLink>
+              );
+            })}
           </nav>
         </div>
       </div>

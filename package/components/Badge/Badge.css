@@ -34,7 +34,6 @@
 
 .unburn-badge-filled {
   background-color: var(--accent-color);
-  background-image: var(--filled-gradient);
   color: var(--accent-text);
   border: 1px solid var(--accent-color);
 }

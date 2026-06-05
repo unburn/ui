@@ -49,7 +49,6 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const showTooltip = (controlledVisible !== undefined ? controlledVisible : isHovered) && !disabled;
     const accentStyle = getAccentVariables(color);
 
-    // Standalone controlled mode (used by slider thumb and custom offset layouts)
     if (!children) {
       if (!showTooltip) return null;
       return (
@@ -72,7 +71,6 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       );
     }
 
-    // Uncontrolled trigger wrapping mode
     return (
       <div
         ref={ref}

@@ -11,7 +11,7 @@ export const AvatarsPage: React.FC = () => {
       <ComponentHeader title="Avatars" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Avatar } from '@unburn/ui/Avatar';
 
 export default function Example() {
@@ -47,7 +47,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="STATUS INDICATORS"
+          title="Status Indicators"
           description="Show a small color dot indicating if a user is online or busy."
           code={`import { Avatar } from '@unburn/ui/Avatar';
 
@@ -71,7 +71,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Available in five sizes from extra small to extra large."
           code={`import { Avatar } from '@unburn/ui/Avatar';
 
@@ -97,7 +97,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="FALLBACKS & COLORS"
+          title="Fallbacks & Colors"
           description="Show initials or custom colors if the image is missing."
           code={`import { Avatar } from '@unburn/ui/Avatar';
 

@@ -3,7 +3,7 @@ import { Input } from '../../../package/components/Input/Input';
 import { Showcase } from '../../components/layout/Showcase';
 import { CodeBlock } from '../../../package/components/CodeBlock/CodeBlock';
 import { Props } from '../../components/layout/Props';
-import { Mail, Lock, User } from 'lucide-react';
+import { Mail, Lock, User, Search } from 'lucide-react';
 import { ComponentHeader } from '../../components/layout/ComponentHeader';
 
 const InteractiveProgressiveInput = () => {
@@ -36,7 +36,7 @@ export const InputsPage: React.FC = () => {
       <ComponentHeader title="Inputs" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Input } from '@unburn/ui/Input';
 
 export default function Example() {
@@ -68,7 +68,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: filled, outlined, and duo."
           code={`import { Input } from '@unburn/ui/Input';
 
@@ -90,7 +90,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Choose from small, medium, or large sizes."
           code={`import { Input } from '@unburn/ui/Input';
 
@@ -112,7 +112,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="ICONS"
+          title="Icons"
           description="Add icons on the left or right side of the input field."
           code={`import { Input } from '@unburn/ui/Input';
 import { User, Mail, Lock } from 'lucide-react';
@@ -147,7 +147,42 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="PROGRESSIVE INPUT"
+          title="Keyboard Shortcut"
+          description="Display a keyboard shortcut helper (KBD) inside the input field."
+          code={`import { Input } from '@unburn/ui/Input';
+import { Search } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '400px' }}>
+      <Input
+        leftIcon={<Search size={16} />}
+        kbd="⌘K"
+        placeholder="Search documentation..."
+      />
+      <Input
+        kbd="Ctrl+/"
+        placeholder="Open command menu"
+      />
+    </div>
+  );
+}`}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%', maxWidth: '400px' }}>
+            <Input
+              leftIcon={<Search size={16} />}
+              kbd="⌘K"
+              placeholder="Search documentation..."
+            />
+            <Input
+              kbd="Ctrl+/"
+              placeholder="Open command menu"
+            />
+          </div>
+        </Showcase>
+
+        <Showcase
+          title="Progressive Input"
           description="Show a password strength bar under the field."
           code={`import { Input } from '@unburn/ui/Input';
 import { useState } from 'react';
@@ -180,7 +215,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Use error messages and disabled inputs for forms."
           code={`import { Input } from '@unburn/ui/Input';
 
@@ -227,6 +262,7 @@ export default function Example() {
           { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The size of the input field.' },
           { name: 'leftIcon', type: 'ReactNode', description: 'An icon shown on the left side.' },
           { name: 'rightIcon', type: 'ReactNode', description: 'An icon shown on the right side.' },
+          { name: 'kbd', type: 'string', description: 'Keyboard shortcut indicator shown inside the right edge of the input.' },
           { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Make the input fill the full width of its box.' },
           { name: 'progressLevel', type: '0 | 1 | 2 | 3', description: 'Strength bar level (from 0 to 3).' },
           { name: 'classNames', type: 'object', description: 'Custom CSS classes for each part of the input.' },

@@ -112,7 +112,6 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       }
     }, [disabled, onChangeEnd, valueState]);
 
-    // Ensure we trigger onChangeEnd if user stops dragging outside of the element
     useEffect(() => {
       const handleGlobalMouseUp = () => {
         if (isDragging) {
@@ -133,7 +132,6 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
 
     const accentStyle = getAccentVariables(color);
 
-    // Precise thumb scaling adjustments for alignment math
     const getThumbSize = () => {
       switch (size) {
         case 'sm': return 14;
@@ -144,8 +142,6 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
 
     const thumbSize = getThumbSize();
     
-    // exact thumb center positioning math: calc(percentage% + (0.5 - percentage/100) * thumbSize)
-    // we subtract 16px (half of 32px tooltip width) or adjust offset to center the tooltip accurately
     const tooltipPosition = `calc(${percentage}% + ${(0.5 - percentage / 100) * thumbSize}px)`;
 
     const showTooltipContainer = showTooltip && !disabled && (isHovered || isDragging);

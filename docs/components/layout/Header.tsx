@@ -1,7 +1,6 @@
-import React from 'react';
-import { Box, Star } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { cn } from '../../../package/lib/utils';
-import { Badge } from '../../../package/components/Badge/Badge';
 import './Header.css';
 
 export interface HeaderProps {
@@ -11,33 +10,50 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   className
 }) => {
+  const location = useLocation();
+  const isDocsRoute = location.pathname.startsWith('/docs');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleState = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setIsSidebarOpen(customEvent.detail.isOpen);
+    };
+    window.addEventListener('docs-sidebar-state', handleState);
+    return () => window.removeEventListener('docs-sidebar-state', handleState);
+  }, []);
+
+  useEffect(() => {
+    if (!isDocsRoute) {
+      const timer = setTimeout(() => {
+        setIsSidebarOpen(false);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [isDocsRoute]);
+
   return (
     <header className={cn("unburn-header", className)}>
       <div className="header-container">
-        <div className="unburn-logo" style={{ cursor: "pointer" }} onClick={() => window.location.href = "/"}>
-          <svg width="29" height="29" viewBox="0 0 379 379" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M189.5 379C84.8421 379 0 294.158 0 189.5C0 84.8421 84.8421 4.09344e-06 189.5 4.09344e-06C294.158 4.09344e-06 379 84.8421 379 189.5C379 294.158 294.158 379 189.5 379Z" fill="var(--accent-color)" />
-            <path d="M225.326 117.621H187.173V214.258C187.173 219.601 185.963 224.365 183.543 228.549C181.124 232.733 177.751 236.01 173.426 238.379C169.153 240.749 164.158 241.933 158.443 241.933C152.728 241.933 147.708 240.749 143.383 238.379C139.058 236.01 135.685 232.733 133.265 228.549C130.897 224.365 129.713 219.601 129.713 214.258V117.621H91.4828V217.509C91.4828 229.053 94.2631 239.11 99.8238 247.68C105.385 256.2 113.185 262.803 123.225 267.492C133.265 272.129 145.005 274.448 158.443 274.448C171.727 274.448 183.389 272.129 193.429 267.492C203.469 262.803 211.296 256.2 216.908 247.68C222.52 239.11 225.326 229.053 225.326 217.509V117.621ZM287.517 272.482V117.621H249.287V272.482H287.517Z" fill="var(--bg-main)" />
-          </svg>
-          <span>unburn/ui</span>
-          <Badge size="sm" variant="duo" style={{ marginLeft: '0.5rem', opacity: 0.8 }}>BETA</Badge>
-        </div>
-        <div className="unburn-header-actions">
-          <a
-            href="https://github.com/unburn/ui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-link-btn"
-          >
-            <div className="github-icon-wrapper">
-              <Box size={16} />
-            </div>
-            <div className="github-divider"></div>
-            <div className="github-star-wrapper">
-              <Star size={14} fill="currentColor" />
-              <span>STAR</span>
-            </div>
-          </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {isDocsRoute && (
+            <button
+              className={cn("docs-sidebar-mobile-hamburger", isSidebarOpen && "is-open")}
+              onClick={() => window.dispatchEvent(new CustomEvent('toggle-docs-sidebar'))}
+              aria-label="Toggle sidebar navigation"
+            >
+              <div className="hamburger-box">
+                <div className="hamburger-inner line-top" />
+                <div className="hamburger-inner line-bottom" />
+              </div>
+            </button>
+          )}
+          <div className="unburn-logo" style={{ cursor: "pointer" }} onClick={() => window.location.href = "/"}>
+            <svg width="25" height="25" viewBox="0 0 184 169" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" clipRule="evenodd" d="M0 96.4999C-4.70757e-06 136.541 32.4593 169 72.5 169H110.766C150.807 169 183.266 136.541 183.266 96.5V72.5C183.266 32.4594 150.807 1.1526e-05 110.766 5.63239e-06L72.5 0C32.4594 -5.89357e-06 7.52923e-06 32.4593 2.82167e-06 72.5L0 96.4999ZM107.545 10.974L73.5259 10.974C46.2524 10.974 24.1428 33.0836 24.1428 60.3571C24.1428 87.6306 46.2524 109.74 73.5259 109.74H107.545C134.819 109.74 156.928 87.6306 156.928 60.3571C156.928 33.0836 134.819 10.974 107.545 10.974Z" fill="var(--accent-color)" />
+            </svg>
+            <span>unburn/ui</span>
+          </div>
         </div>
       </div>
     </header>

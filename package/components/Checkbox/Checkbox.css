@@ -187,11 +187,7 @@
   }
 }
 
-.unburn-checkbox-filled {}
 
-.unburn-checkbox-input:checked+.unburn-checkbox-filled {
-  background-image: var(--filled-gradient);
-}
 
 .unburn-checkbox-input:checked+.unburn-checkbox-outlined {
   background-color: transparent;

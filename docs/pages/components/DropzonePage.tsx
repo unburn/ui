@@ -12,7 +12,7 @@ export const DropzonePage: React.FC = () => {
       <ComponentHeader title="Dropzone" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Dropzone } from '@unburn/ui/Dropzone';
 
 export default function Example() {
@@ -64,7 +64,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="CUSTOM ICONS"
+          title="Custom Icons"
           description="Show a custom icon matching the files you want."
           code={`import { Dropzone } from '@unburn/ui/Dropzone';
 import { Image } from 'lucide-react';
@@ -93,7 +93,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SINGLE FILE"
+          title="Single File"
           description="Limit the uploader to only accept one file."
           code={`import { Dropzone } from '@unburn/ui/Dropzone';
 import { FileText } from 'lucide-react';
@@ -124,7 +124,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="DISABLED STATE"
+          title="Disabled State"
           description="Lock the uploader to prevent file drops."
           code={`import { Dropzone } from '@unburn/ui/Dropzone';
 import { Lock } from 'lucide-react';
@@ -165,6 +165,7 @@ export default function Example() {
           { name: 'description', type: 'string', defaultValue: '"Drag and drop or click to upload"', description: 'The detail text below the header.' },
           { name: 'icon', type: 'ReactNode', description: 'An icon shown at the center of the uploader.' },
           { name: 'disabled', type: 'boolean', defaultValue: 'false', description: 'Disable file drops and clicks.' },
+          { name: 'color', type: 'string', description: 'Custom accent color for drag overlay and highlights.' },
           { name: 'classNames', type: 'object', description: 'Custom CSS classes for each part of the uploader.' },
           { name: 'styles', type: 'object', description: 'Custom inline CSS styles for each part.' },
         ]}

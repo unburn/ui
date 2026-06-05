@@ -1,0 +1,97 @@
+.unburn-voice-agent {
+  --voice-accent: #ffffff;
+  --voice-accent-glow: color-mix(in srgb, var(--voice-accent) 60%, transparent);
+  --voice-dot-inactive: rgba(255, 255, 255, 0.08);
+  --voice-dot-radius: 3px;
+  --voice-dot-size: 8px;
+  --voice-grid-gap: 6px;
+  --voice-grid-padding: 0.75rem;
+  --voice-btn-gap: 0.75rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--voice-btn-gap);
+  width: fit-content;
+  position: relative;
+  transition: all var(--transition);
+}
+
+[data-theme="light"] .unburn-voice-agent {
+  --voice-accent: #000000;
+  --voice-dot-inactive: rgba(0, 0, 0, 0.07);
+  --border-color: #cbd5e1;
+}
+
+.unburn-voice-agent.unburn-variant-grid {
+  --voice-dot-radius: 50%;
+}
+
+.unburn-voice-grid-container {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  padding: var(--voice-grid-padding);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.unburn-voice-grid {
+  display: grid;
+  width: max-content;
+  height: max-content;
+  gap: var(--voice-grid-gap);
+  z-index: 2;
+  position: relative;
+}
+
+.unburn-voice-dot {
+  width: var(--voice-dot-size, 8px);
+  height: var(--voice-dot-size, 8px);
+  border-radius: var(--voice-dot-radius);
+  background-color: var(--voice-dot-inactive);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.unburn-voice-dot.unburn-dot-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.unburn-voice-dot.unburn-dot-active {
+  background-color: var(--voice-accent);
+  box-shadow: 0 0 10px var(--voice-accent-glow), 0 0 20px color-mix(in srgb, var(--voice-accent) 20%, transparent);
+  transform: scale(1.15);
+  z-index: 3;
+}
+
+.unburn-voice-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--voice-btn-gap);
+  width: 100%;
+  z-index: 2;
+}
+
+.unburn-voice-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.unburn-voice-agent.unburn-status-speaking .unburn-voice-status-badge {
+  color: var(--voice-accent);
+}
+
+.unburn-voice-agent.unburn-status-listening .unburn-voice-status-badge {
+  color: #34d399;
+}

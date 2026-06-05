@@ -41,7 +41,6 @@
   --thumb-border: var(--accent-color);
 }
 
-/* Sizing Variables */
 .unburn-slider-container-sm {
   --track-height: 6px;
   --thumb-size: 14px;
@@ -60,7 +59,6 @@
   height: 46px;
 }
 
-/* Native input track reset */
 .unburn-slider-input {
   -webkit-appearance: none;
   appearance: none;
@@ -73,7 +71,6 @@
   display: block;
 }
 
-/* Webkit Track */
 .unburn-slider-input::-webkit-slider-runnable-track {
   width: 100%;
   height: var(--track-height);
@@ -84,7 +81,6 @@
   background-clip: padding-box;
 }
 
-/* Mozilla Track */
 .unburn-slider-input::-moz-range-track {
   width: 100%;
   height: var(--track-height);
@@ -95,7 +91,6 @@
   box-sizing: border-box;
 }
 
-/* Webkit Thumb */
 .unburn-slider-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -120,7 +115,6 @@
               0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Mozilla Thumb */
 .unburn-slider-input::-moz-range-thumb {
   width: var(--thumb-size);
   height: var(--thumb-size);
@@ -143,7 +137,6 @@
               0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Hover Accent Glowing Track */
 .unburn-slider-input:hover::-webkit-slider-runnable-track {
   border-color: color-mix(in srgb, var(--accent-color) 35%, var(--border-track));
 }
@@ -152,7 +145,6 @@
   border-color: color-mix(in srgb, var(--accent-color) 35%, var(--border-track));
 }
 
-/* Focus Indicator Ring */
 .unburn-slider-input:focus-visible::-webkit-slider-thumb {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 25%, transparent);
@@ -163,7 +155,6 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 25%, transparent);
 }
 
-/* Disabled State */
 .unburn-slider-disabled {
   opacity: 0.5;
 }

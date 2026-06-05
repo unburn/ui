@@ -25,7 +25,7 @@ export const DockPage: React.FC<DockPageProps> = ({ globalTheme, setGlobalTheme 
       <ComponentHeader title="Dock" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Dock } from '@unburn/ui/Dock';
 import { Button } from '@unburn/ui/Button';
 import { Sun, Moon } from 'lucide-react';
@@ -91,35 +91,7 @@ export default function Layout({ children }) {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="SIZES"
-          description="Choose from three sizes: small, medium, or large."
-          code={`import { Dock } from '@unburn/ui/Dock';
-
-export default function Example() {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <Dock size="sm" isMenuOpen={false} onMenuToggle={() => {}} />
-      <Dock size="default" isMenuOpen={false} onMenuToggle={() => {}} />
-      <Dock size="lg" isMenuOpen={false} onMenuToggle={() => {}} />
-    </div>
-  );
-}`}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', width: '100%' }}>
-            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
-              <Dock size="sm" isMenuOpen={false} onMenuToggle={() => { }} className="showcase-dock" />
-            </div>
-            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
-              <Dock size="default" isMenuOpen={false} onMenuToggle={() => { }} className="showcase-dock" />
-            </div>
-            <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
-              <Dock size="lg" isMenuOpen={false} onMenuToggle={() => { }} className="showcase-dock" />
-            </div>
-          </div>
-        </Showcase>
-
-        <Showcase
-          title="CUSTOM ACTIONS"
+          title="Custom Actions"
           description="Add custom action buttons inside the dock."
           code={`import { Dock } from '@unburn/ui/Dock';
 import { Button } from '@unburn/ui/Button';
@@ -154,7 +126,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="CONFIGURATION"
+          title="Configuration"
           description="Show or hide the collapse button on the right."
           code={`import { Dock } from '@unburn/ui/Dock';
 
@@ -186,7 +158,6 @@ export default function Example() {
           { name: 'isMenuOpen', type: 'boolean', required: true, description: 'Turn the main menu on or off.' },
           { name: 'onMenuToggle', type: 'function', required: true, description: 'Function called when clicking the menu button.' },
           { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", defaultValue: "'bottom'", description: 'Where the dock attaches on the screen (top, bottom, left, or right).' },
-          { name: 'size', type: "'sm' | 'default' | 'lg'", defaultValue: "'default'", description: 'The size of the dock.' },
           { name: 'showHideToggle', type: 'boolean', defaultValue: 'true', description: 'Show the arrow button to hide the dock.' },
           { name: 'classNames', type: 'object', description: 'Custom CSS classes for each part of the dock.' },
           { name: 'styles', type: 'object', description: 'Custom inline CSS styles for each part.' },

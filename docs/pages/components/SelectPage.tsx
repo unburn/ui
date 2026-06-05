@@ -35,7 +35,7 @@ export const SelectPage: React.FC = () => {
       <ComponentHeader title="Select" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Select } from '@unburn/ui/Select';
 
 const fruitOptions = [
@@ -88,7 +88,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: filled, outlined, and duo."
           code={`import { Select } from '@unburn/ui/Select';
 
@@ -116,7 +116,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Choose from small, medium, or large sizes."
           code={`import { Select } from '@unburn/ui/Select';
 
@@ -143,7 +143,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Use error states and disabled dropdowns for forms."
           code={`import { Select } from '@unburn/ui/Select';
 
@@ -188,7 +188,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="CONTROLLED"
+          title="Controlled"
           description="Control and track selected options easily."
           code={`import { Select } from '@unburn/ui/Select';
 import { useState } from 'react';

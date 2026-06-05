@@ -11,7 +11,6 @@ export interface DockProps {
   onMenuToggle: () => void;
   showHideToggle?: boolean;
   position?: 'top' | 'bottom' | 'left' | 'right';
-  size?: 'sm' | 'default' | 'lg';
   className?: string;
   classNames?: {
     root?: string;
@@ -38,7 +37,6 @@ export const Dock: React.FC<DockProps> = ({
   onMenuToggle,
   showHideToggle = true,
   position = 'bottom',
-  size = 'default',
   className,
   classNames,
   styles,
@@ -49,7 +47,7 @@ export const Dock: React.FC<DockProps> = ({
 
   return (
     <div
-      className={cn('unburn-dock-wrapper', `unburn-size-${size}`, `unburn-pos-${position}`, isCollapsed && 'unburn-collapsed', className, classNames?.root)}
+      className={cn('unburn-dock-wrapper', `unburn-pos-${position}`, isCollapsed && 'unburn-collapsed', className, classNames?.root)}
       style={{ ...style, ...styles?.root }}
     >
       <div
@@ -62,11 +60,8 @@ export const Dock: React.FC<DockProps> = ({
           onClick={onMenuToggle}
           aria-label="Toggle Navigation"
         >
-          <div className="unburn-trigger-inner">
-            <span className="unburn-trigger-text">{isMenuOpen ? 'Close' : 'Menu'}</span>
-            <div className="unburn-trigger-icon">
-              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </div>
+          <div className="unburn-trigger-icon-wrapper">
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </div>
         </Button>
 

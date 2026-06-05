@@ -18,7 +18,7 @@ export default HelloWorld;`;
       <ComponentHeader title="Code Block" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
 const code = \`import React from 'react';
@@ -71,7 +71,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose between two styles: filled and outlined."
           code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
@@ -111,7 +111,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="TABS (PACKAGE MANAGERS)"
+          title="Tabs (Package Managers)"
           description="Display multiple snippets under tabs for easy switching."
           code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 
@@ -145,7 +145,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="TITLE & NO LINE NUMBERS"
+          title="Title & No Line Numbers"
           description="Show a file title header and hide line numbers if needed."
           code={`import { CodeBlock } from '@unburn/ui/CodeBlock';
 

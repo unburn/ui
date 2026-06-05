@@ -9,20 +9,46 @@
 .unburn-layout {
   display: flex;
   flex: 1;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
 }
 
 .unburn-main {
   flex: 1;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
   width: 100%;
+  min-width: 0;
+}
+
+.home-page {
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100dvh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.examples-page,
+.dashboard-container,
+.auth-example-page,
+.lp-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.unburn-main:has(.docs-layout-wrapper),
+.unburn-main:has(.home-page) {
+  padding: 0;
 }
 
 .hero-section {
   position: relative;
-  margin-bottom: 6rem;
+  width: 100%;
 }
 
 .hero-container {
@@ -142,7 +168,8 @@
 
 .showcase-title {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-muted);
@@ -250,15 +277,138 @@
 }
 
 .unburn-footer {
-  margin-top: 8rem;
-  padding: 4rem 2rem 10rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5rem 2rem 8rem 2rem;
   border-top: 1px solid var(--border-color);
-  text-align: center;
+  background-color: var(--bg-main);
+  z-index: 10;
+  position: relative;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.footer-description {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 320px;
+}
+
+.footer-links-grid {
+  display: flex;
+  gap: 4.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 120px;
+}
+
+.footer-links-col h4 {
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-main);
+  margin: 0 0 0.5rem 0;
+}
+
+.footer-links-col a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s var(--transition-curve);
+  width: fit-content;
+}
+
+.footer-links-col a:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 4rem auto 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-copyright {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+}
+
+.footer-made-by {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  .unburn-footer {
+    padding: 4rem 1.5rem 8rem 1.5rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .footer-links-grid {
+    gap: 3rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer-bottom {
+    margin-top: 3rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .hero-badge {
@@ -288,8 +438,15 @@
 }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .hero-actions {
@@ -663,7 +820,6 @@
   width: 100%;
 }
 
-/* Concentric Card-in-Card Styling */
 .menu-overlay-link {
   display: flex;
   position: relative;
@@ -762,6 +918,60 @@
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.menu-overlay-link:hover {
+  background: color-mix(in srgb, var(--accent-color) 6%, transparent);
+  border-color: color-mix(in srgb, var(--accent-color) 25%, transparent);
+}
+
+.menu-overlay-link:hover .active-indicator {
+  opacity: 0.5;
+  transform: scaleY(0.8);
+}
+
+.menu-overlay-link:hover .menu-overlay-link-text {
+  color: var(--accent-color);
+}
+
+.menu-overlay-link:hover .menu-overlay-link-number {
+  color: var(--accent-color);
+  border-color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+  background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+}
+
+.menu-overlay-link:hover .menu-link-arrow {
+  opacity: 0.7;
+  transform: translateX(-6px) scale(0.9);
+}
+
+/* Discord specific hover styles - "#5865F2 touch" */
+.menu-overlay-link.discord-touch:hover {
+  background: color-mix(in srgb, #5865F2 8%, transparent);
+  border-color: color-mix(in srgb, #5865F2 35%, transparent);
+  box-shadow: 0 4px 20px color-mix(in srgb, #5865F2 15%, transparent);
+}
+
+.menu-overlay-link.discord-touch:hover .active-indicator {
+  background: #5865F2;
+  opacity: 0.8;
+  transform: scaleY(0.8);
+}
+
+.menu-overlay-link.discord-touch:hover .menu-overlay-link-text {
+  color: #5865F2;
+}
+
+.menu-overlay-link.discord-touch:hover .menu-overlay-link-number {
+  color: #5865F2;
+  border-color: color-mix(in srgb, #5865F2 40%, transparent);
+  background: color-mix(in srgb, #5865F2 15%, transparent);
+}
+
+.menu-overlay-link.discord-touch:hover .menu-link-arrow {
+  color: #5865F2;
+  opacity: 0.8;
+  transform: translateX(-6px) scale(0.9);
+}
+
 .menu-overlay-link:active {
   transform: scale(0.97) translateX(4px);
   transition-duration: 0.1s;
@@ -837,6 +1047,17 @@
 @media (max-width: 600px) {
   .hero-title {
     font-size: 2.35rem;
+  }
+
+  .hero-br {
+    display: none;
+  }
+
+  .unburn-btn-lg {
+    min-height: 44px !important;
+    padding: 0 1.25rem !important;
+    font-size: 0.9rem !important;
+    border-radius: var(--radius-md) !important;
   }
 
   .hero-actions {

@@ -103,7 +103,7 @@ export const SliderPage: React.FC = () => {
       <ComponentHeader title="Slider" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         description="A beautiful hardware device control center showing dynamic displays, volumes, and peripheral backlights."
         code={`import { Slider } from '@unburn/ui/Slider';
 import { Volume2, Sun, Keyboard } from 'lucide-react';
@@ -227,7 +227,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Sizing structures representing proportional alignments across sm, default, and lg scaling systems."
           code={`import { Slider } from '@unburn/ui/Slider';
 
@@ -249,7 +249,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="WITH DESCRIPTION"
+          title="With Description"
           description="Contextual helper captions aligned dynamically below labels."
           code={`import { Slider } from '@unburn/ui/Slider';
 
@@ -281,7 +281,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Support for interactive disabled configurations, muting slider interactions while maintaining glassmorphic balance."
           code={`import { Slider } from '@unburn/ui/Slider';
 
@@ -301,7 +301,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="CONTROLLED MIXER DECK"
+          title="Controlled Mixer Deck"
           description="An interactive multi-channel deck connecting states, showing dynamic updates mapped to custom color-coded progress feeds."
           code={`import { Slider } from '@unburn/ui/Slider';
 import { useState } from 'react';

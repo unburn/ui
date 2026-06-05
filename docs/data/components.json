@@ -94,5 +94,23 @@
     "description": "Elegant floating info bubbles with glassmorphic depth overrides.",
     "path": "/components/tooltip",
     "addedAt": "2026-05-30"
+  },
+  {
+    "name": "Steps",
+    "description": "Vertical visual guide indicators for progressive walkthroughs and sequences.",
+    "path": "/components/steps",
+    "addedAt": "2026-06-05"
+  },
+  {
+    "name": "Tabs",
+    "description": "Dynamic capsule button tabs to swap content panels seamlessly.",
+    "path": "/components/tabs",
+    "addedAt": "2026-06-05"
+  },
+  {
+    "name": "Voice Agent",
+    "description": "Interactive grid-based voice assistant interface with multiple state visualizers.",
+    "path": "/components/voice-agent",
+    "addedAt": "2026-06-05"
   }
 ]

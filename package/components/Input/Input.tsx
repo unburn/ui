@@ -12,6 +12,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   size?: 'sm' | 'default' | 'lg';
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  kbd?: string;
   fullWidth?: boolean;
   progressLevel?: 0 | 1 | 2 | 3;
   classNames?: {
@@ -49,6 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       size = 'default',
       leftIcon,
       rightIcon,
+      kbd,
       fullWidth = false,
       progressLevel,
       disabled,
@@ -112,9 +114,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
 
-          {rightIcon && (
-            <div className={cn("unburn-input-icon unburn-input-icon-right", classNames?.icon)} style={styles?.icon}>
-              {rightIcon}
+          {(kbd || rightIcon) && (
+            <div className="unburn-input-right-section">
+              {kbd && (
+                <kbd className="unburn-input-kbd">
+                  {kbd}
+                </kbd>
+              )}
+              {rightIcon && (
+                <div className={cn("unburn-input-icon unburn-input-icon-right", classNames?.icon)} style={styles?.icon}>
+                  {rightIcon}
+                </div>
+              )}
             </div>
           )}
         </div>

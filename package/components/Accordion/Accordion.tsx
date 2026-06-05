@@ -86,12 +86,21 @@ export const Accordion: React.FC<AccordionProps> = ({
             key={item.id}
             className={cn(
               "unburn-accordion-item",
+              item.icon && "unburn-accordion-item-has-icon",
               (variant === 'outlined' || variant === 'duo') && 'unburn-glass',
               classNames?.item
             )}
             style={styles?.item}
             data-state={isOpen ? 'open' : 'closed'}
           >
+            {item.icon && (
+              <span
+                className={cn("unburn-accordion-leading-icon", classNames?.leadingIcon)}
+                style={styles?.leadingIcon}
+              >
+                {item.icon}
+              </span>
+            )}
             <button
               className={cn("unburn-accordion-header", classNames?.header)}
               style={styles?.header}
@@ -99,14 +108,6 @@ export const Accordion: React.FC<AccordionProps> = ({
               aria-expanded={isOpen}
             >
               <div className="unburn-accordion-header-content">
-                {item.icon && (
-                  <span
-                    className={cn("unburn-accordion-leading-icon", classNames?.leadingIcon)}
-                    style={styles?.leadingIcon}
-                  >
-                    {item.icon}
-                  </span>
-                )}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                   <span className={cn(classNames?.title)} style={styles?.title}>
                     {item.title}

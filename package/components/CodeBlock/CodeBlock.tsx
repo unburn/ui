@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Terminal, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import './CodeBlock.css';
 
@@ -14,27 +14,27 @@ const unburnTheme: { [key: string]: React.CSSProperties } = {
   'cdata': { color: 'var(--text-muted)' },
   'punctuation': { color: 'var(--text-main)', opacity: 0.6 },
   'namespace': { opacity: 0.7 },
-  'property': { color: '#61afef' }, // Blue
-  'tag': { color: '#e06c75' },      // Red-ish
-  'boolean': { color: '#d19a66' },  // Orange
-  'number': { color: '#d19a66' },   // Orange
-  'constant': { color: '#d19a66' }, // Orange
-  'symbol': { color: '#d19a66' },   // Orange
-  'deleted': { color: '#e06c75' },  // Red
-  'selector': { color: '#98c379' }, // Green
-  'attr-name': { color: '#d19a66' },// Orange
-  'string': { color: '#98c379' },   // Green
-  'char': { color: '#98c379' },     // Green
-  'builtin': { color: '#e5c07b' },  // Yellow-ish
-  'inserted': { color: '#98c379' }, // Green
-  'operator': { color: '#56b6c2' }, // Cyan
+  'property': { color: '#61afef' }, 
+  'tag': { color: '#e06c75' },      
+  'boolean': { color: '#d19a66' },  
+  'number': { color: '#d19a66' },   
+  'constant': { color: '#d19a66' }, 
+  'symbol': { color: '#d19a66' },   
+  'deleted': { color: '#e06c75' },  
+  'selector': { color: '#98c379' }, 
+  'attr-name': { color: '#d19a66' },
+  'string': { color: '#98c379' },   
+  'char': { color: '#98c379' },     
+  'builtin': { color: '#e5c07b' },  
+  'inserted': { color: '#98c379' }, 
+  'operator': { color: '#56b6c2' }, 
   'entity': { color: 'var(--text-main)', cursor: 'help' },
   'url': { color: '#61afef' },
   'variable': { color: '#e06c75' },
-  'atrule': { color: '#c678dd' },   // Purple
+  'atrule': { color: '#c678dd' },
   'attr-value': { color: '#98c379' },
-  'function': { color: '#61afef' }, // Blue
-  'keyword': { color: '#c678dd' },  // Purple
+  'function': { color: '#61afef' },
+  'keyword': { color: '#c678dd' }, 
   'regex': { color: '#98c379' },
   'important': { fontWeight: 'bold' },
   'bold': { fontWeight: 'bold' },
@@ -103,7 +103,6 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Dynamically import to ensure no SSR issues with Prism/document
     import('react-syntax-highlighter').then((mod) => {
       setHighlighter(() => mod.Prism);
       setMounted(true);
@@ -150,9 +149,6 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         <div className="unburn-code-info">
           {tabs ? (
             <div className="unburn-code-tabs-container">
-              <div className="unburn-code-terminal-icon">
-                <Terminal size={14} />
-              </div>
               <div className={cn("unburn-code-tabs", classNames?.tabs)} style={styles?.tabs}>
                 {Object.keys(tabs).map((tab) => (
                   <button

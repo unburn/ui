@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '../../../package/components/Button/Button';
+import { Button, ButtonGroup } from '../../../package/components/Button/Button';
 import { Showcase } from '../../components/layout/Showcase';
 import { CodeBlock } from '../../../package/components/CodeBlock/CodeBlock';
 import { Props } from '../../components/layout/Props';
@@ -12,7 +12,7 @@ export const ButtonsPage: React.FC = () => {
       <ComponentHeader title="Buttons" />
 
       <Showcase
-        title="PREVIEW"
+        title="Preview"
         code={`import { Button } from '@unburn/ui/Button';
 
 export default function Example() {
@@ -38,7 +38,7 @@ export default function Example() {
         <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="VARIANTS"
+          title="Variants"
           description="Choose from three styles: filled, outlined, and duo."
           code={`import { Button } from '@unburn/ui/Button';
 
@@ -60,7 +60,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="SIZES"
+          title="Sizes"
           description="Available in small, medium, and large sizes."
           code={`import { Button } from '@unburn/ui/Button';
 
@@ -82,7 +82,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="ICONS"
+          title="Icons"
           description="Add icons on the left or right to make buttons look better."
           code={`import { Button } from '@unburn/ui/Button';
 import { ArrowLeft, ArrowRight, Mail } from 'lucide-react';
@@ -105,7 +105,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="STATES"
+          title="States"
           description="Use loading animations and disabled states for button actions."
           code={`import { Button } from '@unburn/ui/Button';
 
@@ -125,7 +125,7 @@ export default function Example() {
         </Showcase>
 
         <Showcase
-          title="OPACITY LEVELS"
+          title="Opacity Levels"
           description="Adjust the background opacity for custom designs."
           code={`import { Button } from '@unburn/ui/Button';
 
@@ -143,6 +143,29 @@ export default function Example() {
             <Button opacityLevel="25">Low</Button>
             <Button opacityLevel="50">Medium</Button>
             <Button opacityLevel="100">Full</Button>
+          </div>
+        </Showcase>
+
+        <Showcase
+          title="Button Group"
+          description="Combine multiple buttons into a single cohesive group capsule with dividers."
+          code={`import { Button, ButtonGroup } from '@unburn/ui/Button';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+export default function Example() {
+  return (
+    <ButtonGroup>
+      <Button icon={<ArrowLeft size={16} />} />
+      <Button icon={<ArrowRight size={16} />} />
+    </ButtonGroup>
+  );
+}`}
+        >
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <ButtonGroup>
+              <Button variant='outlined' icon={<ArrowLeft size={16} />} />
+              <Button variant='outlined' icon={<ArrowRight size={16} />} />
+            </ButtonGroup>
           </div>
         </Showcase>
       </div>

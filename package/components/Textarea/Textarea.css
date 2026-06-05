@@ -29,9 +29,13 @@
   min-height: 120px;
 }
 
+.unburn-textarea-container:focus-within {
+  border-color: var(--accent-color);
+}
+
 .unburn-textarea-container-filled {
   background-color: var(--bg-secondary);
-  border-color: var(--border-color);
+  border-color: transparent;
 }
 
 .unburn-textarea-container-duo {

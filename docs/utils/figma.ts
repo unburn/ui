@@ -349,27 +349,110 @@ const getFirstTextNode = (node: Node): string => {
   return '';
 };
 
+const parseRadiusValue = (val: string, limit: number): number => {
+  if (!val) return 0;
+  const part = val.trim().split(/\s+/)[0];
+  let valNum: number;
+  if (part.endsWith('%')) {
+    const pct = parseFloat(part) || 0;
+    valNum = (limit * pct) / 100;
+  } else {
+    valNum = parseFloat(part) || 0;
+  }
+  return Math.max(0, valNum);
+};
+
+interface CornerRadii {
+  topLeft: number;
+  topRight: number;
+  bottomRight: number;
+  bottomLeft: number;
+}
+
+const getDetailedBorderRadius = (style: CSSStyleDeclaration, width: number, height: number): CornerRadii => {
+  const tlStr = style.borderTopLeftRadius || '';
+  const trStr = style.borderTopRightRadius || '';
+  const brStr = style.borderBottomRightRadius || '';
+  const blStr = style.borderBottomLeftRadius || '';
+
+  const minDim = Math.min(width, height);
+  let tl = parseRadiusValue(tlStr, minDim);
+  let tr = parseRadiusValue(trStr, minDim);
+  let br = parseRadiusValue(brStr, minDim);
+  let bl = parseRadiusValue(blStr, minDim);
+
+  // Scale down if adjacent radii overlap, following CSS specs
+  const topSum = tl + tr;
+  const bottomSum = bl + br;
+  const leftSum = tl + bl;
+  const rightSum = tr + br;
+
+  let scale = 1;
+  if (topSum > width) scale = Math.min(scale, width / topSum);
+  if (bottomSum > width) scale = Math.min(scale, width / bottomSum);
+  if (leftSum > height) scale = Math.min(scale, height / leftSum);
+  if (rightSum > height) scale = Math.min(scale, height / rightSum);
+
+  if (scale < 1) {
+    tl *= scale;
+    tr *= scale;
+    br *= scale;
+    bl *= scale;
+  }
+
+  return { topLeft: tl, topRight: tr, bottomRight: br, bottomLeft: bl };
+};
+
+const getShadowRadii = (radii: CornerRadii, spread: number): CornerRadii => {
+  return {
+    topLeft: radii.topLeft > 0 ? Math.max(0, radii.topLeft + spread) : 0,
+    topRight: radii.topRight > 0 ? Math.max(0, radii.topRight + spread) : 0,
+    bottomRight: radii.bottomRight > 0 ? Math.max(0, radii.bottomRight + spread) : 0,
+    bottomLeft: radii.bottomLeft > 0 ? Math.max(0, radii.bottomLeft + spread) : 0,
+  };
+};
+
+const isSymmetric = (radii: CornerRadii): boolean => {
+  return radii.topLeft === radii.topRight &&
+         radii.topRight === radii.bottomRight &&
+         radii.bottomRight === radii.bottomLeft;
+};
+
+const getRoundedRectPath = (x: number, y: number, w: number, h: number, radii: CornerRadii): string => {
+  const { topLeft: tl, topRight: tr, bottomRight: br, bottomLeft: bl } = radii;
+  
+  let d = `M ${x + tl} ${y}`;
+  
+  if (tr > 0) {
+    d += ` H ${x + w - tr} A ${tr} ${tr} 0 0 1 ${x + w} ${y + tr}`;
+  } else {
+    d += ` H ${x + w}`;
+  }
+  
+  if (br > 0) {
+    d += ` V ${y + h - br} A ${br} ${br} 0 0 1 ${x + w - br} ${y + h}`;
+  } else {
+    d += ` V ${y + h}`;
+  }
+  
+  if (bl > 0) {
+    d += ` H ${x + bl} A ${bl} ${bl} 0 0 1 ${x} ${y + h - bl}`;
+  } else {
+    d += ` H ${x}`;
+  }
+  
+  if (tl > 0) {
+    d += ` V ${y + tl} A ${tl} ${tl} 0 0 1 ${x + tl} ${y}`;
+  } else {
+    d += ` V ${y}`;
+  }
+  
+  return d + ' Z';
+};
+
 const getBorderRadius = (style: CSSStyleDeclaration, width: number, height: number): { rx: number; ry: number } => {
-  const radiusStr = style.borderTopLeftRadius || style.borderRadius || '';
-  if (!radiusStr || radiusStr === '0' || radiusStr === '0px') {
-    return { rx: 0, ry: 0 };
-  }
-
-  if (radiusStr.endsWith('%')) {
-    const pct = parseFloat(radiusStr) || 0;
-    const rx = (width * pct) / 100;
-    const ry = (height * pct) / 100;
-    return { rx, ry };
-  }
-
-  const pxVal = parseFloat(radiusStr) || 0;
-  if (pxVal <= 0) {
-    return { rx: 0, ry: 0 };
-  }
-
-  const maxRadius = Math.min(width, height) / 2;
-  const clamped = Math.min(pxVal, maxRadius);
-  return { rx: clamped, ry: clamped };
+  const radii = getDetailedBorderRadius(style, width, height);
+  return { rx: radii.topLeft, ry: radii.topLeft };
 };
 
 const getLineHeight = (style: CSSStyleDeclaration, fontSize: number): number => {
@@ -448,7 +531,7 @@ export const domToSvg = (element: HTMLElement, showcaseTitle: string): string =>
       
       if (el !== element) {
         let bg = parseColor(style.backgroundColor, el);
-        const { rx, ry } = getBorderRadius(style, width, height);
+        const radii = getDetailedBorderRadius(style, width, height);
         const border = parseColor(style.borderTopColor || style.borderColor, el);
         const borderWidth = parseFloat(style.borderTopWidth) || parseFloat(style.borderWidth) || 0;
         const shadows = parseBoxShadow(style.boxShadow, el);
@@ -509,13 +592,7 @@ export const domToSvg = (element: HTMLElement, showcaseTitle: string): string =>
             const sy = y + shadow.y - shadow.spread;
             const sw = width + 2 * shadow.spread;
             const sh = height + 2 * shadow.spread;
-            const sRx = rx > 0 ? rx + shadow.spread : 0;
-            const sRy = ry > 0 ? ry + shadow.spread : 0;
-            
-            let rxAttr = '';
-            if (sRx > 0 || sRy > 0) {
-              rxAttr = `rx="${sRx}" ry="${sRy}"`;
-            }
+            const shadowRadii = getShadowRadii(radii, shadow.spread);
             
             let fillAttr = `fill="${shadow.color}"`;
             if (shadow.opacity < 1) {
@@ -528,7 +605,16 @@ export const domToSvg = (element: HTMLElement, showcaseTitle: string): string =>
               opacityAttr = ` opacity="${elementOpacity}"`;
             }
             
-            svgContent += `  <rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" ${fillAttr} ${rxAttr} ${opacityAttr} />\n`;
+            if (isSymmetric(shadowRadii)) {
+              let rxAttr = '';
+              if (shadowRadii.topLeft > 0) {
+                rxAttr = `rx="${shadowRadii.topLeft}" ry="${shadowRadii.topLeft}"`;
+              }
+              svgContent += `  <rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" ${fillAttr} ${rxAttr} ${opacityAttr} />\n`;
+            } else {
+              const pathD = getRoundedRectPath(sx, sy, sw, sh, shadowRadii);
+              svgContent += `  <path d="${pathD}" ${fillAttr} ${opacityAttr} />\n`;
+            }
           }
         }
         
@@ -550,18 +636,22 @@ export const domToSvg = (element: HTMLElement, showcaseTitle: string): string =>
             }
           }
           
-          let rxAttr = '';
-          if (rx > 0 || ry > 0) {
-            rxAttr = `rx="${rx}" ry="${ry}"`;
-          }
-          
           const elementOpacity = parseFloat(style.opacity) || 1;
           let opacityAttr = '';
           if (elementOpacity < 1) {
             opacityAttr = ` opacity="${elementOpacity}"`;
           }
           
-          svgContent += `  <rect x="${x}" y="${y}" width="${width}" height="${height}" ${rectAttrs} ${rxAttr} ${opacityAttr} />\n`;
+          if (isSymmetric(radii)) {
+            let rxAttr = '';
+            if (radii.topLeft > 0) {
+              rxAttr = `rx="${radii.topLeft}" ry="${radii.topLeft}"`;
+            }
+            svgContent += `  <rect x="${x}" y="${y}" width="${width}" height="${height}" ${rectAttrs} ${rxAttr} ${opacityAttr} />\n`;
+          } else {
+            const pathD = getRoundedRectPath(x, y, width, height, radii);
+            svgContent += `  <path d="${pathD}" ${rectAttrs} ${opacityAttr} />\n`;
+          }
         }
       }
       

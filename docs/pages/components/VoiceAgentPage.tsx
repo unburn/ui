@@ -5,489 +5,323 @@ import { CodeBlock } from '../../../package/components/CodeBlock/CodeBlock';
 import { Props } from '../../components/layout/Props';
 import { ComponentHeader } from '../../components/layout/ComponentHeader';
 import { Button } from '../../../package/components/Button/Button';
-import { Slider } from '../../../package/components/Slider/Slider';
-import { Input } from '../../../package/components/Input/Input';
-import { Switch } from '../../../package/components/Switch/Switch';
-import { Sliders, Layers, Play, Pause, Mic, MicOff } from 'lucide-react';
+import { Alert } from '../../../package/components/Alert/Alert';
+import { Mic } from 'lucide-react';
 
 export const VoiceAgentPage: React.FC = () => {
-  const [color, setColor] = useState(() => {
-    if (typeof document !== 'undefined') {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      return currentTheme === 'light' ? '#000000' : '#ffffff';
-    }
-    return '#ffffff';
-  });
+  const [sessionActive, setSessionActive] = useState(false);
+  const [sessionStatus, setSessionStatus] = useState<'idle' | 'connecting' | 'listening' | 'speaking' | 'paused'>('idle');
+  const [, setSessionStep] = useState<number>(0);
+  const [isSessionMuted, setIsSessionMuted] = useState(false);
+  const [sessionAnalyser, setSessionAnalyser] = useState<AnalyserNode | null>(null);
+  const [subtitles, setSubtitles] = useState('');
 
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof document !== 'undefined') {
-      return (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'dark';
+  const sessionAudioCtxRef = useRef<AudioContext | null>(null);
+  const sessionAnalyserRef = useRef<AnalyserNode | null>(null);
+  const sessionAudioElRef = useRef<HTMLAudioElement | null>(null);
+  const sessionMicStreamRef = useRef<MediaStream | null>(null);
+  const sessionMicSourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+
+  const initSessionAudio = () => {
+    if (!sessionAudioCtxRef.current) {
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      sessionAudioCtxRef.current = new AudioContextClass();
+
+      const analyser = sessionAudioCtxRef.current.createAnalyser();
+      analyser.fftSize = 256;
+      sessionAnalyserRef.current = analyser;
+      setSessionAnalyser(analyser);
     }
-    return 'dark';
-  });
+    if (sessionAudioCtxRef.current.state === 'suspended') {
+      sessionAudioCtxRef.current.resume();
+    }
+  };
+
+  const stopSessionMic = () => {
+    if (sessionMicStreamRef.current) {
+      sessionMicStreamRef.current.getTracks().forEach(track => track.stop());
+      sessionMicStreamRef.current = null;
+    }
+    if (sessionMicSourceRef.current) {
+      sessionMicSourceRef.current.disconnect();
+      sessionMicSourceRef.current = null;
+    }
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  };
+
+  const playSessionAudio = (url: string, onEnded: () => void) => {
+    try {
+      initSessionAudio();
+      stopSessionMic();
+
+      if (sessionAudioElRef.current) {
+        sessionAudioElRef.current.pause();
+      }
+
+      const audio = new Audio(url);
+      audio.crossOrigin = 'anonymous';
+      audio.muted = isSessionMuted;
+      sessionAudioElRef.current = audio;
+
+      if (sessionAudioCtxRef.current && sessionAnalyserRef.current) {
+        const source = sessionAudioCtxRef.current.createMediaElementSource(audio);
+        source.connect(sessionAnalyserRef.current);
+        sessionAnalyserRef.current.connect(sessionAudioCtxRef.current.destination);
+      }
+
+      audio.addEventListener('ended', onEnded);
+      setSessionStatus('speaking');
+      audio.play().catch(err => {
+        console.warn('Audio play failed, auto-advancing:', err);
+        setTimeout(onEnded, 3000);
+      });
+    } catch (err) {
+      console.error('Audio setup failed, auto-advancing:', err);
+      setTimeout(onEnded, 3000);
+    }
+  };
+
+  const startSessionMicListening = (onSpeechFinished: () => void) => {
+    try {
+      initSessionAudio();
+      stopSessionMic();
+
+      navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        .then(stream => {
+          sessionMicStreamRef.current = stream;
+          setSessionStatus('listening');
+          setSubtitles('Listening for your response...');
+
+          if (sessionAudioCtxRef.current && sessionAnalyserRef.current) {
+            const source = sessionAudioCtxRef.current.createMediaStreamSource(stream);
+            sessionMicSourceRef.current = source;
+            source.connect(sessionAnalyserRef.current);
+          }
+
+          let silenceStart = Date.now();
+          let hasSpoken = false;
+          const speechThreshold = 18;
+          const silenceDelay = 1500;
+          const timeoutStart = Date.now();
+          const maxSilenceTimeout = 6000;
+
+          const checkVolume = () => {
+            if (!sessionAnalyserRef.current) return;
+
+            const bufferLength = sessionAnalyserRef.current.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            sessionAnalyserRef.current.getByteFrequencyData(dataArray);
+
+            let sum = 0;
+            for (let i = 0; i < bufferLength; i++) {
+              sum += dataArray[i];
+            }
+            const average = sum / bufferLength;
+
+            if (average > speechThreshold) {
+              hasSpoken = true;
+              silenceStart = Date.now();
+            }
+
+            const now = Date.now();
+            if (hasSpoken) {
+              if (now - silenceStart > silenceDelay) {
+                stopSessionMic();
+                onSpeechFinished();
+                return;
+              }
+            } else {
+              if (now - timeoutStart > maxSilenceTimeout) {
+                stopSessionMic();
+                onSpeechFinished();
+                return;
+              }
+            }
+
+            animationFrameRef.current = requestAnimationFrame(checkVolume);
+          };
+
+          animationFrameRef.current = requestAnimationFrame(checkVolume);
+        })
+        .catch(err => {
+          console.warn('Mic access denied or failed, auto-advancing:', err);
+          setSessionStatus('listening');
+          setSubtitles('Listening for your response...');
+          setTimeout(() => {
+            stopSessionMic();
+            onSpeechFinished();
+          }, 5000);
+        });
+    } catch (err) {
+      console.error('Mic setup failed, auto-advancing:', err);
+      onSpeechFinished();
+    }
+  };
 
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const currentTheme = (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'dark';
-      setTheme(currentTheme);
-      setColor(prev => {
-        if (currentTheme === 'light' && prev === '#ffffff') {
-          return '#000000';
-        }
-        if (currentTheme === 'dark' && prev === '#000000') {
-          return '#ffffff';
-        }
-        return prev;
+    if (sessionAudioElRef.current) {
+      sessionAudioElRef.current.muted = isSessionMuted;
+    }
+  }, [isSessionMuted]);
+
+  const runSessionStep = (step: number) => {
+    setSessionStep(step);
+
+    if (step === 1) {
+      setSubtitles('Hello! I am your Unburn AI voice assistant. How can I help you today?');
+      playSessionAudio('/voice-intro.wav', () => {
+        runSessionStep(2);
       });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const [status, setStatus] = useState<'idle' | 'connecting' | 'listening' | 'speaking' | 'paused'>('speaking');
-  const [isMuted, setIsMuted] = useState(false);
-  const [pattern, setPattern] = useState<'wave' | 'blob' | 'ripple'>('blob');
-  const [rows, setRows] = useState(9);
-  const [cols, setCols] = useState(9);
-  const [showControls, setShowControls] = useState(true);
-  const [dotSize, setDotSize] = useState(8);
-  const [gridGap, setGridGap] = useState(6);
-
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [isMicActive, setIsMicActive] = useState(false);
-  const [analyser, setAnalyser] = useState<AnalyserNode | undefined>(undefined);
-
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const audioElementRef = useRef<HTMLAudioElement | null>(null);
-  const audioSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
-  const micStreamRef = useRef<MediaStream | null>(null);
-  const micSourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
-
-  const initAudio = () => {
-    if (!audioContextRef.current) {
-      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      audioContextRef.current = new AudioContextClass();
-
-      const analyserNode = audioContextRef.current.createAnalyser();
-      analyserNode.fftSize = 256;
-      analyserRef.current = analyserNode;
-      setAnalyser(analyserNode);
-    }
-    if (audioContextRef.current.state === 'suspended') {
-      audioContextRef.current.resume();
+    } else if (step === 2) {
+      startSessionMicListening(() => {
+        setSessionStatus('connecting');
+        setSubtitles('Agent is thinking...');
+        setTimeout(() => runSessionStep(3), 1200);
+      });
+    } else if (step === 3) {
+      setSubtitles("That's a great question! I am currently running in a local simulated mode, but you can easily connect me to OpenAI Realtime, Vapi, or Retell AI for production voice interactions.");
+      playSessionAudio('/voice-response-1.wav', () => {
+        runSessionStep(4);
+      });
+    } else if (step === 4) {
+      startSessionMicListening(() => {
+        setSessionStatus('connecting');
+        setSubtitles('Agent is thinking...');
+        setTimeout(() => runSessionStep(5), 1200);
+      });
+    } else if (step === 5) {
+      setSubtitles("Exactly. I'm rendering a dynamic LED dot grid that responds directly to real-time audio frequencies. What else would you like to know about me?");
+      playSessionAudio('/voice-response-2.wav', () => {
+        runSessionStep(6);
+      });
+    } else if (step === 6) {
+      startSessionMicListening(() => {
+        setSessionStatus('connecting');
+        setSubtitles('Agent is thinking...');
+        setTimeout(() => runSessionStep(7), 1200);
+      });
+    } else if (step === 7) {
+      setSubtitles("Thank you for testing the Unburn Voice Agent live simulator. I'll close the session now. Have an amazing day!");
+      playSessionAudio('/voice-response-3.wav', () => {
+        endSession();
+      });
     }
   };
 
-  const stopMic = () => {
-    if (micStreamRef.current) {
-      micStreamRef.current.getTracks().forEach(track => track.stop());
-      micStreamRef.current = null;
-    }
-    if (micSourceRef.current) {
-      micSourceRef.current.disconnect();
-      micSourceRef.current = null;
-    }
-    setIsMicActive(false);
+  const startSession = () => {
+    setSessionActive(true);
+    setIsSessionMuted(false);
+    runSessionStep(1);
   };
 
-  const handlePlayAudio = () => {
-    try {
-      initAudio();
-
-      if (isMicActive) {
-        stopMic();
-      }
-
-      if (isPlayingAudio) {
-        audioElementRef.current?.pause();
-        setIsPlayingAudio(false);
-        setStatus('idle');
-      } else {
-        if (!audioElementRef.current) {
-          const audio = new Audio('/demo.wav');
-          audio.crossOrigin = 'anonymous';
-          audioElementRef.current = audio;
-
-          const source = audioContextRef.current!.createMediaElementSource(audio);
-          audioSourceRef.current = source;
-          source.connect(analyserRef.current!);
-          analyserRef.current!.connect(audioContextRef.current!.destination);
-
-          audio.addEventListener('ended', () => {
-            setIsPlayingAudio(false);
-            setStatus('idle');
-          });
-        }
-
-        audioElementRef.current.play();
-        setIsPlayingAudio(true);
-        setStatus('speaking');
-      }
-    } catch (err) {
-      console.error('Failed to play audio:', err);
+  const endSession = () => {
+    if (sessionAudioElRef.current) {
+      sessionAudioElRef.current.pause();
+      sessionAudioElRef.current = null;
     }
-  };
-
-  const handleMicToggle = async () => {
-    try {
-      if (isMicActive) {
-        stopMic();
-        setStatus('idle');
-      } else {
-        initAudio();
-
-        if (isPlayingAudio) {
-          audioElementRef.current?.pause();
-          setIsPlayingAudio(false);
-        }
-
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-        micStreamRef.current = stream;
-
-        const source = audioContextRef.current!.createMediaStreamSource(stream);
-        micSourceRef.current = source;
-
-        source.connect(analyserRef.current!);
-
-        setIsMicActive(true);
-        setStatus('listening');
-      }
-    } catch (err) {
-      console.error('Failed to access microphone:', err);
-      alert('Could not access microphone. Please check permissions.');
-    }
+    stopSessionMic();
+    setSessionActive(false);
+    setSessionStatus('idle');
+    setSessionStep(0);
+    setSubtitles('');
   };
 
   useEffect(() => {
     return () => {
-      if (audioElementRef.current) {
-        audioElementRef.current.pause();
-        audioElementRef.current = null;
+      if (sessionAudioElRef.current) {
+        sessionAudioElRef.current.pause();
+        sessionAudioElRef.current = null;
       }
-      stopMic();
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
+      stopSessionMic();
+      if (sessionAudioCtxRef.current) {
+        sessionAudioCtxRef.current.close();
       }
     };
   }, []);
-
-  const swatches = [
-    { name: theme === 'light' ? 'Black' : 'White', value: theme === 'light' ? '#000000' : '#ffffff' },
-    { name: 'Cyan', value: '#38bdf8' },
-    { name: 'Purple', value: '#c084fc' },
-    { name: 'Emerald', value: '#34d399' },
-    { name: 'Amber', value: '#fbbf24' },
-    { name: 'Rose', value: '#f43f5e' },
-  ];
-
-  const dynamicCode = `import { VoiceAgent } from '@unburn/ui/VoiceAgent';
-
-export default function AudioScreen() {
-  return (
-    <VoiceAgent
-      status="${status}"
-      variant="grid"
-      color="${color}"
-      gridSize={{ rows: ${rows}, cols: ${cols} }}${pattern !== 'blob' ? `\n      pattern="${pattern}"` : ''}${isMuted ? '\n      isMuted={true}' : ''}${!showControls ? '\n      showControls={false}' : ''}
-      dotSize={${dotSize}}
-      gridGap={${gridGap}}
-    />
-  );
-}`;
 
   return (
     <>
       <ComponentHeader title="Voice Agent" />
 
-      <div className="playground-section" style={{ marginBottom: '3rem' }}>
-        <h3 className="section-subtitle" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-          <Sliders size={18} /> Interactive Playground
-        </h3>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
-          Tweak properties in real-time to preview animations, colors, size presets, and custom CSS variables.
-        </p>
+      <div style={{ marginBottom: '2rem' }}>
+        <Alert
+          variant="duo"
+          icon={<Mic size={16} />}
+          title="Try Live AI Voice Simulator"
+          description="Experience a live simulated voice call with our Voice Agent. Test real-time microphone voice detection and simulated conversational flow."
+          actions={
+            <Button onClick={startSession}>
+              Start Live Test
+            </Button>
+          }
+        />
+      </div>
 
+      <Showcase
+        title="Preview"
+        code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
+
+export default function Example() {
+  return (
+    <VoiceAgent
+      status="speaking"
+      variant="grid"
+    />
+  );
+}`}
+      >
+        <VoiceAgent
+          status="speaking"
+          variant="grid"
+        />
+      </Showcase>
+
+      {sessionActive && (
         <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: '#000000',
+          zIndex: 9999,
           display: 'flex',
-          flexDirection: 'row',
-          gap: '2rem',
-          width: '100%',
-          flexWrap: 'wrap',
-          alignItems: 'stretch'
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#ffffff'
         }}>
-          <div style={{
-            flex: '1 1 300px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-xl)',
-            padding: '3rem 2rem',
-            minHeight: '380px',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            <div style={{ zIndex: 2 }}>
-              <VoiceAgent
-                status={status}
-                variant="grid"
-                color={color}
-                gridSize={{ rows, cols }}
-                pattern={pattern}
-                isMuted={isMuted}
-                audioAnalyser={analyser}
-                showControls={showControls}
-                onMuteToggle={() => setIsMuted(prev => !prev)}
-                onDisconnect={() => {
-                  if (isPlayingAudio) {
-                    audioElementRef.current?.pause();
-                    setIsPlayingAudio(false);
-                  }
-                  if (isMicActive) {
-                    stopMic();
-                  }
-                  setStatus('idle');
-                }}
-                onOptionClick={() => alert('More options clicked')}
-                dotSize={dotSize}
-                gridGap={gridGap}
-              />
-            </div>
-            <div style={{
-              position: 'absolute',
-              bottom: '1rem',
-              fontSize: '0.75rem',
-              color: 'var(--text-muted)',
-              fontFamily: 'var(--font-mono)'
-            }}>
-              LIVE COMPONENT PREVIEW
-            </div>
-          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', width: '100%', maxWidth: '400px', padding: '2rem' }}>
+            <VoiceAgent
+              status={sessionStatus}
+              variant="grid"
+              isMuted={isSessionMuted}
+              audioAnalyser={sessionAnalyser || undefined}
+              showControls={true}
+              onMuteToggle={() => setIsSessionMuted(prev => !prev)}
+              onDisconnect={endSession}
+            />
 
-          <div style={{
-            flex: '1 1 350px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.25rem',
-            padding: '1.5rem',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-lg)',
-            background: 'var(--bg-glass)',
-            backdropFilter: 'blur(8px)'
-          }}>
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              padding: '1rem',
-              borderRadius: 'var(--radius-md)',
-              border: '1px dashed var(--border-color)',
-            }}>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-main)', marginBottom: '0.75rem' }}>
-                🎙️ Interactive Audio Source
-              </label>
-              <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
-                <Button
-                  variant={isPlayingAudio ? 'filled' : 'outlined'}
-                  onClick={handlePlayAudio}
-                  style={{ flex: 1, fontSize: '0.75rem', gap: '0.4rem', justifyContent: 'center' }}
-                >
-                  {isPlayingAudio ? <Pause size={14} /> : <Play size={14} />}
-                  {isPlayingAudio ? 'Pause Demo' : 'Play Demo'}
-                </Button>
-                <Button
-                  variant={isMicActive ? 'filled' : 'outlined'}
-                  onClick={handleMicToggle}
-                  style={{ flex: 1, fontSize: '0.75rem', gap: '0.4rem', justifyContent: 'center' }}
-                >
-                  {isMicActive ? <MicOff size={14} /> : <Mic size={14} />}
-                  {isMicActive ? 'Mute Mic' : 'Live Mic'}
-                </Button>
-              </div>
-              <p style={{ margin: '0.5rem 0 0', fontSize: '0.7rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-                {isPlayingAudio && 'Playing demo.wav - Agent is reacting to the audio file!'}
-                {isMicActive && 'Microphone active - Speak to see the agent respond!'}
-                {!isPlayingAudio && !isMicActive && 'Try playing the demo audio file or using your microphone.'}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', textAlign: 'center' }}>
+              <span style={{
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+              }}>
+                {sessionStatus === 'speaking' ? 'Agent Speaking' : sessionStatus === 'listening' ? 'Listening to You' : 'Connecting...'}
+              </span>
+              <p style={{ fontSize: '0.75rem', color: '#a1a1aa', maxWidth: '320px', lineHeight: '1.4' }}>
+                {subtitles}
               </p>
             </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                Agent Status
-              </label>
-              <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
-                {(['idle', 'connecting', 'listening', 'speaking', 'paused'] as const).map((s) => (
-                  <Button
-                    key={s}
-                    variant={status === s ? 'filled' : 'outlined'}
-                    onClick={() => {
-                      if (isPlayingAudio) {
-                        audioElementRef.current?.pause();
-                        setIsPlayingAudio(false);
-                      }
-                      if (isMicActive) {
-                        stopMic();
-                      }
-                      setStatus(s);
-                    }}
-                    style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', minHeight: '28px' }}
-                  >
-                    {s}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {status === 'speaking' && (
-              <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Speaking Pattern
-                </label>
-                <div style={{ display: 'flex', gap: '0.35rem' }}>
-                  {(['blob', 'wave', 'ripple'] as const).map((p) => (
-                    <Button
-                      key={p}
-                      variant={pattern === p ? 'filled' : 'outlined'}
-                      onClick={() => setPattern(p)}
-                      style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem', minHeight: '28px' }}
-                    >
-                      {p}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                Accent Color
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-                {swatches.map((swatch) => (
-                  <button
-                    key={swatch.value}
-                    onClick={() => setColor(swatch.value)}
-                    title={swatch.name}
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      background: swatch.value,
-                      border: color === swatch.value ? '2px solid var(--text-main)' : '1px solid var(--border-color)',
-                      cursor: 'pointer',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                      transition: 'transform 0.2s',
-                      transform: color === swatch.value ? 'scale(1.15)' : 'scale(1)'
-                    }}
-                  />
-                ))}
-              </div>
-              <Input
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                placeholder="Custom Hex/RGB color"
-                variant="outlined"
-                size="sm"
-              />
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-                  Grid Layout ({rows}x{cols})
-                </span>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  onClick={() => { setRows(9); setCols(9); setDotSize(8); setGridGap(6) }}
-                  style={{ padding: '0.1rem 0.4rem', minHeight: '20px', fontSize: '0.65rem' }}
-                >
-                  RESET
-                </Button>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                <Slider
-                  label="Rows"
-                  min={3}
-                  max={15}
-                  value={rows}
-                  onChange={setRows}
-                  showTooltip
-                  size="sm"
-                />
-                <Slider
-                  label="Cols"
-                  min={3}
-                  max={15}
-                  value={cols}
-                  onChange={setCols}
-                  showTooltip
-                  size="sm"
-                />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-                Variables Customization
-              </span>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                <Slider
-                  label="Dot Size"
-                  min={4}
-                  max={16}
-                  value={dotSize}
-                  onChange={setDotSize}
-                  showTooltip
-                  size="sm"
-                />
-                <Slider
-                  label="Gap Spacing"
-                  min={2}
-                  max={12}
-                  value={gridGap}
-                  onChange={setGridGap}
-                  showTooltip
-                  size="sm"
-                />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-              <Switch
-                label="Muted State"
-                description="Simulates muted audio feed visually"
-                checked={isMuted}
-                onChange={setIsMuted}
-                size="sm"
-              />
-              <Switch
-                label="Show Controls"
-                description="Toggle hardware call-action control buttons below grid"
-                checked={showControls}
-                onChange={setShowControls}
-                size="sm"
-              />
-            </div>
           </div>
         </div>
-
-        <div style={{ marginTop: '1.5rem' }}>
-          <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-            Generated Configuration Code
-          </span>
-          <CodeBlock
-            language="tsx"
-            code={dynamicCode}
-          />
-        </div>
-      </div>
+      )}
 
       <div className="section-usage">
         <h3 className="section-subtitle">Usage</h3>
@@ -495,92 +329,164 @@ export default function AudioScreen() {
           language="tsx"
           code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
 
-export default function AudioScreen() {
+export default function Example() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <VoiceAgent
-        status="speaking"
-        variant="grid"
-        onMuteToggle={() => console.log('Muted')}
-        onDisconnect={() => console.log('Hangup')}
-      />
-    </div>
+    <VoiceAgent
+      status="speaking"
+      onMuteToggle={() => console.log('Muted')}
+      onDisconnect={() => console.log('Hangup')}
+    />
   );
 }`}
         />
       </div>
 
       <div className="section-examples">
-        <h3 className="section-subtitle" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Layers size={18} /> Additional Presets & Use Cases
-        </h3>
+        <h3 className="section-subtitle">Examples</h3>
 
         <Showcase
-          title="Compact Status Indicator"
-          description="A 5x5 micro grid visualizer with custom CSS variables, suitable for sidebars, cards, or user profile indicators."
+          title="Agent Statuses"
+          description="The voice agent supports 5 statuses: idle, connecting, listening, speaking, and paused."
           code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
 
-export default function CompactAvatar() {
+export default function Example() {
   return (
-    <VoiceAgent
-      status="speaking"
-      variant="grid"
-      color="#c084fc"
-      gridSize={{ rows: 5, cols: 5 }}
-      showControls={false}
-      dotSize={6}
-      gridGap={4}
-    />
-  );
-}`}
-        >
-          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '1rem' }}>
-            <VoiceAgent
-              status="speaking"
-              variant="grid"
-              color="#c084fc"
-              gridSize={{ rows: 5, cols: 5 }}
-              showControls={false}
-              dotSize={6}
-              gridGap={4}
-            />
-          </div>
-        </Showcase>
-
-        <Showcase
-          title="Sleek Theme Variations"
-          description="The voice agent adapts automatically to any raw Hex, RGB, HSL, or preset CSS variables."
-          code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
-
-export default function ThemeGrid() {
-  return (
-    <div className="flex gap-4">
-      <VoiceAgent status="speaking" color="#10b981" showControls={false} />
-      <VoiceAgent status="listening" color="#f43f5e" showControls={false} />
-      <VoiceAgent status="connecting" color="#fbbf24" showControls={false} />
+    <div className="flex gap-6 flex-wrap">
+      <VoiceAgent status="idle" showControls={false} />
+      <VoiceAgent status="connecting" showControls={false} />
+      <VoiceAgent status="listening" showControls={false} />
+      <VoiceAgent status="speaking" showControls={false} />
+      <VoiceAgent status="paused" showControls={false} />
     </div>
   );
 }`}
         >
-          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', width: '100%', padding: '1rem', flexWrap: 'wrap' }}>
-            <VoiceAgent
-              status="speaking"
-              variant="grid"
-              color="#10b981"
-              showControls={false}
-            />
-            <VoiceAgent
-              status="listening"
-              variant="grid"
-              color="#f43f5e"
-              showControls={false}
-            />
-            <VoiceAgent
-              status="connecting"
-              variant="grid"
-              color="#fbbf24"
-              showControls={false}
-            />
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>idle</span>
+              <VoiceAgent status="idle" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>connecting</span>
+              <VoiceAgent status="connecting" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>listening</span>
+              <VoiceAgent status="listening" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>speaking</span>
+              <VoiceAgent status="speaking" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>paused</span>
+              <VoiceAgent status="paused" showControls={false} />
+            </div>
+          </div>
+        </Showcase>
+
+        <Showcase
+          title="Speaking Patterns"
+          description="Choose from three distinct visualization algorithms: blob, wave, and ripple."
+          code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
+
+export default function Example() {
+  return (
+    <div className="flex gap-6 flex-wrap">
+      <VoiceAgent status="speaking" pattern="blob" showControls={false} />
+      <VoiceAgent status="speaking" pattern="wave" showControls={false} />
+      <VoiceAgent status="speaking" pattern="ripple" showControls={false} />
+    </div>
+  );
+}`}
+        >
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>blob</span>
+              <VoiceAgent status="speaking" pattern="blob" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>wave</span>
+              <VoiceAgent status="speaking" pattern="wave" showControls={false} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>ripple</span>
+              <VoiceAgent status="speaking" pattern="ripple" showControls={false} />
+            </div>
+          </div>
+        </Showcase>
+
+        <Showcase
+          title="Colors"
+          description="Custom color accents support any valid CSS color property (Hex, RGB, HSL, presets)."
+          code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
+
+export default function Example() {
+  return (
+    <div className="flex gap-6 flex-wrap">
+      <VoiceAgent status="speaking" color="#38bdf8" showControls={false} />
+      <VoiceAgent status="speaking" color="#c084fc" showControls={false} />
+      <VoiceAgent status="speaking" color="#34d399" showControls={false} />
+      <VoiceAgent status="speaking" color="#f43f5e" showControls={false} />
+    </div>
+  );
+}`}
+        >
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+            <VoiceAgent status="speaking" color="#38bdf8" showControls={false} />
+            <VoiceAgent status="speaking" color="#c084fc" showControls={false} />
+            <VoiceAgent status="speaking" color="#34d399" showControls={false} />
+            <VoiceAgent status="speaking" color="#f43f5e" showControls={false} />
+          </div>
+        </Showcase>
+
+        <Showcase
+          title="Grid Sizes & LED Density"
+          description="Configure the LED matrix dimensions, dot size diameter, and grid gaps."
+          code={`import { VoiceAgent } from '@unburn/ui/VoiceAgent';
+
+export default function Example() {
+  return (
+    <div className="flex gap-6 flex-wrap">
+      <VoiceAgent
+        status="speaking"
+        gridSize={{ rows: 5, cols: 5 }}
+        dotSize={6}
+        gridGap={4}
+        showControls={false}
+      />
+      <VoiceAgent
+        status="speaking"
+        gridSize={{ rows: 9, cols: 9 }}
+        dotSize={12}
+        gridGap={8}
+        showControls={false}
+      />
+    </div>
+  );
+}`}
+        >
+          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>5x5 Grid (Micro)</span>
+              <VoiceAgent
+                status="speaking"
+                gridSize={{ rows: 5, cols: 5 }}
+                dotSize={6}
+                gridGap={4}
+                showControls={false}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>9x9 Grid (Large LED)</span>
+              <VoiceAgent
+                status="speaking"
+                gridSize={{ rows: 9, cols: 9 }}
+                dotSize={12}
+                gridGap={8}
+                showControls={false}
+              />
+            </div>
           </div>
         </Showcase>
       </div>

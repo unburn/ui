@@ -105,6 +105,10 @@
   animation: unburn-checkbox-shift-on 0.4s var(--transition-curve);
 }
 
+.unburn-checkbox-jar-off {
+  animation: unburn-checkbox-shift-off 0.4s var(--transition-curve);
+}
+
 .unburn-checkbox-jar-on .unburn-checkbox::after {
   content: '';
   position: absolute;
@@ -123,6 +127,20 @@
 
   25% {
     transform: translateX(2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes unburn-checkbox-shift-off {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
   }
 
   100% {

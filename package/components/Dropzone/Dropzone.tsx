@@ -42,6 +42,26 @@ const formatFileSize = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 };
 
+const isFileTypeAccepted = (file: File, accept?: string): boolean => {
+  if (!accept) return true;
+  const acceptTypes = accept.split(',').map(type => type.trim().toLowerCase());
+  if (acceptTypes.length === 0) return true;
+
+  const fileName = file.name.toLowerCase();
+  const fileType = file.type.toLowerCase();
+
+  return acceptTypes.some(type => {
+    if (type.startsWith('.')) {
+      return fileName.endsWith(type);
+    }
+    if (type.endsWith('/*')) {
+      const baseType = type.replace('/*', '');
+      return fileType.startsWith(baseType);
+    }
+    return fileType === type;
+  });
+};
+
 export const Dropzone: React.FC<DropzoneProps> = ({
   onFilesDrop,
   accept,
@@ -80,13 +100,14 @@ export const Dropzone: React.FC<DropzoneProps> = ({
 
     filesArray.forEach(file => {
       if (maxSize && file.size > maxSize) return;
+      if (!isFileTypeAccepted(file, accept)) return;
       validFiles.push(file);
     });
 
     const updatedFiles = multiple ? [...files, ...validFiles] : validFiles;
     setFiles(updatedFiles);
     onFilesDrop?.(updatedFiles);
-  }, [disabled, maxSize, multiple, files, onFilesDrop]);
+  }, [disabled, maxSize, multiple, files, onFilesDrop, accept]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

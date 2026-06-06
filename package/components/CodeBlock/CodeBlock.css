@@ -95,6 +95,10 @@
   margin: 0 !important;
 }
 
+.unburn-code-content pre code {
+  text-align: left;
+}
+
 @media (max-width: 600px) {
   .unburn-code-content pre {
     font-size: 0.75rem !important;

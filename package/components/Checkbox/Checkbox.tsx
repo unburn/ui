@@ -81,7 +81,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <div
         className={cn(
           "unburn-checkbox-root",
-          isAnimating && (isChecked ? "unburn-checkbox-jar-on" : "unburn-switch-jar-off"),
+          isAnimating && (isChecked ? "unburn-checkbox-jar-on" : "unburn-checkbox-jar-off"),
           classNames?.root
         )}
         style={{ ...styles?.root, ...accentStyle }}

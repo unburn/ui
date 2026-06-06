@@ -65,21 +65,30 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     });
 
     useEffect(() => {
-      const list = listRef.current;
-      if (!list) return;
+      const updateIndicator = () => {
+        const list = listRef.current;
+        if (!list) return;
 
-      const activeEl = list.querySelector('.unburn-tab-active') as HTMLElement;
-      if (activeEl) {
-        setIndicatorStyle({
-          left: `${activeEl.offsetLeft}px`,
-          width: `${activeEl.offsetWidth}px`,
-          height: `${activeEl.offsetHeight}px`,
-          top: `${activeEl.offsetTop}px`,
-          opacity: 1,
-        });
-      } else {
-        setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
-      }
+        const activeEl = list.querySelector('.unburn-tab-active') as HTMLElement;
+        if (activeEl) {
+          setIndicatorStyle({
+            left: `${activeEl.offsetLeft}px`,
+            width: `${activeEl.offsetWidth}px`,
+            height: `${activeEl.offsetHeight}px`,
+            top: `${activeEl.offsetTop}px`,
+            opacity: 1,
+          });
+        } else {
+          setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
+        }
+      };
+
+      updateIndicator();
+
+      window.addEventListener('resize', updateIndicator);
+      return () => {
+        window.removeEventListener('resize', updateIndicator);
+      };
     }, [active, items]);
 
     const handleSelect = (id: string) => {

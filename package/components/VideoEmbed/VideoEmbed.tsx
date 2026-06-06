@@ -33,7 +33,7 @@ export const VideoEmbed: React.FC<VideoEmbedProps> = ({
   style,
   playIcon,
 }) => {
-  const [isLoaded, setIsLoaded] = useState(autoplay && !poster);
+  const [isLoaded, setIsLoaded] = useState(autoplay);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);

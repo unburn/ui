@@ -2,9 +2,15 @@ import React, { useMemo, useState, useEffect } from 'react';
 import changelogRaw from '../../CHANGELOG.md?raw';
 import './ChangelogPage.css';
 
+interface ChangelogItem {
+  text: string;
+  subtext?: string;
+  subItems?: string[];
+}
+
 interface ReleaseCategory {
   title: string;
-  items: { text: string; subtext?: string }[];
+  items: ChangelogItem[];
 }
 
 interface Release {
@@ -28,12 +34,14 @@ const parseChangelog = (markdown: string): Release[] => {
   
   let currentRelease: Release | null = null;
   let currentCategory: ReleaseCategory | null = null;
+  let currentItem: ChangelogItem | null = null;
   
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+    const line = lines[i];
+    const trimmed = line.trim();
     
     // Match version: ## [1.6.0-beta.0] - 2026-06-10 or ## 1.5.0 - 2026-05-28
-    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s+-\s+(.+))?/);
+    const versionMatch = trimmed.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s+-\s+(.+))?/);
     if (versionMatch) {
       const version = versionMatch[1];
       const dateRaw = versionMatch[2] || '';
@@ -50,53 +58,56 @@ const parseChangelog = (markdown: string): Release[] => {
       currentRelease = {
         version: version.replace(/^v/, ''),
         isBeta: version.toLowerCase().includes('beta') || version.toLowerCase().includes('alpha'),
-        isLatest: false, // will compute below
+        isLatest: false,
         date: date ? `Published: ${date}` : '',
         categories: []
       };
       releases.push(currentRelease);
       currentCategory = null;
+      currentItem = null;
       continue;
     }
     
     if (!currentRelease) continue;
     
     // Match category: ### Category Name
-    const categoryMatch = line.match(/^###\s+(.+)/);
+    const categoryMatch = trimmed.match(/^###\s+(.+)/);
     if (categoryMatch) {
       currentCategory = {
         title: categoryMatch[1].trim(),
         items: []
       };
       currentRelease.categories.push(currentCategory);
+      currentItem = null;
       continue;
     }
     
     if (!currentCategory) continue;
     
-    // Match item: - Item description
-    const itemMatch = line.match(/^-\s+(.+)/);
-    if (itemMatch) {
-      const text = itemMatch[1].trim();
-      let subtext: string | undefined;
+    // Match item: - Item description or   - Sub-item description
+    const bulletMatch = line.match(/^(\s*)-\s+(.+)/);
+    if (bulletMatch) {
+      const indent = bulletMatch[1];
+      const text = bulletMatch[2].trim();
       
-      // If there's a sub-item on next line(s), e.g. indented by spaces/tabs
-      let nextLineIndex = i + 1;
-      while (nextLineIndex < lines.length) {
-        const nextLine = lines[nextLineIndex];
-        const nextLineTrim = nextLine.trim();
-        // Stop if we hit a new list item or heading
-        if (nextLineTrim.startsWith('-') || nextLineTrim.startsWith('##')) {
-          break;
+      if (indent.length >= 2 && currentItem) {
+        if (!currentItem.subItems) {
+          currentItem.subItems = [];
         }
-        if (nextLineTrim) {
-          subtext = (subtext ? subtext + ' ' : '') + nextLineTrim;
-          i = nextLineIndex; // skip processed line
-        }
-        nextLineIndex++;
+        currentItem.subItems.push(text);
+      } else {
+        currentItem = {
+          text,
+          subItems: []
+        };
+        currentCategory.items.push(currentItem);
       }
-      
-      currentCategory.items.push({ text, subtext });
+      continue;
+    }
+    
+    // If it's normal text, treat as subtext under current item
+    if (trimmed && currentItem) {
+      currentItem.subtext = (currentItem.subtext ? currentItem.subtext + ' ' : '') + trimmed;
     }
   }
   
@@ -116,24 +127,27 @@ const parseReleaseBody = (body: string): ReleaseCategory[] => {
   const categories: ReleaseCategory[] = [];
   const lines = body.split('\n');
   let currentCategory: ReleaseCategory | null = null;
+  let currentItem: ChangelogItem | null = null;
   
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+    const line = lines[i];
+    const trimmed = line.trim();
     
     // Match category: ### Category Name
-    const categoryMatch = line.match(/^###\s+(.+)/);
+    const categoryMatch = trimmed.match(/^###\s+(.+)/);
     if (categoryMatch) {
       currentCategory = {
         title: categoryMatch[1].trim(),
         items: []
       };
       categories.push(currentCategory);
+      currentItem = null;
       continue;
     }
     
-    // Match item: - Item description
-    const itemMatch = line.match(/^-\s+(.+)/);
-    if (itemMatch) {
+    // Match item
+    const bulletMatch = line.match(/^(\s*)-\s+(.+)/);
+    if (bulletMatch) {
       if (!currentCategory) {
         currentCategory = {
           title: 'Changes',
@@ -142,25 +156,26 @@ const parseReleaseBody = (body: string): ReleaseCategory[] => {
         categories.push(currentCategory);
       }
       
-      const text = itemMatch[1].trim();
-      let subtext: string | undefined;
+      const indent = bulletMatch[1];
+      const text = bulletMatch[2].trim();
       
-      // If there's a sub-item on next line(s)
-      let nextLineIndex = i + 1;
-      while (nextLineIndex < lines.length) {
-        const nextLine = lines[nextLineIndex];
-        const nextLineTrim = nextLine.trim();
-        if (nextLineTrim.startsWith('-') || nextLineTrim.startsWith('#')) {
-          break;
+      if (indent.length >= 2 && currentItem) {
+        if (!currentItem.subItems) {
+          currentItem.subItems = [];
         }
-        if (nextLineTrim) {
-          subtext = (subtext ? subtext + ' ' : '') + nextLineTrim;
-          i = nextLineIndex; // skip processed line
-        }
-        nextLineIndex++;
+        currentItem.subItems.push(text);
+      } else {
+        currentItem = {
+          text,
+          subItems: []
+        };
+        currentCategory.items.push(currentItem);
       }
-      
-      currentCategory.items.push({ text, subtext });
+      continue;
+    }
+    
+    if (trimmed && currentItem) {
+      currentItem.subtext = (currentItem.subtext ? currentItem.subtext + ' ' : '') + trimmed;
     }
   }
   
@@ -310,6 +325,15 @@ export const ChangelogPage: React.FC = () => {
                             <div className="changelog-item-subtext">
                               {formatItemText(item.subtext)}
                             </div>
+                          )}
+                          {item.subItems && item.subItems.length > 0 && (
+                            <ul className="changelog-sublist">
+                              {item.subItems.map((subItem, subIdx) => (
+                                <li className="changelog-subitem" key={subIdx}>
+                                  {formatItemText(subItem)}
+                                </li>
+                              ))}
+                            </ul>
                           )}
                         </li>
                       ))}

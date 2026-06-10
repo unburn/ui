@@ -222,3 +222,27 @@
     padding: 1.25rem;
   }
 }
+
+.changelog-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0.35rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.changelog-subitem {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.changelog-subitem::before {
+  content: "◦";
+  position: absolute;
+  left: 0.25rem;
+  color: var(--text-muted);
+}

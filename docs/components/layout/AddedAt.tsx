@@ -22,7 +22,7 @@ export const AddedAt: React.FC<AddedAtProps> = ({ componentName }) => {
     <span style={{
       fontSize: '0.75rem',
       color: 'var(--text-muted)',
-      fontFamily: 'var(--font-mono)',
+      fontFamily: 'var(--font-sans)',
       opacity: 0.5,
       display: 'block',
       marginTop: '0.75rem'

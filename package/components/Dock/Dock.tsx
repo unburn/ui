@@ -69,7 +69,7 @@ export const Dock: React.FC<DockProps> = ({
 
         {dockShowHideToggle && (
           <Button
-            buttonClassName={cn(classNames?.dockCollapseBtn)}
+            buttonClassName={cn("unburn-dock-collapse-btn", classNames?.dockCollapseBtn)}
             buttonStyle={styles?.dockCollapseBtn}
             buttonOnClick={() => setIsCollapsed(true)}
             buttonChildren={

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Mic, MicOff, X, MoreHorizontal } from 'lucide-react';
 import './VoiceAgent.css';
 import { cn } from '../../lib/utils';
@@ -59,7 +59,7 @@ export const VoiceAgent: React.FC<VoiceAgentProps> = ({
   const totalDots = rows * cols;
 
   // Function to update colors from DOM computed styles
-  const updateColors = () => {
+  const updateColors = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
     const computedStyle = window.getComputedStyle(container);
@@ -73,7 +73,7 @@ export const VoiceAgent: React.FC<VoiceAgentProps> = ({
       glow: glowColor,
       inactive: inactiveColor
     };
-  };
+  }, [voiceAgentStatus]);
 
   // Setup observer to detect theme changes and update colors accordingly
   useEffect(() => {
@@ -86,7 +86,7 @@ export const VoiceAgent: React.FC<VoiceAgentProps> = ({
     });
 
     return () => observer.disconnect();
-  }, [voiceAgentAccentColor, voiceAgentStatus]);
+  }, [voiceAgentAccentColor, voiceAgentStatus, updateColors]);
 
   // Main canvas animation and layout effect
   useEffect(() => {
@@ -128,8 +128,9 @@ export const VoiceAgent: React.FC<VoiceAgentProps> = ({
       let averageVolume = 0;
 
       if (voiceAgentAudioAnalyser && voiceAgentStatus !== 'idle' && voiceAgentStatus !== 'paused') {
-        analyserData = new Uint8Array(voiceAgentAudioAnalyser.frequencyBinCount);
-        voiceAgentAudioAnalyser.getByteFrequencyData(analyserData as any);
+        const data = new Uint8Array(voiceAgentAudioAnalyser.frequencyBinCount);
+        voiceAgentAudioAnalyser.getByteFrequencyData(data);
+        analyserData = data;
         
         let sum = 0;
         const range = Math.min(analyserData.length, 128);

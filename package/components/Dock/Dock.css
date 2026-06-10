@@ -291,10 +291,6 @@
   }
 }
 
-.unburn-mobile-dock {
-  display: flex;
-}
-
 .unburn-dock .unburn-btn:not(.unburn-dock-trigger):not(.unburn-dock-collapse-btn):not(.unburn-dock-expand-btn) {
   background-color: var(--bg-secondary);
   background-image: none;

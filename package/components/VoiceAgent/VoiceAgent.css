@@ -55,20 +55,3 @@
   width: 100%;
   z-index: 2;
 }
-
-.unburn-voice-status-badge {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  transition: color var(--transition);
-}
-
-.unburn-voice-agent.unburn-status-speaking .unburn-voice-status-badge {
-  color: var(--voice-accent);
-}
-
-.unburn-voice-agent.unburn-status-listening .unburn-voice-status-badge {
-  color: #34d399;
-}

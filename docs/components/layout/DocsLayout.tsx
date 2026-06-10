@@ -47,22 +47,22 @@ export const DocsLayout: React.FC = () => {
     <div className="docs-layout-wrapper">
       <div className="docs-layout-container">
         <DocsSidebar />
-        
+
         <div className="docs-content-area">
           {currentIndex !== -1 && (
-            <div 
-              className="docs-global-nav-bar" 
-              style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center', 
-                marginBottom: '2.5rem', 
-                borderBottom: '1px solid var(--border-color)', 
-                paddingBottom: '1.25rem', 
-                gap: '1.5rem' 
+            <div
+              className="docs-global-nav-bar"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '2.5rem',
+                borderBottom: '1px solid var(--border-color)',
+                paddingBottom: '1.25rem',
+                gap: '1.5rem'
               }}
             >
-              <div 
+              <div
                 onClick={() => window.dispatchEvent(new CustomEvent('open-docs-search'))}
                 style={{ width: '220px', cursor: 'pointer' }}
               >
@@ -83,19 +83,15 @@ export const DocsLayout: React.FC = () => {
                   buttonVariant="duo"
                   buttonSize="sm"
                   buttonIcon={<ArrowLeft size={14} />}
-                  buttonIconPosition="left"
                   buttonDisabled={!prevRoute}
                   buttonOnClick={() => prevRoute && navigate(prevRoute.path)}
-                  buttonChildren="Previous"
                 />
                 <Button
                   buttonVariant="duo"
                   buttonSize="sm"
                   buttonIcon={<ArrowRight size={14} />}
-                  buttonIconPosition="right"
                   buttonDisabled={!nextRoute}
                   buttonOnClick={() => nextRoute && navigate(nextRoute.path)}
-                  buttonChildren="Next"
                 />
               </div>
             </div>

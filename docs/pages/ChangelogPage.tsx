@@ -15,6 +15,13 @@ interface Release {
   categories: ReleaseCategory[];
 }
 
+interface GitHubRelease {
+  tag_name: string;
+  prerelease: boolean;
+  published_at?: string;
+  body?: string;
+}
+
 const parseChangelog = (markdown: string): Release[] => {
   const releases: Release[] = [];
   const lines = markdown.split('\n');
@@ -26,7 +33,7 @@ const parseChangelog = (markdown: string): Release[] => {
     const line = lines[i].trim();
     
     // Match version: ## [1.6.0-beta.0] - 2026-06-10 or ## 1.5.0 - 2026-05-28
-    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z\.\-]+)\]?(?:\s+-\s+(.+))?/);
+    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s+-\s+(.+))?/);
     if (versionMatch) {
       const version = versionMatch[1];
       const dateRaw = versionMatch[2] || '';
@@ -215,7 +222,7 @@ export const ChangelogPage: React.FC = () => {
           throw new Error('No releases found on GitHub');
         }
         
-        const parsed = data.map((rel: any) => {
+        const parsed = data.map((rel: GitHubRelease) => {
           const version = rel.tag_name.replace(/^v/, '');
           const isBeta = rel.prerelease || version.toLowerCase().includes('beta') || version.toLowerCase().includes('alpha');
           

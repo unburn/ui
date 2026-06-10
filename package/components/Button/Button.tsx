@@ -223,7 +223,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
 
       try {
         container.setPointerCapture(e.pointerId);
-      } catch (err) {
+      } catch {
         // Fallback
       }
     }
@@ -276,7 +276,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     if (isDraggingRef.current) {
       try {
         container.releasePointerCapture(e.pointerId);
-      } catch (err) {
+      } catch {
         // Fallback
       }
 

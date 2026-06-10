@@ -2,6 +2,17 @@
 
 All notable changes to @unburn/ui will be documented in this file.
 
+## [1.5.2] - 2026-06-10
+### Bug Fixes & Adjustments
+- **Fixed Dock Collapse Button Styles**: Restored the missing built-in `.unburn-dock-collapse-btn` CSS class to the collapse Button component in `Dock.tsx` so that it receives correct library styling.
+- **Cleaned Up Unused Styles**: Removed unused CSS rules (`.unburn-code-terminal-icon` in CodeBlock, `.unburn-mobile-dock` in Dock, and `.unburn-voice-status-badge` in VoiceAgent) to minimize styling footprint.
+- **Quality & ESLint Improvements**:
+  - Removed unused `err` parameters in `Button.tsx` catch blocks.
+  - Type-narrowed the frequency data array in `VoiceAgent.tsx` to eliminate `as any` casting.
+  - Wrapped color updates in `useCallback` to prevent component re-render loops in `VoiceAgent.tsx`.
+  - Deferred synchronous state updates in docs `App.tsx` router effect using microtasks to prevent cascading render warnings.
+  - Created proper `GitHubRelease` interfaces in `ChangelogPage.tsx` to ensure type-safe release mapping.
+
 ## [1.5.1] - 2026-06-10
 ### Breaking Changes
 - **Strict Component Prefixing**: Renamed all component property keys to have self-documenting camelCase component-name prefixes (e.g. `buttonVariant`, `accordionItems`, `stepsItems`). This completely prevents naming conflicts and attribute pollution with standard native React/HTML attributes on root components.

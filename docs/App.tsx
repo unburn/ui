@@ -81,7 +81,9 @@ function AppContent({ theme, setTheme, isMenuOpen, setMenuOpen, toggleTheme }: A
 
   useEffect(() => {
     if (!isDocsRoute) {
-      setIsSidebarOpen(false);
+      Promise.resolve().then(() => {
+        setIsSidebarOpen(false);
+      });
     }
   }, [isDocsRoute]);
 

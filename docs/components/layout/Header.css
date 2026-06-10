@@ -96,7 +96,7 @@
 }
 
 .unburn-search-btn .search-kbd {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 700;
   background: var(--bg-secondary);
@@ -153,7 +153,7 @@
   border-radius: 100px;
   text-decoration: none;
   color: var(--text-main);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 700;
   overflow: hidden;
